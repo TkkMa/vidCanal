@@ -1,0 +1,41 @@
+.ReactModalPortal>div {
+    opacity: 0;
+  }
+  
+.ReactModalPortal .ReactModal__Overlay {
+  align-items: center;
+  display: flex;
+  justify-content: center;
+  transition: opacity 200ms ease-in-out;
+}
+
+.ReactModalPortal .ReactModal__Overlay--after-open {
+  opacity: 1;
+}
+
+.ReactModalPortal .ReactModal__Overlay--before-close {
+  opacity: 0;
+}
+
+.modal-1 {
+  background: color("grey", "lighten-3");
+  color: color("materialize-red", "lighten-2");
+  min-width: 80rem;
+  outline: none;
+  padding: 0;
+  text-align: left;
+}
+
+.modal-1 .modal_caption{
+  display:flex;
+  justify-content: space-between;
+}
+
+.modal-1 .modal_caption button{
+  margin: 0.6rem 0.6rem 0.6rem 0;
+}
+
+.modal-1 .modal_caption > div {
+  text-transform: uppercase;
+  font-size: $s-size;
+}

@@ -1,0 +1,31 @@
+nav.FLF-1 {
+    color: rgba(255,255,255,0.7);
+}
+
+nav.FLF-1 .nav-wrapper div{
+    display:flex;
+    justify-content: flex-end;
+}
+nav.FLF-1 .nav-wrapper div:last-child i{
+    color: #26a69a;
+}
+// nav.FLF-1 .nav-wrapper div:first-child {
+//     margin-right: 1.6rem;
+// }
+
+nav.FLF-1 .nav-wrapper div:first-child:hover{
+    background-color: rgba(0,0,0,.1);
+    cursor: pointer;
+}
+
+nav.FLF-1 .nav-wrapper div:first-child>a {
+    color: rgba(255,255,255,0.7);
+}
+
+nav.FLF-1 .nav-wrapper i{
+    margin-right: 0.5rem;
+}
+
+.dropdown-content li > a > i {
+    margin-right: 0.5rem;
+}

@@ -1,0 +1,90 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`should render Header correctly 1`] = `
+<div>
+  <SearchBar
+    onChange={[Function]}
+    onSubmit={[Function]}
+    value=""
+  />
+  <div
+    className="row nav-bar"
+  >
+    <div
+      className="col s12"
+    >
+      <ul
+        className="tabsCustom light"
+      >
+        <li
+          className="col s2 tabCustom"
+        >
+          <NavLink
+            activeClassName="active"
+            aria-current="page"
+            exact={true}
+            to="/"
+          >
+            <i
+              className="material-icons"
+            >
+              featured_video
+            </i>
+            Videos
+          </NavLink>
+        </li>
+        <li
+          className="col s2 tabCustom"
+        >
+          <NavLink
+            activeClassName="active"
+            aria-current="page"
+            to="/history"
+          >
+            <i
+              className="material-icons"
+            >
+              history
+            </i>
+            History
+          </NavLink>
+        </li>
+        <li
+          className="col s2 tabCustom"
+        >
+          <NavLink
+            activeClassName="active"
+            aria-current="page"
+            to="/saved"
+          >
+            <i
+              className="material-icons"
+            >
+              star
+            </i>
+            <span>
+              Favorites
+            </span>
+          </NavLink>
+        </li>
+        <li
+          className="col s2 tabCustom"
+        >
+          <NavLink
+            activeClassName="active"
+            aria-current="page"
+            to="/blog"
+          >
+            <i
+              className="material-icons"
+            >
+              note_add
+            </i>
+            Blog
+          </NavLink>
+        </li>
+      </ul>
+    </div>
+  </div>
+</div>
+`;

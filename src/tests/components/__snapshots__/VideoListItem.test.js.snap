@@ -1,0 +1,41 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`should render video list item 1`] = `
+<li
+  class="collection-item avatar"
+>
+  <div
+    className="row valign-wrapper list-spacing"
+    onClick={[Function]}
+  >
+    <div
+      className="col s4"
+    >
+      <img
+        className="responsive-img"
+        src="https://i.ytimg.com/vi/93p3LxR9xfM/default.jpg"
+      />
+    </div>
+    <div
+      className="col s8 list-items"
+    >
+      <span
+        className="list-title"
+      >
+        Redux Crash Course With React
+      </span>
+      <p>
+        17 Mar 2018
+        <br />
+        Uploaded by:
+        <a
+          href="http://www.youtube.com/channel/UC29ju8bIPH5as8OGnQzwJyA"
+        >
+           
+          Traversy Media
+        </a>
+      </p>
+    </div>
+  </div>
+</li>
+`;

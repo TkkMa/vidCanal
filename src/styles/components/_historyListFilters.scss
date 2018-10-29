@@ -1,0 +1,41 @@
+.DateRangePicker {
+    max-width: 100%
+}
+
+nav.HLF-1 #historyForm{
+    display: flex;
+    width: 100%;
+}
+
+#historySearchBar{
+    width: 100%;
+}
+
+nav.HLF-1 .input-field label.active i{
+    color: rgba(255,255,255,0.7);
+}
+
+nav.HLF-1 div:last-child i {
+    color: rgba(255,255,255,0.7);
+    text-align: center;
+    cursor:pointer;
+}
+
+nav.HLF-1 div:last-child i:hover{
+    color: color("teal", "lighten-1");
+}
+
+nav.HLF-1 #search{
+    color: rgba(255,255,255,0.7);
+    display: inline;
+    height: initial;
+}
+
+nav.HLF-1 #search:focus{
+    color:black;
+}
+
+nav.HLF-1 .switch > label{
+    font-size: $s-size;
+    color: rgba(255,255,255,0.7);
+}

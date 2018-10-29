@@ -1,0 +1,29 @@
+/*color("materialize-red", "lighten-2")*/
+
+.DateRangePicker{
+    height: 100%;
+}
+
+.DateRangePickerInput{
+    background-color: #ee6e73;
+}
+
+.DateInput{
+    background-color: #ee6e73;
+}
+
+.DateInput_input{
+    border-bottom: 1px solid rgba(255,255,255,0.7) !important;
+    color: rgba(255,255,255,0.7);
+    text-align: center;
+    font-weight: normal;
+}
+
+.DateRangePickerInput_arrow_svg,
+.DateRangePickerInput_clearDates_svg {
+    fill: rgba(255,255,255,0.7)
+}
+
+.DateRangePickerInput__withBorder{
+    border: 0;
+}

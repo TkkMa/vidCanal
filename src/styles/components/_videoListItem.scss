@@ -1,0 +1,21 @@
+.list-items{
+    font-size: $s-size;
+}
+
+.list-title{
+    font-weight: bold;
+}
+
+.list-spacing{
+    margin-bottom: 0;
+}
+
+.collection .collection-item.avatar{
+    cursor:pointer;
+    padding-left: $s-size;
+}
+
+// .collection .collection-item.avatar .secondary-content{
+//     top: $s-size/2;
+//     right: $s-size/2;
+// }

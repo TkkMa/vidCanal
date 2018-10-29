@@ -1,0 +1,187 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`should render history list filter bar correctly 1`] = `
+<div>
+  <nav
+    className="HLF-1"
+  >
+    <div
+      className="nav-wrapper row"
+    >
+      <div
+        className="col s5"
+      >
+        <withStyles(DateRangePicker)
+          anchorDirection="left"
+          appendToBody={false}
+          block={false}
+          calendarInfoPosition="bottom"
+          customArrowIcon={null}
+          customCloseIcon={null}
+          customInputIcon={null}
+          daySize={39}
+          disableScroll={false}
+          disabled={false}
+          displayFormat={[Function]}
+          enableOutsideDays={false}
+          endDate={"1970-01-01T00:00:00.000Z"}
+          endDateId="your_unique_end_date_id"
+          endDatePlaceholderText="End Date"
+          firstDayOfWeek={null}
+          focusedInput={null}
+          hideKeyboardShortcutsPanel={false}
+          horizontalMargin={0}
+          initialVisibleMonth={null}
+          inputIconPosition="before"
+          isDayBlocked={[Function]}
+          isDayHighlighted={[Function]}
+          isOutsideRange={[Function]}
+          isRTL={false}
+          keepFocusOnInput={false}
+          keepOpenOnDateSelect={false}
+          minimumNights={1}
+          monthFormat="MMMM YYYY"
+          navNext={null}
+          navPrev={null}
+          noBorder={false}
+          numberOfMonths={2}
+          onClose={[Function]}
+          onDatesChange={[Function]}
+          onFocusChange={[Function]}
+          onNextMonthClick={[Function]}
+          onPrevMonthClick={[Function]}
+          openDirection="down"
+          orientation="horizontal"
+          phrases={
+            Object {
+              "calendarLabel": "Calendar",
+              "chooseAvailableEndDate": [Function],
+              "chooseAvailableStartDate": [Function],
+              "clearDates": "Clear Dates",
+              "closeDatePicker": "Close",
+              "dateIsSelected": [Function],
+              "dateIsUnavailable": [Function],
+              "enterKey": "Enter key",
+              "escape": "Escape key",
+              "focusStartDate": "Interact with the calendar and add the check-in date for your trip.",
+              "hideKeyboardShortcutsPanel": "Close the shortcuts panel.",
+              "homeEnd": "Home and end keys",
+              "jumpToNextMonth": "Move forward to switch to the next month.",
+              "jumpToPrevMonth": "Move backward to switch to the previous month.",
+              "keyboardNavigationInstructions": "Press the down arrow key to interact with the calendar and
+  select a date. Press the question mark key to get the keyboard shortcuts for changing dates.",
+              "keyboardShortcuts": "Keyboard Shortcuts",
+              "leftArrowRightArrow": "Right and left arrow keys",
+              "moveFocusByOneDay": "Move backward (left) and forward (right) by one day.",
+              "moveFocusByOneMonth": "Switch months.",
+              "moveFocusByOneWeek": "Move backward (up) and forward (down) by one week.",
+              "moveFocustoStartAndEndOfWeek": "Go to the first or last day of a week.",
+              "openThisPanel": "Open this panel.",
+              "pageUpPageDown": "page up and page down keys",
+              "questionMark": "Question mark",
+              "returnFocusToInput": "Return to the date input field.",
+              "selectFocusedDate": "Select the date in focus.",
+              "showKeyboardShortcutsPanel": "Open the keyboard shortcuts panel.",
+              "upArrowDownArrow": "up and down arrow keys",
+            }
+          }
+          readOnly={false}
+          regular={false}
+          renderCalendarInfo={null}
+          renderDayContents={null}
+          renderMonthElement={null}
+          renderMonthText={null}
+          reopenPickerOnClearDates={false}
+          required={false}
+          screenReaderInputMessage=""
+          showClearDates={true}
+          showDefaultInputIcon={false}
+          small={false}
+          startDate={"1969-12-31T16:00:00.000Z"}
+          startDateId="your_unique_start_date_id"
+          startDatePlaceholderText="Start Date"
+          verticalHeight={null}
+          verticalSpacing={22}
+          weekDayFormat="dd"
+          withFullScreenPortal={false}
+          withPortal={true}
+        />
+      </div>
+      <div
+        className="col s2"
+      >
+        <div
+          className="switch"
+        >
+          <label>
+            <input
+              defaultChecked={false}
+              onChange={[Function]}
+              type="checkbox"
+            />
+            <span
+              className="lever"
+            />
+            Liked
+          </label>
+        </div>
+      </div>
+      <div
+        className="col s4"
+      >
+        <form
+          className="right"
+          id="historyForm"
+          onSubmit={[Function]}
+        >
+          <div
+            className="right input-field"
+            id="historySearchBar"
+          >
+            <input
+              id="search"
+              onChange={[Function]}
+              placeholder="Search term"
+              required={true}
+              type="search"
+              value=""
+            />
+            <label
+              className="label-icon"
+              for="search"
+            >
+              <i
+                className="material-icons"
+              >
+                search
+              </i>
+            </label>
+            <i
+              className="material-icons"
+              onClick={[Function]}
+            >
+              close
+            </i>
+          </div>
+        </form>
+      </div>
+      <div
+        className="col s1"
+      >
+        <i
+          className="material-icons"
+          onClick={[Function]}
+        >
+          delete_forever
+        </i>
+      </div>
+    </div>
+  </nav>
+  <DeletionModal
+    clearList={[Function]}
+    handleCloseModal={[Function]}
+    message="video history"
+    showModal={false}
+  />
+</div>
+`;

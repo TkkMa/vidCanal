@@ -1,0 +1,165 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`should render Favorite video list item with ONE new badge 1`] = `
+<li
+  className="collection-item avatar FLI-1"
+  onClick={[Function]}
+>
+  <div
+    className="row"
+  >
+    <div
+      className="col s2 div-record-1"
+    >
+      <span
+        className="span-search-text"
+      >
+        Search term: 
+      </span>
+      london tourism
+      <span
+        className="span-search-text"
+      >
+        Last Visited Time:
+      </span>
+      <span>
+        Tue, Jan 6 1970
+      </span>
+      <span>
+        8:00:00 am
+      </span>
+    </div>
+    <div
+      className="col s3 div-record-2"
+    >
+      <img
+        className="responsive-img"
+        src="https://i.ytimg.com/vi/45ETZ1xvHS0/mqdefault.jpg"
+      />
+    </div>
+    <div
+      className="col s6 div-record-3"
+    >
+      <span
+        className="title"
+      >
+        London Vacation Travel Guide | Expedia
+        <span
+          className="new badge"
+        />
+      </span>
+      <p>
+        07 Mar 2013
+         - 
+        2849731
+         views
+        <br />
+        Uploaded by:
+        <a
+          href="http://www.youtube.com/channel/UCGaOvAFinZ7BCN_FDmw74fQ"
+        >
+           
+          Expedia
+        </a>
+      </p>
+      <p>
+        http://www.expedia.com/London.d178279.Destination-Travel-Guides
+
+A trip to London might as well be a trip through history. This city has long been a hub for finance, education, and culture, and is ful
+        ...
+      </p>
+    </div>
+    <div
+      className="col s1 div-record-4"
+    >
+      <i
+        className="material-icons right"
+        onClick={[Function]}
+      >
+        clear
+      </i>
+    </div>
+  </div>
+</li>
+`;
+
+exports[`should render Favorite video list item without new badge 1`] = `
+<li
+  className="collection-item avatar FLI-1"
+  onClick={[Function]}
+>
+  <div
+    className="row"
+  >
+    <div
+      className="col s2 div-record-1"
+    >
+      <span
+        className="span-search-text"
+      >
+        Search term: 
+      </span>
+      london tourism
+      <span
+        className="span-search-text"
+      >
+        Last Visited Time:
+      </span>
+      <span>
+        Tue, Jan 6 1970
+      </span>
+      <span>
+        8:00:00 am
+      </span>
+    </div>
+    <div
+      className="col s3 div-record-2"
+    >
+      <img
+        className="responsive-img"
+        src="https://i.ytimg.com/vi/45ETZ1xvHS0/mqdefault.jpg"
+      />
+    </div>
+    <div
+      className="col s6 div-record-3"
+    >
+      <span
+        className="title"
+      >
+        London Vacation Travel Guide | Expedia
+        <span />
+      </span>
+      <p>
+        07 Mar 2013
+         - 
+        2849731
+         views
+        <br />
+        Uploaded by:
+        <a
+          href="http://www.youtube.com/channel/UCGaOvAFinZ7BCN_FDmw74fQ"
+        >
+           
+          Expedia
+        </a>
+      </p>
+      <p>
+        http://www.expedia.com/London.d178279.Destination-Travel-Guides
+
+A trip to London might as well be a trip through history. This city has long been a hub for finance, education, and culture, and is ful
+        ...
+      </p>
+    </div>
+    <div
+      className="col s1 div-record-4"
+    >
+      <i
+        className="material-icons right"
+        onClick={[Function]}
+      >
+        clear
+      </i>
+    </div>
+  </div>
+</li>
+`;

@@ -1,0 +1,62 @@
+import moment from 'moment';
+
+// startDate & endDate for DatePicker
+const filtersReducerDefaultState = {
+    sortBy: 'relevance',
+    uploadDate: 'allTime',
+    startDate: moment().startOf('month'),
+    endDate: moment(),
+    text: '',
+    resultsPerPage: 10,
+    isSaved: false,
+    count: 0,
+    countIds:[]
+};
+
+export default (state=filtersReducerDefaultState, action) =>{
+    switch(action.type){
+        case 'SET_SORT_BY':
+            return{
+                ...state,
+                sortBy: action.text
+            };
+        case 'SET_UPLOAD_DATE':
+            return{
+                ...state,
+                uploadDate: action.text
+            };
+        case 'SET_RESULTS_PER_PAGE':
+            return{
+                ...state,
+                resultsPerPage: action.num
+            };
+        case 'SET_FAV_COUNT':
+            return{
+                ...state,
+                count: action.favCount.count,
+                countIds: action.favCount.countIds
+            }
+        case 'SET_START_DATE':
+            return {
+                ...state,
+                startDate: action.startDate
+            };
+        case 'SET_END_DATE':
+            return {
+                ...state,
+                endDate: action.endDate
+            };
+        case 'SET_TEXT_FILTER':
+            return{
+                ...state,
+                text: action.text
+            }
+        case 'TOGGLE_ISSAVED_FILTER':
+            return{
+                ...state,
+                isSaved: action.isSaved
+            }
+        default:
+            return state;
+    };
+}

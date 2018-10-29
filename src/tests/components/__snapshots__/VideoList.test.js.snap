@@ -1,0 +1,263 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`should render videoList with empty message 1`] = `
+<p>
+  Loading video...
+</p>
+`;
+
+exports[`should render videoList with videos 1`] = `
+<div
+  className="col s12 m4"
+>
+  <div
+    class="row"
+  >
+    <ul
+      className="list-nav"
+    >
+      <li
+        className="btn-flat disabled btn-small col m2"
+        onClick={[Function]}
+      >
+        <i
+          className="material-icons"
+        >
+          first_page
+        </i>
+      </li>
+      <li
+        className="btn-flat disabled btn-small col m4"
+        onClick={[Function]}
+      >
+        <i
+          className="material-icons left"
+        >
+          chevron_left
+        </i>
+        Prev
+      </li>
+      <li
+        className="btn-flat disabled btn-small col m4"
+        onClick={[Function]}
+      >
+        <i
+          className="material-icons right"
+        >
+          chevron_right
+        </i>
+        Next
+      </li>
+      <li
+        className="btn-flat disabled btn-small col m2"
+        onClick={[Function]}
+      >
+        <i
+          className="material-icons"
+        >
+          last_page
+        </i>
+      </li>
+    </ul>
+  </div>
+  <ul
+    className="collection"
+  >
+    <Connect(VideoListItem)
+      key="93p3LxR9xfM"
+      searchKey="redux"
+      video={
+        Object {
+          "etag": "\\"XI7nbFXulYBIpL0ayR_gDh3eu1k/GeaAAkt6yn68hp8qaH6ie-YHGi8\\"",
+          "id": Object {
+            "kind": "youtube#video",
+            "videoId": "93p3LxR9xfM",
+          },
+          "kind": "youtube#searchResult",
+          "snippet": Object {
+            "channelId": "UC29ju8bIPH5as8OGnQzwJyA",
+            "channelTitle": "Traversy Media",
+            "description": "In this video we will talk about what Redux is and build a React app from scratch and add all of the boilerplate for Redux and work with the store/state, actions, ...",
+            "liveBroadcastContent": "none",
+            "publishedAt": "2018-03-17T13:50:15.000Z",
+            "thumbnails": Object {
+              "default": Object {
+                "height": 90,
+                "url": "https://i.ytimg.com/vi/93p3LxR9xfM/default.jpg",
+                "width": 120,
+              },
+              "high": Object {
+                "height": 360,
+                "url": "https://i.ytimg.com/vi/93p3LxR9xfM/hqdefault.jpg",
+                "width": 480,
+              },
+              "medium": Object {
+                "height": 180,
+                "url": "https://i.ytimg.com/vi/93p3LxR9xfM/mqdefault.jpg",
+                "width": 320,
+              },
+            },
+            "title": "Redux Crash Course With React",
+          },
+        }
+      }
+    />
+    <Connect(VideoListItem)
+      key="mhqO-VL6U2I"
+      searchKey="redux"
+      video={
+        Object {
+          "etag": "\\"XI7nbFXulYBIpL0ayR_gDh3eu1k/gNZ35fjuSy8exM2IxV5v2LdDxy8\\"",
+          "id": Object {
+            "kind": "youtube#video",
+            "videoId": "mhqO-VL6U2I",
+          },
+          "kind": "youtube#searchResult",
+          "snippet": Object {
+            "channelId": "UCyU5wkjgQYGRB0hIHMwm2Sg",
+            "channelTitle": "LevelUpTuts",
+            "description": "Sign up for Level Up Pro for full access https://www.leveluptutorials.com/pro Buy Redux & React for Everyone series: https://goo.gl/XSuXqC Subscribe for more ...",
+            "liveBroadcastContent": "none",
+            "publishedAt": "2018-01-03T21:27:52.000Z",
+            "thumbnails": Object {
+              "default": Object {
+                "height": 90,
+                "url": "https://i.ytimg.com/vi/mhqO-VL6U2I/default.jpg",
+                "width": 120,
+              },
+              "high": Object {
+                "height": 360,
+                "url": "https://i.ytimg.com/vi/mhqO-VL6U2I/hqdefault.jpg",
+                "width": 480,
+              },
+              "medium": Object {
+                "height": 180,
+                "url": "https://i.ytimg.com/vi/mhqO-VL6U2I/mqdefault.jpg",
+                "width": 320,
+              },
+            },
+            "title": "What Is Redux?",
+          },
+        }
+      }
+    />
+    <Connect(VideoListItem)
+      key="1w-oQ-i1XB8"
+      searchKey="redux"
+      video={
+        Object {
+          "etag": "\\"XI7nbFXulYBIpL0ayR_gDh3eu1k/1OY9iMJBszjCv3rs-zyiw1tpZyk\\"",
+          "id": Object {
+            "kind": "youtube#video",
+            "videoId": "1w-oQ-i1XB8",
+          },
+          "kind": "youtube#searchResult",
+          "snippet": Object {
+            "channelId": "UCVTlvUkGslCV_h-nSAId8Sw",
+            "channelTitle": "LearnCode.academy",
+            "description": "This Redux tutorial series will show you the schematics of a Redux application. Redux is AWESOME, but it takes a bit to get it setup. There really aren't a lot of ...",
+            "liveBroadcastContent": "none",
+            "publishedAt": "2016-04-18T17:00:01.000Z",
+            "thumbnails": Object {
+              "default": Object {
+                "height": 90,
+                "url": "https://i.ytimg.com/vi/1w-oQ-i1XB8/default.jpg",
+                "width": 120,
+              },
+              "high": Object {
+                "height": 360,
+                "url": "https://i.ytimg.com/vi/1w-oQ-i1XB8/hqdefault.jpg",
+                "width": 480,
+              },
+              "medium": Object {
+                "height": 180,
+                "url": "https://i.ytimg.com/vi/1w-oQ-i1XB8/mqdefault.jpg",
+                "width": 320,
+              },
+            },
+            "title": "Redux Tutorial #1 - React js tutorial - How Redux Works",
+          },
+        }
+      }
+    />
+    <Connect(VideoListItem)
+      key="OSSpVLpuVWA"
+      searchKey="redux"
+      video={
+        Object {
+          "etag": "\\"XI7nbFXulYBIpL0ayR_gDh3eu1k/LSnWyrHyMgPOwJMZaBb2YyUT2f4\\"",
+          "id": Object {
+            "kind": "youtube#video",
+            "videoId": "OSSpVLpuVWA",
+          },
+          "kind": "youtube#searchResult",
+          "snippet": Object {
+            "channelId": "UC8Szh5ZJeGFBWyqKyTCVPpA",
+            "channelTitle": "Learn Coding Tutorials",
+            "description": "Learn Redux (with React) with this tutorial! All the major parts in one video. SUBSCRIBE, LIKE, and COMMENT to support the channel =). Click on the times ...",
+            "liveBroadcastContent": "none",
+            "publishedAt": "2018-02-12T18:02:15.000Z",
+            "thumbnails": Object {
+              "default": Object {
+                "height": 90,
+                "url": "https://i.ytimg.com/vi/OSSpVLpuVWA/default.jpg",
+                "width": 120,
+              },
+              "high": Object {
+                "height": 360,
+                "url": "https://i.ytimg.com/vi/OSSpVLpuVWA/hqdefault.jpg",
+                "width": 480,
+              },
+              "medium": Object {
+                "height": 180,
+                "url": "https://i.ytimg.com/vi/OSSpVLpuVWA/mqdefault.jpg",
+                "width": 320,
+              },
+            },
+            "title": "Redux Tutorial - Learn React/Redux in one video",
+          },
+        }
+      }
+    />
+    <Connect(VideoListItem)
+      key="0ix_QLPkYhI"
+      searchKey="redux"
+      video={
+        Object {
+          "etag": "\\"XI7nbFXulYBIpL0ayR_gDh3eu1k/bGlxCgk7VlhAGeHUVCeOw7UfTCE\\"",
+          "id": Object {
+            "kind": "youtube#video",
+            "videoId": "0ix_QLPkYhI",
+          },
+          "kind": "youtube#searchResult",
+          "snippet": Object {
+            "channelId": "UCXgGY0wkgOzynnHvSEVmE3A",
+            "channelTitle": "Hitesh Choudhary",
+            "description": "Redux is been around for a long time. It is a great way to scale your app. Redux is in itself a concept by since it works seamlessly with React and React native.",
+            "liveBroadcastContent": "none",
+            "publishedAt": "2017-04-11T21:42:44.000Z",
+            "thumbnails": Object {
+              "default": Object {
+                "height": 90,
+                "url": "https://i.ytimg.com/vi/0ix_QLPkYhI/default.jpg",
+                "width": 120,
+              },
+              "high": Object {
+                "height": 360,
+                "url": "https://i.ytimg.com/vi/0ix_QLPkYhI/hqdefault.jpg",
+                "width": 480,
+              },
+              "medium": Object {
+                "height": 180,
+                "url": "https://i.ytimg.com/vi/0ix_QLPkYhI/mqdefault.jpg",
+                "width": 320,
+              },
+            },
+            "title": "redux fundamentals as easy as possible",
+          },
+        }
+      }
+    />
+  </ul>
+</div>
+`;

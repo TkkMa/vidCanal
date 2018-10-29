@@ -1,0 +1,8 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`should render Favorite page correctly 1`] = `
+<div>
+  <Connect(FavoriteListFilters) />
+  <Connect(FavoriteList) />
+</div>
+`;

@@ -1,0 +1,32 @@
+.div-record-1{
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-end;
+    line-height: 2.4rem;
+    font-size: 1.4rem;
+}
+.span-search-text{
+    color: rgba(color("materialize-red", "lighten-2"), 0.7);
+    text-transform: uppercase;
+}
+
+.div-record-3{
+    line-height: 2rem;
+}
+.div-record-3 p{
+    font-size: 1.4rem;
+    // line-height: 2.2rem;
+}
+.div-record-3 p:last-child{
+    color: grey;
+}
+.div-record-4 > i{
+    color: color("teal", "lighten-1");
+    font-size: $l-size;
+}
+
+.FLI-1 .div-record-4 > i{
+    font-size: 2rem;
+    color: color("materialize-red", "lighten-2");
+}
