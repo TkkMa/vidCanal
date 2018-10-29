@@ -1,15 +1,19 @@
 .search-bar-row{
     margin:0 !important;
 }
-.search-bar{
+.search-bar-row .search-bar{
     margin-top: $m-size;
     padding-right: 0;
 }
 
-button{
+.search-bar-row button{
     margin-top: $s-size;
 }
 
-.btn>i{
+.search-bar-row .btn>i{
     font-size: $m-size;
+}
+
+.search-bar-row div:last-child {
+    padding: 0;
 }

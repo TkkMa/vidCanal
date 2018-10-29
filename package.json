@@ -27,6 +27,7 @@
     "express": "^4.16.4",
     "file-loader": "^2.0.0",
     "firebase": "^5.5.2",
+    "history": "^4.7.2",
     "jquery": "^3.3.1",
     "lodash": "^4.17.10",
     "mini-css-extract-plugin": "^0.4.4",

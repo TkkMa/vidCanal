@@ -1,11 +1,14 @@
 import React, {Component} from 'react';
-import { BrowserRouter, Route, Switch } from 'react-router-dom';
+import { Router, Route, Switch } from 'react-router-dom';
+import createHistory from 'history/createBrowserHistory';
 import {connect} from 'react-redux';
 import VideoApp from '../components/VideoApp';
 import History from '../components/History';
 import Favorite from '../components/Favorite';
 import HeaderWithRouter from '../components/Header';
 import NotFoundPage from '../components/NotFoundPage';
+
+export const history = createHistory();
 
 class AppRouter extends Component {
     // state={
@@ -15,7 +18,7 @@ class AppRouter extends Component {
     render(){
         console.log('AppRouter: ', this.props.searchKey);
         return(
-            <BrowserRouter>
+            <Router history={history}>
                 <div className="container">
                     <HeaderWithRouter />
                     <Switch>
@@ -25,7 +28,7 @@ class AppRouter extends Component {
                         <Route component={NotFoundPage} />
                     </Switch>
                 </div>
-            </BrowserRouter>
+            </Router>
         )
     }
 };
