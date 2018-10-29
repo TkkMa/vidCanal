@@ -9,7 +9,9 @@
     "build:dev": "webpack",
     "build:prod": "webpack -p --env production",
     "dev-server": "webpack-dev-server",
-    "test": "cross-env NODE_ENV=test jest --config=jest.config.json"
+    "test": "cross-env NODE_ENV=test jest --config=jest.config.json",
+    "start": "node server/server.js",
+    "heroku-postbuild":"npm run build:prod"
   },
   "dependencies": {
     "axios": "^0.18.0",
@@ -26,6 +28,7 @@
     "enzyme": "^3.7.0",
     "enzyme-adapter-react-16": "^1.6.0",
     "enzyme-to-json": "^3.3.4",
+    "express": "^4.16.4",
     "file-loader": "^2.0.0",
     "firebase": "^5.5.2",
     "jquery": "^3.3.1",
