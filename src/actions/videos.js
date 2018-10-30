@@ -27,8 +27,9 @@ export const setVideos = ({
 });
 
 export const loadViewedVideos =()=>{
-    return(dispatch)=>{
-        return database.ref('history')
+    return(dispatch, getState)=>{
+        const uid = getState().auth.uid;
+        return database.ref(`users/${uid}/history`)
                 .once('value')
                 .then((snapshot)=>{
                     const videos = [];
@@ -59,7 +60,8 @@ export const selectVideo = (video)=>({
 
 //-- will dispatch selectVideo by returning a function and save visited videos
 export const startSelectVideo = (videoData={})=>{
-    return (dispatch)=>{
+    return (dispatch, getState)=>{
+        const uid = getState().auth.uid;
         const {
             searchKey = '',
             updatedHitSelect = [],
@@ -71,11 +73,14 @@ export const startSelectVideo = (videoData={})=>{
             didMount= true
         } = videoData;
         const videoObj = {searchKey, updatedHitSelect, video, uniqueVideos, viewedAt, isSaved, reRender, didMount};
- 
-        return database.ref('history').push({...video[0], viewedAt, searchKey, isSaved}).then((ref)=>{
-            videoObj.uniqueVideos=[{...video[0], DB_id:ref.key, viewedAt, searchKey, isSaved}];
+        if(!!uid){
+            return database.ref(`users/${uid}/history`).push({...video[0], viewedAt, searchKey, isSaved}).then((ref)=>{
+                videoObj.uniqueVideos=[{...video[0], DB_id:ref.key, viewedAt, searchKey, isSaved}];
+                dispatch(selectVideo(videoObj));
+            })
+        } else{
             dispatch(selectVideo(videoObj));
-        })
+        }
     };
 };
 
@@ -89,7 +94,8 @@ export const saveVideo = (updatedVideos)=>({
 //--(2) modify visitedVideos array in redux
 //--(3) Save videos in saved folder in database
 export const startSaveVideo = (videoData={})=>{
-    return (dispatch) =>{
+    return (dispatch, getState) =>{
+        const uid = getState().auth.uid;
         const {
             isSaved= false,
             updatedVideos=[],
@@ -98,7 +104,7 @@ export const startSaveVideo = (videoData={})=>{
 
         const promiseArray=[];
         dbIds.forEach((id)=>{
-            promiseArray.push(database.ref(`history/${id}/isSaved`).set(isSaved))  
+            promiseArray.push(database.ref(`users/${uid}/history/${id}/isSaved`).set(isSaved))  
         });
 
         Promise.all(promiseArray).then(()=>{
@@ -112,8 +118,9 @@ export const clearVideoHistory =()=>({
 })
 
 export const startClearVideoHistory = ()=>{
-    return(dispatch) =>{
-        return database.ref('history').remove().then(()=>{
+    return(dispatch, getState) =>{
+        const uid = getState().auth.uid;
+        return database.ref(`users/${uid}/history`).remove().then(()=>{
             console.log("Remove succeeded");
             dispatch(clearVideoHistory());
         })

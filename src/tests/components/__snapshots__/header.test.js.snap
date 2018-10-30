@@ -2,7 +2,7 @@
 
 exports[`should render Header correctly 1`] = `
 <div>
-  <SearchBar
+  <Connect(SearchBar)
     onChange={[Function]}
     onSubmit={[Function]}
     value=""

@@ -5,26 +5,24 @@ import {connect} from 'react-redux';
 import VideoApp from '../components/VideoApp';
 import History from '../components/History';
 import Favorite from '../components/Favorite';
-import HeaderWithRouter from '../components/Header';
+import Header from '../components/Header';
 import NotFoundPage from '../components/NotFoundPage';
+import PrivateRoute from './PrivateRoute';
 
 export const history = createHistory();
 
 class AppRouter extends Component {
-    // state={
-    //     searchKey: DEFAULT_QUERY
-    // }
 
     render(){
         console.log('AppRouter: ', this.props.searchKey);
         return(
             <Router history={history}>
                 <div className="container">
-                    <HeaderWithRouter />
+                    <Header />
                     <Switch>
                         <Route path="/" render={(props)=><VideoApp searchKey={this.props.searchKey} {...props} />} exact={true}/>
-                        <Route path="/history" component={History}/>
-                        <Route path="/saved" component={Favorite}/>
+                        <PrivateRoute path="/history" component={History}/>
+                        <PrivateRoute path="/saved" component={Favorite}/>
                         <Route component={NotFoundPage} />
                     </Switch>
                 </div>

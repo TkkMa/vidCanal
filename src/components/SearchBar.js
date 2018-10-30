@@ -9,7 +9,7 @@ export class SearchBar extends Component {
         }
     }
     render(){
-        const {onChange, value, onSubmit, startLogin, startLogout} = this.props;
+        const {onChange, value, onSubmit, startLogin, startLogout, isAuthenticated} = this.props;
         return(
             <div className="row search-bar-row">
                 <form onSubmit={onSubmit} className="col s12">
@@ -28,13 +28,11 @@ export class SearchBar extends Component {
                         </button>                
                     </div>
                     <div className="col s2 right">
-                        <button onClick={startLogin} className="btn-flat waves-effect waves-light btn-small right">
-                            Login
-                        </button>
-                    </div>
-                    <div className="col s2 right">
-                        <button onClick={startLogout} className="btn-flat waves-effect waves-light btn-small right">
-                            Logout
+                        <button 
+                            onClick={(isAuthenticated) ? startLogout : startLogin}
+                            className="btn-flat waves-effect waves-light btn-small right"
+                        >
+                            {(isAuthenticated)? 'Logout' : 'Login'}
                         </button>
                     </div>
                 </form>  
@@ -43,9 +41,13 @@ export class SearchBar extends Component {
     }
 }
 
+const mapStateToProps = (state)=>({
+    isAuthenticated: !!state.auth.uid
+});
+
 const mapDispatchToProps = (dispatch)=>({
     startLogin: ()=>dispatch(startLogin()),
     startLogout: ()=>dispatch(startLogout())
 });
 
-export default connect(undefined, mapDispatchToProps)(SearchBar);
+export default connect(mapStateToProps, mapDispatchToProps)(SearchBar);

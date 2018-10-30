@@ -7,6 +7,8 @@ import {setSearchKey, setDidMount, setVideos,
 import videos from '../fixtures/indivAPIVideo';
 import database from '../../firebase/firebase';
 
+const uid = 'thisismytestuid';
+const defaultAuthState = {auth: {uid}};
 const createMockStore=configureMockStore([thunk]);
 
 test('should set search Key action object', ()=>{
@@ -57,7 +59,7 @@ test('should set videos action object with default values', ()=>{
 });
 
 test('should add video to database and store', (done)=>{
-    const store = createMockStore({});
+    const store = createMockStore(defaultAuthState);
     const videoData = {
         searchKey:'redux',
         updatedHitSelect : [videos[0]],
@@ -84,7 +86,7 @@ test('should add video to database and store', (done)=>{
                 }]
             }
         });
-        return database.ref(`history/${actions[0].video.uniqueVideos[0].DB_id}`).once('value');
+        return database.ref(`users/${uid}/history/${actions[0].video.uniqueVideos[0].DB_id}`).once('value');
     }).then((snapshot)=>{
         expect(snapshot.val()).toEqual({...videos[0], viewedAt:1000, searchKey:'redux', isSaved:false});
         done();
@@ -92,7 +94,7 @@ test('should add video to database and store', (done)=>{
 });
 
 test('should add video with defaults to database and store', (done)=>{
-    const store = createMockStore({});
+    const store = createMockStore(defaultAuthState);
     const videoDataDefaults = {
         searchKey:'',
         updatedHitSelect : [],
@@ -117,7 +119,7 @@ test('should add video with defaults to database and store', (done)=>{
                 }]
             }
         });
-        return database.ref(`history/${actions[0].video.uniqueVideos[0].DB_id}`).once('value');
+        return database.ref(`users/${uid}/history/${actions[0].video.uniqueVideos[0].DB_id}`).once('value');
     }).then((snapshot)=>{
         expect(snapshot.val()).toEqual({viewedAt:'', searchKey:'', isSaved:false});
         done();
@@ -125,13 +127,13 @@ test('should add video with defaults to database and store', (done)=>{
 });
 
 test('should clear video history from database', (done)=>{
-    const store = createMockStore({});
+    const store = createMockStore(defaultAuthState);
     store.dispatch(startClearVideoHistory()).then(()=>{
         const actions = store.getActions();
         expect(actions[0]).toEqual({
             type: 'CLEAR_VIDEO_HISTORY'
         })
-        return database.ref('history').once('value');
+        return database.ref(`users/${uid}/history`).once('value');
     }).then((snapshot)=>{
         expect(snapshot.val()).toBeFalsy();
         done();
