@@ -7,6 +7,10 @@
 //   "base":       #e51c23,
 //   "lighten-2":  #ee6e73,
 // )
+.page-header{
+  background-color: color('grey', 'lighten-5');
+  margin-bottom: $s-size;
+}
 
 .tabsCustom {
     &.tabs-transparent {

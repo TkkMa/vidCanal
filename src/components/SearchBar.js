@@ -1,6 +1,4 @@
 import React, {Component} from 'react';
-import {connect} from 'react-redux';
-import {startLogin, startLogout} from '../actions/auth';
 
 export class SearchBar extends Component {
     componentDidMount(){
@@ -9,7 +7,7 @@ export class SearchBar extends Component {
         }
     }
     render(){
-        const {onChange, value, onSubmit, startLogin, startLogout, isAuthenticated} = this.props;
+        const {onChange, value, onSubmit} = this.props;
         return(
             <div className="row search-bar-row">
                 <form onSubmit={onSubmit} className="col s12">
@@ -27,27 +25,10 @@ export class SearchBar extends Component {
                             <i className="material-icons">search</i>
                         </button>                
                     </div>
-                    <div className="col s2 right">
-                        <button 
-                            onClick={(isAuthenticated) ? startLogout : startLogin}
-                            className="btn-flat waves-effect waves-light btn-small right"
-                        >
-                            {(isAuthenticated)? 'Logout' : 'Login'}
-                        </button>
-                    </div>
                 </form>  
             </div>
         )
     }
 }
 
-const mapStateToProps = (state)=>({
-    isAuthenticated: !!state.auth.uid
-});
-
-const mapDispatchToProps = (dispatch)=>({
-    startLogin: ()=>dispatch(startLogin()),
-    startLogout: ()=>dispatch(startLogout())
-});
-
-export default connect(mapStateToProps, mapDispatchToProps)(SearchBar);
+export default SearchBar;

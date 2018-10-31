@@ -17,14 +17,16 @@ class AppRouter extends Component {
         console.log('AppRouter: ', this.props.searchKey);
         return(
             <Router history={history}>
-                <div className="container">
+                <div>
                     <Header />
-                    <Switch>
-                        <Route path="/" render={(props)=><VideoApp searchKey={this.props.searchKey} {...props} />} exact={true}/>
-                        <PrivateRoute path="/history" component={History}/>
-                        <PrivateRoute path="/saved" component={Favorite}/>
-                        <Route component={NotFoundPage} />
-                    </Switch>
+                    <div className="container">    
+                        <Switch>
+                            <Route path="/" render={(props)=><VideoApp searchKey={this.props.searchKey} {...props} />} exact={true}/>
+                            <PrivateRoute path="/history" component={History}/>
+                            <PrivateRoute path="/saved" component={Favorite}/>
+                            <Route component={NotFoundPage} />
+                        </Switch>
+                    </div>
                 </div>
             </Router>
         )

@@ -30,8 +30,15 @@ const renderApp = ()=>{
 ReactDOM.render(<p>Loading...</p>, document.getElementById('app'));
 
 firebase.auth().onAuthStateChanged((user)=>{
+    store.dispatch(clearVideoHistory());
     if(user){
-        store.dispatch(login(user.uid));
+        const userProf={
+            uid: user.uid,
+            name: user.displayName,
+            photo: user.photoURL,
+            email: user.email
+        }
+        store.dispatch(login(userProf));
         store.dispatch(loadViewedVideos()).then(()=>{
             renderApp();
             if(history.location.pathname === '/'){
@@ -40,7 +47,6 @@ firebase.auth().onAuthStateChanged((user)=>{
         });
     } else{
         store.dispatch(logout());
-        store.dispatch(clearVideoHistory());
         renderApp();
         history.push('/');
     }

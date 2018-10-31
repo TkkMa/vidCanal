@@ -1,24 +1,24 @@
-.pubDate{
+.VD-1 .pubDate{
     font-size: $s-size;
 }
 
-.card-panel > .row:first-child{
+.VD-1.card-panel > .row:first-child{
     margin-bottom: 0;
 }
-.views{
+.VD-1 .views{
     font-size: $s-size;
 }
 
-.title{
+.VD-1 .title{
     font-size: $m-size;
     font-weight:bold;
     padding: $s-size 0;
 }
 
-.description{
+.VD-1 .description{
     font-size: 1.4rem;
 }
 
-.starBorder{
+.VD-1 .starBorder{
     color: #26a69a;
 }

@@ -68,8 +68,13 @@ class VideoDetail extends Component {
         this.updateIsSavedStatus({isSaved: isSavedStatus})
     }
 
+    blockSave = (e)=>{
+        e.preventDefault();
+        alert('Please log in to save video!');
+    }
+
     render(){
-        const {video} =this.props;
+        const {video, isAuthenticated} =this.props;
         return (
             (!video) ? (<div>Loading...</div>) :
             (
@@ -77,7 +82,7 @@ class VideoDetail extends Component {
                     <div className="video-container">
                         <iframe width="853" height="480" frameBorder="0" allowFullScreen="allowFullScreen" />
                     </div>
-                    <div className="card-panel grey lighten-5">
+                    <div className="VD-1 card-panel grey lighten-5">
                         <div className="row valign-wrapper">
                             <div className="col s10">
                                 <div className="pubDate">Published on: {moment(video.snippet.publishedAt).format('DD MMM YYYY')} by  
@@ -88,7 +93,9 @@ class VideoDetail extends Component {
                                 <div className="views">{video.statistics.viewCount} views</div> 
                             </div>
                             <div className="col s1">
-                                <i className="starBorder material-icons" onClick={this.onVideoSave}>
+                                <i className="starBorder material-icons" 
+                                    onClick={(isAuthenticated) ? this.onVideoSave : this.blockSave}
+                                >
                                     {video.isSaved ? 'star': 'star_border'}
                                 </i> 
                             </div>
@@ -110,7 +117,8 @@ const mapStateToProps = (state)=>{
     return{
         visitedVideos: state.videos.visitedVideos,
         count: state.filters.count,
-        countIds: state.filters.countIds
+        countIds: state.filters.countIds,
+        isAuthenticated : !!state.auth.uid
     }   
 };
 

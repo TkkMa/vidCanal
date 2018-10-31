@@ -79,6 +79,7 @@ export const startSelectVideo = (videoData={})=>{
                 dispatch(selectVideo(videoObj));
             })
         } else{
+            videoObj.uniqueVideos=video;
             dispatch(selectVideo(videoObj));
         }
     };
