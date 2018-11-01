@@ -88,11 +88,9 @@ export class Header extends Component {
     }
 }
 
-const mapStateToProps = (state)=>{
-    return{
-        count: state.filters.count
-    }   
-};
+const mapStateToProps = (state)=>({
+    count: state.filters.unViewedFavCount,
+});
 
 const mapDispatchToProps = (dispatch)=>({
     setSearchKey: (text)=> dispatch(setSearchKey(text))

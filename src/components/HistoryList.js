@@ -33,11 +33,9 @@ export const HistoryList = (props) => {
     )
 }
 
-const mapStateToProps = (state) => {
-    return {
-      displayVideos: videoHistory(state.videos.visitedVideos, state.filters),
-      resultDetail: state.videos.resultDetail
-    };
-};
+const mapStateToProps = (state) => ({
+    displayVideos: videoHistory(state.videos.visitedVideos, state.filters),
+    resultDetail: state.videos.resultDetail
+});
   
 export default connect(mapStateToProps)(HistoryList);

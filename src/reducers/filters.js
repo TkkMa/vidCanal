@@ -10,7 +10,7 @@ const filtersReducerDefaultState = {
     resultsPerPage: 10,
     isSaved: false,
     unViewedFavCount: 0,
-    unViewedFavIds:{}
+    unViewedFavIds:[]
 };
 
 export default (state=filtersReducerDefaultState, action) =>{
@@ -34,10 +34,7 @@ export default (state=filtersReducerDefaultState, action) =>{
             return{
                 ...state,
                 unViewedFavCount: action.favCount.count,
-                unViewedFavIds: {
-                    DB_id: action.favCount.DB_id,
-                    videoIds: action.favCount.videoIds
-                }
+                unViewedFavIds: action.favCount.ids
             };
         case 'SET_START_DATE':
             return {

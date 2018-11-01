@@ -79,12 +79,10 @@ class FavoriteListFilters extends Component{
     }
 }
 
-const mapStateToProps = (state) => {
-    return {
-        uniqueLikedVids: favorites(state.videos.visitedVideos),
-        visitedVideos: state.videos.visitedVideos
-    };
-};
+const mapStateToProps = (state) => ({
+    uniqueLikedVids: favorites(state.videos.visitedVideos),
+    visitedVideos: state.videos.visitedVideos
+});
 
 const mapDispatchToProps = (dispatch)=>({
     startSaveVideo: (video) => dispatch(startSaveVideo(video)),

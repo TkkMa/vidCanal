@@ -57,11 +57,9 @@ export class FavoriteList extends Component {
     }
 }
 
-const mapStateToProps = (state) => {
-    return {
-      visitedVideos: state.videos.visitedVideos,
-      uniqueLikedVideos: favorites(state.videos.visitedVideos)
-    };
-};
+const mapStateToProps = (state) => ({
+    visitedVideos: state.videos.visitedVideos,
+    uniqueLikedVideos: favorites(state.videos.visitedVideos)
+});
 
 export default connect(mapStateToProps)(FavoriteList);

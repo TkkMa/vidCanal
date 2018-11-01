@@ -2,7 +2,7 @@ import React, {Component} from 'react';
 import {connect} from 'react-redux';
 import moment from 'moment';
 import {startSaveVideo} from '../actions/videos';
-import {setFavCount} from '../actions/filters';
+import {addFavCount, removeFavCount} from '../actions/filters';
 // import updateIsSavedStatus from '../selectors/updateIsSavedStatus';
 
 class VideoDetail extends Component {
@@ -52,17 +52,19 @@ class VideoDetail extends Component {
         if($(e.target).text() === "star_border"){
             $(e.target).text("star");
             isSavedStatus = true;
-            this.props.startSetFavCount({
+            this.props.addFavCount({
                 count: this.props.count + 1,
-                videoIds: this.props.videoIds.concat(this.props.video.id)
+                videoId: this.props.video.id,
+                ids: this.props.ids
             });
         } else{
             $(e.target).text("star_border");
-            const count = (this.props.videoIds.findIndex(id=> id===this.props.video.id)>-1) ? 
-                                this.props.count - 1 : this.props.count; 
-            this.props.setFavCount({
+            const index = this.props.ids.findIndex(idElement=> idElement.videoId===this.props.video.id);
+            const count = (index>-1) ? this.props.count - 1 : this.props.count; 
+            this.props.removeFavCount({
                 count,
-                videoIds: this.props.videoIds.filter(id => id !== this.props.video.id)
+                videoIds: this.props.ids.filter(idElement => idElement.videoId !== this.props.video.id),
+                foundDbId: this.props.ids[index].DB_id
             });
         }
         this.updateIsSavedStatus({isSaved: isSavedStatus})
@@ -113,18 +115,17 @@ class VideoDetail extends Component {
     }
 }
 
-const mapStateToProps = (state)=>{
-    return{
-        visitedVideos: state.videos.visitedVideos,
-        count: state.filters.unViewedFavCount,
-        videoIds: state.filters.unViewedFavIds.videoIds,
-        isAuthenticated : !!state.auth.uid
-    }   
-};
+const mapStateToProps = (state)=>({
+    visitedVideos: state.videos.visitedVideos,
+    count: state.filters.unViewedFavCount,
+    ids: state.filters.unViewedFavIds,
+    isAuthenticated : !!state.auth.uid
+});
 
 const mapDispatchToProps = (dispatch)=>({
     startSaveVideo: (video) => dispatch(startSaveVideo(video)),
-    setFavCount: (favCount) => dispatch(setFavCount(favCount))
+    addFavCount: (favCount) => dispatch(addFavCount(favCount)),
+    removeFavCount: (favCount) => dispatch(removeFavCount(favCount)),
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(VideoDetail);

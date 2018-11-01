@@ -45,11 +45,9 @@ export class VideoList extends Component{
     }
 }
 
-const mapStateToProps = (state)=>{
-    return{
-        searchKey: state.videos.searchKey,
-        results: state.videos.results
-    }
-}
+const mapStateToProps = (state)=>({
+    searchKey: state.videos.searchKey,
+    results: state.videos.results
+});
 
 export default connect(mapStateToProps)(VideoList);

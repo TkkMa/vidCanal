@@ -2,7 +2,7 @@ import React, {Component} from "react";
 import {connect} from 'react-redux';
 import moment from "moment";
 import {startSelectVideo, startSaveVideo} from "../actions/videos";
-import {setFavCount} from '../actions/filters';
+import {addFavCount, removeFavCount} from '../actions/filters';
 
 export class HistoryListItem extends Component{
 
@@ -36,12 +36,12 @@ export class HistoryListItem extends Component{
                 dbIds.push(video.DB_id);
             }
             return video;
-        })
+        });
         this.props.startSaveVideo({
             isSaved: result.isSaved,
             updatedVideos,
             dbIds
-        })
+        });
     }
 
     onVideoSave=(e)=>{
@@ -50,20 +50,24 @@ export class HistoryListItem extends Component{
         if($(e.target).text() === "star_border"){
             $(e.target).text("star");
             isSavedStatus = true;
-            this.props.setFavCount({
+            this.props.addFavCount({
                 count: this.props.count + 1,
-                countIds: this.props.countIds.concat(this.props.video.id)
+                videoId: this.props.video.id,
+                ids: this.props.ids
             });
         } else{
             $(e.target).text("star_border");
-            const count = (this.props.countIds.findIndex(id=> id===this.props.video.id)>-1) ? 
-                                this.props.count - 1 : this.props.count; 
-            this.props.setFavCount({
-                count,
-                countIds: this.props.countIds.filter(id => id !== this.props.video.id)
-            });
+            const index = this.props.ids.findIndex(idElement=> idElement.videoId===this.props.video.id);
+            const count = (index>-1) ? this.props.count - 1 : this.props.count;
+            if (index > -1){ 
+                this.props.removeFavCount({
+                    count,
+                    videoIds: this.props.ids.filter(idElement => idElement.videoId !== this.props.video.id),
+                    foundDbId: this.props.ids[index].DB_id
+                })
+            };
         }
-        this.updateIsSavedStatus({isSaved: isSavedStatus})
+        this.updateIsSavedStatus({isSaved: isSavedStatus});
     }
 
     render(){
@@ -109,18 +113,17 @@ export class HistoryListItem extends Component{
     }
 }
 
-const mapStateToProps = (state)=>{
-    return{
-        visitedVideos: state.videos.visitedVideos,
-        count: state.filters.count,
-        countIds: state.filters.countIds
-    }   
-};
+const mapStateToProps = (state)=>({
+    visitedVideos: state.videos.visitedVideos,
+    count: state.filters.unViewedFavCount,
+    ids: state.filters.unViewedFavIds,
+});
 
 const mapDispatchToProps = (dispatch)=>({
     startSelectVideo: (video)=> dispatch(startSelectVideo(video)),
     startSaveVideo: (video)=> dispatch(startSaveVideo(video)),
-    setFavCount: (favCount) => dispatch(setFavCount(favCount))
+    addFavCount: (favCount) => dispatch(addFavCount(favCount)),
+    removeFavCount: (favCount) => dispatch(removeFavCount(favCount))
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(HistoryListItem);

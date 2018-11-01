@@ -2,7 +2,7 @@ import React, {Component} from "react";
 import {connect} from 'react-redux';
 import moment from "moment";
 import {selectVideo, startSaveVideo} from "../actions/videos";
-import {setFavCount} from '../actions/filters';
+import {removeFavCount} from '../actions/filters';
 
 export class FavoriteListItem extends Component{
 
@@ -11,11 +11,12 @@ export class FavoriteListItem extends Component{
     }
 
     updateCountData = () =>{
-        const count = (this.props.countIds.findIndex(id=> id===this.props.video.id)>-1) ? 
-                        this.props.count - 1 : this.props.count;
-        this.props.setFavCount({
+        const index = this.props.ids.findIndex(idElement=> idElement.videoId===this.props.video.id);
+        const count = (index>-1) ? this.props.count - 1 : this.props.count;
+        this.props.removeFavCount({
             count,
-            countIds: this.props.countIds.filter(id => id !== this.props.video.id)
+            videoIds: this.props.ids.filter(idElement => idElement.videoId !== this.props.video.id),
+            foundDbId: this.props.ids[index].DB_id
         });
     }
 
@@ -58,7 +59,7 @@ export class FavoriteListItem extends Component{
                     <div className="col s6 div-record-3">
                         <span className="title">
                             {video.snippet.title}
-                            {(this.props.countIds.findIndex(id=>id===video.id)>-1) ? <span className="new badge"></span>: <span/>}
+                            {(this.props.ids.findIndex(idElement=>idElement.videoId===video.id)>-1) ? <span className="new badge"></span>: <span/>}
                         </span>
                         <p>{moment(video.snippet.publishedAt).format('DD MMM YYYY')} - {video.statistics.viewCount} views<br />
                             Uploaded by:<a href={`http://www.youtube.com/channel/${video.snippet.channelId}`}> {video.snippet.channelTitle}</a>
@@ -73,17 +74,15 @@ export class FavoriteListItem extends Component{
         )
     }
 }
-const mapStateToProps = (state)=>{
-    return {
-        countIds: state.filters.countIds,
-        count: state.filters.count,
-        visitedVideos: state.videos.visitedVideos
-    }
-}
+const mapStateToProps = (state)=>({
+    count: state.filters.unViewedFavCount,
+    ids: state.filters.unViewedFavIds,
+    visitedVideos: state.videos.visitedVideos
+})
 
 const mapDispatchToProps = (dispatch)=>({
     selectVideo: (video)=> dispatch(selectVideo(video)),
-    setFavCount: (count) => dispatch(setFavCount(count)),
+    removeFavCount: (favCount) => dispatch(removeFavCount(favCount)),
     startSaveVideo: (video) => dispatch(startSaveVideo(video))
 });
 

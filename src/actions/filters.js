@@ -1,4 +1,4 @@
-import { database } from "firebase";
+import database from '../firebase/firebase';
 
 export const setSortBy = (text='') => ({
     type: 'SET_SORT_BY',
@@ -20,17 +20,64 @@ export const setFavCount = (favCount)=>({
     favCount
 })
 
-export const startSetFavCount = (countData={})=>{
+export const addFavCount = (countData={})=>{
     return(dispatch,getState) =>{
-        const uid = getState.auth.uid;
-        const {videoIds, count} = countData;
-        return database.ref(`users/${uid}/unSeenLikes`).push({videoId: videoIds[count-1]}).then((ref)=>{
+        const uid = getState().auth.uid;
+        const {
+            count = 0,
+            videoId = '', 
+            ids =[],
+        } = countData;
+        return database.ref(`users/${uid}/unSeenLikes`).push({videoId}).then((ref)=>{
             dispatch(setFavCount({
-                DB_id: ref.key,
-                ...countData
-            }))
+                count,
+                ids: ids.concat({DB_id: ref.key, videoId})
+            }));
         });
     };
+};
+
+export const removeFavCount = (countData={})=>{
+    return(dispatch, getState) =>{
+        const uid = getState().auth.uid;
+        const {
+            count=0,
+            videoIds=[],
+            foundDbId=''
+        } = countData;
+        return database.ref(`users/${uid}/unSeenLikes/${foundDbId}`).remove().then(()=>{
+            console.log('remove succeeded');
+            dispatch(setFavCount({
+                count,
+                ids: videoIds 
+            }))
+        })
+    }
+}
+
+export const loadFavCount =()=>{
+    return(dispatch, getState)=>{
+        const uid = getState().auth.uid;
+        return database.ref(`users/${uid}/unSeenLikes`)
+                .once('value')
+                .then((snapshot)=>{
+                    const videoIds = [];
+
+                    snapshot.forEach((childSnapshot)=>{
+                        videoIds.push({
+                            DB_id: childSnapshot.key,
+                            ...childSnapshot.val()
+                        });
+                    });
+                    if(videoIds.length){
+                        dispatch(setFavCount({
+                            count: videoIds.length,
+                            ids: videoIds
+                        }));
+                    }
+                })
+
+    }
 };
 
 // SET_START_DATE

@@ -219,19 +219,17 @@ class VideoApp extends Component{
     };
 };
 
-const mapStateToProps = (state)=>{
-    return{
-        nextPageToken: state.videos.nextPageToken,
-        results: state.videos.results,
-        resultDetail: state.videos.resultDetail,
-        reRender: state.videos.reRender,
-        didMount: state.videos.didMount,
-        selectedVideo: state.videos.selectedVideo,
-        sortBy: state.filters.sortBy,
-        uploadDate: state.filters.uploadDate,
-        resultsPerPage: state.filters.resultsPerPage
-    }   
-};
+const mapStateToProps = (state)=>({
+    nextPageToken: state.videos.nextPageToken,
+    results: state.videos.results,
+    resultDetail: state.videos.resultDetail,
+    reRender: state.videos.reRender,
+    didMount: state.videos.didMount,
+    selectedVideo: state.videos.selectedVideo,
+    sortBy: state.filters.sortBy,
+    uploadDate: state.filters.uploadDate,
+    resultsPerPage: state.filters.resultsPerPage
+});  
 
 const mapDispatchToProps = (dispatch)=>({
     setVideos: (videos)=> dispatch(setVideos(videos)),
