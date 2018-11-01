@@ -52,17 +52,17 @@ class VideoDetail extends Component {
         if($(e.target).text() === "star_border"){
             $(e.target).text("star");
             isSavedStatus = true;
-            this.props.setFavCount({
+            this.props.startSetFavCount({
                 count: this.props.count + 1,
-                countIds: this.props.countIds.concat(this.props.video.id)
+                videoIds: this.props.videoIds.concat(this.props.video.id)
             });
         } else{
             $(e.target).text("star_border");
-            const count = (this.props.countIds.findIndex(id=> id===this.props.video.id)>-1) ? 
+            const count = (this.props.videoIds.findIndex(id=> id===this.props.video.id)>-1) ? 
                                 this.props.count - 1 : this.props.count; 
             this.props.setFavCount({
                 count,
-                countIds: this.props.countIds.filter(id => id !== this.props.video.id)
+                videoIds: this.props.videoIds.filter(id => id !== this.props.video.id)
             });
         }
         this.updateIsSavedStatus({isSaved: isSavedStatus})
@@ -116,8 +116,8 @@ class VideoDetail extends Component {
 const mapStateToProps = (state)=>{
     return{
         visitedVideos: state.videos.visitedVideos,
-        count: state.filters.count,
-        countIds: state.filters.countIds,
+        count: state.filters.unViewedFavCount,
+        videoIds: state.filters.unViewedFavIds.videoIds,
         isAuthenticated : !!state.auth.uid
     }   
 };

@@ -1,7 +1,7 @@
 import React, {Component} from 'react';
-import {NavLink} from 'react-router-dom';
+import {NavLink, withRouter} from 'react-router-dom';
 import {connect} from 'react-redux';
-import {history} from '../routers/AppRouter'
+import PropTypes from 'prop-types';
 import {setSearchKey} from '../actions/videos';
 import SearchBar from './SearchBar';
 import HeaderBar from './HeaderBar';
@@ -10,6 +10,10 @@ export class Header extends Component {
 
     state={
         term: ''
+    }
+
+    static propTypes={
+        history: PropTypes.object.isRequired
     }
 
     onSearchChange = (e) =>{
@@ -28,13 +32,9 @@ export class Header extends Component {
         this.setState({term:''});
         //-- In the case when the search is conducted outside of path '/'.  ComponentWillReceiveProps will not
         //-- be initialised in that component with route '/'        
-        if(history.location.pathname !== '/'){
-            history.push('/');
+        if(this.props.history.location.pathname !== '/'){
+            this.props.history.push('/');
         };
-    }
-
-    isActive =(path, match , location) =>{
-        !!(match || path ===location.pathname);
     }
 
     render(){
@@ -55,18 +55,18 @@ export class Header extends Component {
                     <div className="row nav-bar">
                         <div className="col s12">
                             <ul ref="menuTab" className="tabsCustom light">
-                                <li className="col s2 tabCustom">
-                                    <NavLink to="/" activeClassName="active" isActive={this.isActive} exact={true}>
+                                <li className="col s2 tabCustom" onClick={this.addActiveClass}>
+                                    <NavLink to="/" activeClass="active" exact={true}>
                                         <i className="material-icons">featured_video</i>Videos
                                     </NavLink>
                                 </li>
-                                <li className="col s2 tabCustom">
-                                    <NavLink to="/history" activeClassName="active" isActive={this.isActive}>
+                                <li className="col s2 tabCustom" onClick={this.addActiveClass}>
+                                    <NavLink to="/history" activeClass="active" >
                                         <i className="material-icons">history</i>History
                                     </NavLink>
                                 </li>
-                                <li className="col s2 tabCustom">
-                                    <NavLink to="/saved" activeClassName="active" isActive={this.isActive}>
+                                <li className="col s2 tabCustom" onClick={this.addActiveClass}>
+                                    <NavLink to="/saved" activeClass="active" >
                                         <i className="material-icons">star</i><span>Favorites</span>
                                         {(this.props.count) ? 
                                             (<span className="new badge">{this.props.count}</span>) :
@@ -74,9 +74,9 @@ export class Header extends Component {
                                         }
                                     </NavLink>
                                 </li>
-                                <li className="col s2 tabCustom">
-                                    <NavLink to="/blog" activeClassName="active" isActive={this.isActive}>
-                                    <i className="material-icons">note_add</i>Blog
+                                <li className="col s2 tabCustom" onClick={this.addActiveClass}>
+                                    <NavLink to="/blog" activeClass="active" >
+                                        <i className="material-icons">note_add</i>Blog
                                     </NavLink>
                                 </li>
                             </ul>
@@ -98,6 +98,5 @@ const mapDispatchToProps = (dispatch)=>({
     setSearchKey: (text)=> dispatch(setSearchKey(text))
 });
 
-// export default Header;
-// export default withRouter(connect(mapStateToProps, mapDispatchToProps)(Header));
-export default connect(mapStateToProps, mapDispatchToProps)(Header);
+//-- withRouter used to ensure that active class is appended on clicked NavLink
+export default withRouter(connect(mapStateToProps, mapDispatchToProps)(Header));

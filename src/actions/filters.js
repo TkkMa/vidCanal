@@ -1,3 +1,5 @@
+import { database } from "firebase";
+
 export const setSortBy = (text='') => ({
     type: 'SET_SORT_BY',
     text
@@ -17,6 +19,19 @@ export const setFavCount = (favCount)=>({
     type: 'SET_FAV_COUNT',
     favCount
 })
+
+export const startSetFavCount = (countData={})=>{
+    return(dispatch,getState) =>{
+        const uid = getState.auth.uid;
+        const {videoIds, count} = countData;
+        return database.ref(`users/${uid}/unSeenLikes`).push({videoId: videoIds[count-1]}).then((ref)=>{
+            dispatch(setFavCount({
+                DB_id: ref.key,
+                ...countData
+            }))
+        });
+    };
+};
 
 // SET_START_DATE
 export const setStartDate = (startDate) => ({

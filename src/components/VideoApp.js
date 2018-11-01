@@ -200,7 +200,7 @@ class VideoApp extends Component{
                             <p>{error}</p>
                         </div>
                     ) : (
-                        <div className="row">
+                        <div className="VA-1 row">
                             <VideoDetail video={selectedVideo}/>
                             <VideoList
                                 pageActive={pageActive}

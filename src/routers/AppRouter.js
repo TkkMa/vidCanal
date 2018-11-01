@@ -19,7 +19,7 @@ class AppRouter extends Component {
             <Router history={history}>
                 <div>
                     <Header />
-                    <div className="container">    
+                    <div className="container"> 
                         <Switch>
                             <Route path="/" render={(props)=><VideoApp searchKey={this.props.searchKey} {...props} />} exact={true}/>
                             <PrivateRoute path="/history" component={History}/>
