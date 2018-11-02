@@ -63,7 +63,7 @@ export class HistoryListFilters extends Component{
             <div>
                 <nav className='HLF-1'>
                     <div className="nav-wrapper row">
-                        <div className="col s5">
+                        <div className="col s12 m8 l6 xl5">
                             <DateRangePicker
                                 startDate={this.props.filters.startDate} // momentPropTypes.momentObj or null,
                                 startDateId="your_unique_start_date_id" // PropTypes.string.isRequired,
@@ -78,7 +78,7 @@ export class HistoryListFilters extends Component{
                                 displayFormat={()=> "DD/MM/YYYY"}
                             />
                         </div>
-                        <div className="col s2">
+                        <div className="col s4 m4 l2 xl2">
                             <div className="switch">
                                 <label>
                                 <input 
@@ -91,7 +91,7 @@ export class HistoryListFilters extends Component{
                                 </label>
                             </div>
                         </div>
-                        <div className="col s4">
+                        <div className="col s7 m11 l3 xl4">
                             <form id="historyForm" onSubmit={this.submitHandler} className="right">
                                 <div id="historySearchBar" className="right input-field">
                                     <input 
@@ -105,7 +105,7 @@ export class HistoryListFilters extends Component{
                                 </div>
                             </form>
                         </div>
-                        <div className="col s1">
+                        <div className="col s1 m1 l1 xl1">
                             <i className="material-icons" onClick={this.handleOpenModal}>delete_forever</i>
                         </div>
                     </div>

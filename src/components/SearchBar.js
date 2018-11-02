@@ -9,9 +9,9 @@ export class SearchBar extends Component {
     render(){
         const {onChange, value, onSubmit} = this.props;
         return(
-            <div className="row search-bar-row">
+            <div className="row SB-1">
                 <form onSubmit={onSubmit} className="col s12">
-                    <div className="input-field col s5 offset-s3 search-bar">
+                    <div className="input-field col s10 m6 offset-m3 search-bar">
                         <input
                         type='text' 
                         value={value}
@@ -20,8 +20,8 @@ export class SearchBar extends Component {
                         ref={el => this.input= el}
                         />                                     
                     </div>
-                    <div className="col s1">
-                        <button className="btn waves-effect waves-light btn-small" type="submit" name="action">
+                    <div className="input-field col s2 m1">
+                        <button className="btn waves-effect waves-light btn-small right" type="submit" name="action">
                             <i className="material-icons">search</i>
                         </button>                
                     </div>

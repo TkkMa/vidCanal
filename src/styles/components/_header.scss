@@ -89,6 +89,12 @@
         color: rgba($tabs-text-color, .4);
         cursor: default;
       }
+      span{
+        display: none;
+        @media screen and (min-width: $small-screen-up){
+          display: inline;
+        }
+      }
     }
     .indicator {
       position: absolute;

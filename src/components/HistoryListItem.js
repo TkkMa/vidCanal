@@ -84,26 +84,30 @@ export class HistoryListItem extends Component{
                     </div>
                 </li>
             ) : (
-                <li className="HLI-1 collection-item avatar" onClick={()=>this.onVideoSelect()}>
+                <li className="collection-item avatar HLI-1 " onClick={()=>this.onVideoSelect()}>
                     <div className="row">
-                        <div className="col s2 div-record-1">
-                            <span className="span-search-text">Search term: </span>
-                                {video.searchKey}
-                            <span className="span-search-text">Last Visited Time:</span>
-                            <span>{moment(video.viewedAt).local().format('ddd, MMM D YYYY')}</span>
-                            <span>{moment(video.viewedAt).local().format('h:mm:ss a')}</span>                    
+                        <div className="col s12 m12 l3 xl2 div-record-1">
+                            <div>
+                                <span className="span-search-text">Search term: </span>
+                                    {video.searchKey}
+                            </div>
+                            <div>
+                                <span className="span-search-text">Last Visited Time:</span>
+                                <span> {moment(video.viewedAt).local().format('ddd, MMM D YYYY')}</span>
+                                <span> {moment(video.viewedAt).local().format('h:mm:ss a')}</span>                    
+                            </div>
                         </div>
-                        <div className="col s3 div-record-2">
+                        <div className="col s12 m3 l3 xl3 div-record-2">
                             <img src={imageUrl} className="responsive-img"/>
                         </div>
-                        <div className="col s6 div-record-3">
+                        <div className="col s11 m8 l5 xl6 div-record-3">
                             <span className="title">{video.snippet.title}</span>
                             <p>{moment(video.snippet.publishedAt).format('DD MMM YYYY')} - {video.statistics.viewCount} views<br />
                                 Uploaded by:<a href={`http://www.youtube.com/channel/${video.snippet.channelId}`}> {video.snippet.channelTitle}</a>
                             </p>
                             <p>{video.snippet.description.substring(0,200)}...</p>                    
                         </div>
-                        <div className="col s1 div-record-4">
+                        <div className="col s1 m1 l1 xl1 div-record-4">
                             <i className="material-icons" onClick={this.onVideoSave}>{(video.isSaved)?'star' : 'star_border'}</i> 
                         </div>
                     </div>

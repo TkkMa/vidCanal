@@ -57,17 +57,17 @@ export class Header extends Component {
                             <ul ref="menuTab" className="tabsCustom light">
                                 <li className="col s2 tabCustom" onClick={this.addActiveClass}>
                                     <NavLink to="/" activeClass="active" exact={true}>
-                                        <i className="material-icons">featured_video</i>Videos
+                                        <i className="material-icons">featured_video</i><span>Videos</span>
                                     </NavLink>
                                 </li>
                                 <li className="col s2 tabCustom" onClick={this.addActiveClass}>
                                     <NavLink to="/history" activeClass="active" >
-                                        <i className="material-icons">history</i>History
+                                        <i className="material-icons">history</i><span>History</span>
                                     </NavLink>
                                 </li>
                                 <li className="col s2 tabCustom" onClick={this.addActiveClass}>
                                     <NavLink to="/saved" activeClass="active" >
-                                        <i className="material-icons">star</i><span>Favorites</span>
+                                        <i className="material-icons">star</i><span>Faves</span>
                                         {(this.props.count) ? 
                                             (<span className="new badge">{this.props.count}</span>) :
                                             ('')
@@ -76,7 +76,7 @@ export class Header extends Component {
                                 </li>
                                 <li className="col s2 tabCustom" onClick={this.addActiveClass}>
                                     <NavLink to="/blog" activeClass="active" >
-                                        <i className="material-icons">note_add</i>Blog
+                                        <i className="material-icons">note_add</i><span>Blog</span>
                                     </NavLink>
                                 </li>
                             </ul>

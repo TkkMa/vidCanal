@@ -17,13 +17,13 @@ class VideoDetail extends Component {
                 dbIds.push(video.DB_id);
             }
             return video;
-        })
+        });
         //-- after the following dispatch, componentDidUpdate lifecycle method is called
         this.props.startSaveVideo({
             isSaved: result.isSaved,
             updatedVideos,
             dbIds
-        })
+        });
     }
 
     componentDidUpdate(prevProps){
@@ -32,7 +32,6 @@ class VideoDetail extends Component {
         $("iframe").removeAttr('src').attr('src', url);
         if(this.props.video.id !== prevProps.video.id){
             console.log('Inside loop of different props');
-
 
             //-- Find isSaved state of the most recent re-visited video
             const prevVid = this.props.visitedVideos
@@ -80,18 +79,18 @@ class VideoDetail extends Component {
         return (
             (!video) ? (<div>Loading...</div>) :
             (
-                <div className="col s12 m8">
+                <div className="col s12 m12 l7">
                     <div className="video-container">
                         <iframe width="853" height="480" frameBorder="0" allowFullScreen="allowFullScreen" />
                     </div>
                     <div className="VD-1 card-panel grey lighten-5">
                         <div className="row valign-wrapper">
-                            <div className="col s10">
+                            <div className="col s9">
                                 <div className="pubDate">Published on: {moment(video.snippet.publishedAt).format('DD MMM YYYY')} by  
                                     <a href={`http://www.youtube.com/channel/${video.snippet.channelId}`}> {video.snippet.channelTitle}</a>
                                 </div>
                             </div>
-                            <div className="col s1">
+                            <div className="col s2">
                                 <div className="views">{video.statistics.viewCount} views</div> 
                             </div>
                             <div className="col s1">

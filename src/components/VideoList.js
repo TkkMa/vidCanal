@@ -21,13 +21,19 @@ export class VideoList extends Component{
             const startIndex = (pageActive-1)*numResults;
             const endIndex = Math.min(pageActive*numResults, results[searchKey].hits.length);
             return(
-                <div className="col s12 m4">
+                <div className="VL-1 col s12 m12 l5">
                     <div class="row">
                         <ul className="list-nav">
                             <li onClick={this.onChangePage} className={(pageActive===1) ? "btn-flat disabled btn-small col m2" : "waves-effect waves-light btn-flat btn-small col m2"}><i className="material-icons">first_page</i></li>
-                            <li onClick={this.onChangePage} className={(pageActive===1) ? "btn-flat disabled btn-small col m4" : "waves-effect waves-light btn-flat btn-small col m4"}><i className="material-icons left">chevron_left</i>Prev</li>
-                            <li onClick={this.onChangePage} className={(pageToken==='' || lastPageReached)? "btn-flat disabled btn-small col m4" : "waves-effect waves-light btn-flat btn-small col m4"}><i className="material-icons right">chevron_right</i>Next</li>
-                            <li onClick={this.onChangePage} className={(!lastPageFound || lastPageReached)? "btn-flat disabled btn-small col m2" : "waves-effect waves-light btn-flat btn-small col m2"}><i className="material-icons">last_page</i></li>
+                            <li onClick={this.onChangePage} className={(pageActive===1) ? "btn-flat disabled btn-small col m4" : "waves-effect waves-light btn-flat btn-small col m4"}>
+                                <i className="material-icons left">chevron_left</i><span>Prev</span>
+                            </li>
+                            <li onClick={this.onChangePage} className={(pageToken==='' || lastPageReached)? "btn-flat disabled btn-small col m4" : "waves-effect waves-light btn-flat btn-small col m4"}>
+                                <i className="material-icons right">chevron_right</i><span>Next</span>
+                            </li>
+                            <li onClick={this.onChangePage} className={(!lastPageFound || lastPageReached)? "btn-flat disabled btn-small col m2" : "waves-effect waves-light btn-flat btn-small col m2"}>
+                                <i className="material-icons">last_page</i>
+                            </li>
                         </ul>
                     </div>
                     <ul className="collection">

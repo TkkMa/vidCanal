@@ -60,7 +60,7 @@ class FavoriteListFilters extends Component{
                 </ul>
                 <nav className="FLF-1">
                     <div className="nav-wrapper row">
-                        <div className="col s3 m2 right" >
+                        <div className="col s5 m4 l3 xl2 right">
                             <a class="dropdown-trigger" href="#!" data-target="dropdown1"><i class="material-icons left">edit</i>Actions<i class="material-icons right">arrow_drop_down</i></a>
                         </div>
                         <div className="col s1 m1 right">

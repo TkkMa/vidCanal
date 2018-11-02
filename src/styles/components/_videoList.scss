@@ -1,7 +1,17 @@
-.btn-small i, .btn-flat i.material-icons {
+.VL-1 .btn-small i, .btn-flat i.material-icons {
     font-size: $m-size;
 }
 
-.list-nav {
+.VL-1 .list-nav {
     margin: 0;
+}
+
+.VL-1 .list-nav i span{
+    display: inline;
+    @media screen and (min-width: $small-screen-up) {
+        display: none;
+    }
+    @media screen and (min-width: $medium-screen-up) {
+        display: inline;
+    }
 }

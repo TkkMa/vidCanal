@@ -1,15 +1,11 @@
-.search-bar-row{
-    margin:0 !important;
-}
-.search-bar-row .search-bar{
-    margin-top: $m-size;
-    padding-right: 0;
+.SB-1 form{
+    padding: 0;
 }
 
-.search-bar-row button{
-    margin-top: $s-size;
+.SB_1 .search-bar{
+    padding: 0;
 }
 
-.search-bar-row .btn>i{
-    font-size: $m-size;
+.SB-1 form div:last-child{
+    padding-right: 0
 }
