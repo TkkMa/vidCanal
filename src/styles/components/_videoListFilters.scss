@@ -40,26 +40,35 @@
 
 // -- checkbox positioning
 .VLF-1 .input-field:nth-of-type(4) img{
-    background-image: url("/images/yt_icon_mono_dark.png");
     position:relative;
     left: 3rem;
     top: 0.8rem;
 }
 
 .VLF-1 .input-field:nth-of-type(5) img{
-    background-image: url("/images/vimeo_icon_white.png");
     position:relative;
     left: 3rem;
     top: 1rem;
 }
 
 .VLF-1 .input-field:nth-of-type(6) img{
-    background-image: url("/images/d_dailymotion.jpg");
     position:relative;
     left: 3rem;
     top: 0.8rem;
 }
 
+.VLF-1 img.responsive-img{
+    max-width: 30%;
+    @media screen and (min-width: $small-screen-up){
+        max-width: 30%;
+    }
+    @media screen and (min-width: $medium-screen-up){
+        max-width: 60%;
+    }
+    @media screen and (min-width: $large-screen-up){
+        max-width: 45%;
+    }
+}
 // .VLF-1 .input-field .chk-label span{
 //     padding-left: 2.5rem;
 //     color:grey;

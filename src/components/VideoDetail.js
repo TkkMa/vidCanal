@@ -79,7 +79,7 @@ class VideoDetail extends Component {
         return (
             (!video) ? (<div>Loading...</div>) :
             (
-                <div className="col s12 m12 l7">
+                <div className="col s12 m12 l7 xl8">
                     <div className="video-container">
                         <iframe width="853" height="480" frameBorder="0" allowFullScreen="allowFullScreen" />
                     </div>

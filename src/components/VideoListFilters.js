@@ -38,7 +38,7 @@ export class VideoListFilters extends Component {
         return(
             <nav>
                 <div className="VLF-1 nav-wrapper row">
-                    <div className="input-field col s4 m2">
+                    <div className="input-field col s4 m4 l2 xl2">
                         <select ref="sortbyDropdown" value={sortBy} onChange = {this.onSortChange}>
                             <option value="relevance">Relevance</option>
                             <option value="viewCount">Popularity</option>
@@ -47,7 +47,7 @@ export class VideoListFilters extends Component {
                         </select>
                         <label>Sort by</label>
                     </div>
-                    <div className="input-field col s4 m2">
+                    <div className="input-field col s4 m4 l2 xl2">
                         <select ref="timeDropdown" value={uploadDate} onChange={this.onDateChange}>
                             <option value="today">Today</option>
                             <option value="week">This week</option>
@@ -58,7 +58,7 @@ export class VideoListFilters extends Component {
                         </select>
                         <label>Upload date</label>
                     </div>
-                    <div className="input-field col s4 m3">
+                    <div className="input-field col s4 m4 l3 xl3">
                         <p className="range-field">
                                 <input 
                                     value={resultsPerPage}
@@ -70,26 +70,26 @@ export class VideoListFilters extends Component {
                         </p>
                         <label>Hits Per Page ({resultsPerPage}/50)</label>
                     </div>
-                    <div className="input-field col s3 m1 offset-m1">
+                    <div className="input-field col s3 m2 l1 offset-l1 xl1 offset-xl2">
                         <label className="chk-label">
                             <input type="checkbox" />
                             <span></span>
                         </label>
-                        <img className="responsive-img" />
+                        <img className="responsive-img" src="/images/yt_icon_mono_light.png"/>
                     </div>
-                    <div className="input-field col s3 m1">
+                    <div className="input-field col s3 m2 l1 xl1">
                         <label className="chk-label">
                             <input type="checkbox" />
                             <span></span>
                         </label>
-                        <img className="responsive-img" />
+                        <img className="responsive-img" src="/images/vimeo_icon_dark.png"/>
                     </div>
-                    <div className="input-field col s3 m1">
+                    <div className="input-field col s3 m2 l1 xl1">
                         <label className="chk-label">
                             <input type="checkbox" />
                             <span></span>
                         </label>
-                        <img className="responsive-img" />
+                        <img className="responsive-img" src="/images/d_dailymotion.jpg"/>
                     </div>
                 </div>
             </nav>
