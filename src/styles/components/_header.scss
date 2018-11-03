@@ -89,7 +89,7 @@
         color: rgba($tabs-text-color, .4);
         cursor: default;
       }
-      span{
+      span:first-of-type{
         display: none;
         @media screen and (min-width: $small-screen-up){
           display: inline;
@@ -123,6 +123,9 @@
   top: 1rem;
 }
 
+.tabsCustom li:nth-of-type(3) span.badge{
+  margin-left: 0.7rem
+}
   // Fixed Sidenav hide on smaller
   @media #{$medium-and-down} {
     .tabsCustom {

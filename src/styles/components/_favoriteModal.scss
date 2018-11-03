@@ -20,10 +20,23 @@
 .modal-1 {
   background: color("grey", "lighten-3");
   color: color("materialize-red", "lighten-2");
-  min-width: 80rem;
+  height: auto;
   outline: none;
   padding: 0;
   text-align: left;
+  width: 90vw;
+  font-size: $s-size;
+  @media screen and (min-width: $small-screen-up){
+    width: 75vw;
+    font-size: 1.4rem;
+  };
+  @media screen and (min-width: $medium-screen-up){
+    width: 60vw;
+    font-size: $m-size;
+  };
+  @media screen and (min-width: $large-screen-up){
+    width: 50vw;
+  };
 }
 
 .modal-1 .modal_caption{
@@ -37,5 +50,4 @@
 
 .modal-1 .modal_caption > div {
   text-transform: uppercase;
-  font-size: $s-size;
 }

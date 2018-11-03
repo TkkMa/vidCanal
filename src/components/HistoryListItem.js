@@ -89,7 +89,7 @@ export class HistoryListItem extends Component{
                         <div className="col s12 m12 l3 xl2 div-record-1">
                             <div>
                                 <span className="span-search-text">Search term: </span>
-                                    {video.searchKey}
+                                <span> {video.searchKey}</span>
                             </div>
                             <div>
                                 <span className="span-search-text">Last Visited Time:</span>

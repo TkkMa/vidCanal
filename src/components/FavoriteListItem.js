@@ -12,18 +12,19 @@ export class FavoriteListItem extends Component{
 
     updateCountData = () =>{
         const index = this.props.ids.findIndex(idElement=> idElement.videoId===this.props.video.id);
-        const count = (index>-1) ? this.props.count - 1 : this.props.count;
-        this.props.removeFavCount({
-            count,
-            videoIds: this.props.ids.filter(idElement => idElement.videoId !== this.props.video.id),
-            foundDbId: this.props.ids[index].DB_id
-        });
-    }
+        if(index>-1){
+            this.props.removeFavCount({
+                count: this.props.count - 1,
+                videoIds: this.props.ids.filter(idElement => idElement.videoId !== this.props.video.id),
+                foundDbId: this.props.ids[index].DB_id
+            });            
+        };
+    };
 
     handleOpenModal = () =>{
         this.updateCountData();
         this.props.handleOpenModal(this.props.video)
-    }
+    };
 
     clearItem =(e)=>{
         e.stopPropagation();
@@ -33,12 +34,12 @@ export class FavoriteListItem extends Component{
                 return {...video, isSaved:false}
             }
             return {...video};
-        })
+        });
         this.props.startSaveVideo({
             updatedVideos,
             dbIds: [this.props.video.DB_id]
-        })
-    }
+        });
+    };
 
     render(){
         const {video} = this.props;
@@ -49,7 +50,7 @@ export class FavoriteListItem extends Component{
                     <div className="col s12 m12 l3 xl2 div-record-1">
                         <div>
                             <span className="span-search-text">Search term: </span>
-                                {video.searchKey}
+                            <span> {video.searchKey}</span>
                         </div>
                         <div>
                             <span className="span-search-text">Last Visited Time:</span>
