@@ -11,8 +11,8 @@ test('should setup default filter values', ()=>{
         text: '',
         resultsPerPage: 10,
         isSaved: false,
-        count: 0,
-        countIds:[]       
+        unViewedFavCount: 0,
+        unViewedFavIds:[]
     })
 });
 
@@ -49,15 +49,15 @@ test('should set results per page', ()=>{
 test('should set favorite count',()=>{
     const favCount={
         count: 2,
-        countIds: [1,2,5]
+        ids: [1,2,5]
     };
     const action={
         type: 'SET_FAV_COUNT',
         favCount
     };
     const state = filtersReducer(undefined, action);
-    expect(state.count).toBe(2);
-    expect(state.countIds).toEqual([1,2,5]);
+    expect(state.unViewedFavCount).toBe(2);
+    expect(state.unViewedFavIds).toEqual([1,2,5]);
 });
 
 test('should set startDate filter', ()=>{

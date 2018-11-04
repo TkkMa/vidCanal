@@ -2,12 +2,13 @@
 @import './base/settings';
 @import './base/base';
 @import './base/nouislider';
+@import './components/swiper';
+@import './components/deletionModal';
 @import './components/favoriteListFilters';
 @import './components/favoriteModal';
 @import './components/header';
 @import './components/headerBar';
 @import './components/historyListFilters';
-@import './components/historyListFiltersModal';
 @import './components/listItems';
 @import './components/searchBar';
 @import './components/videoApp';

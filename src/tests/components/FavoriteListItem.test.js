@@ -6,22 +6,22 @@ import sortUniqueVids from '../../selectors/favorites';
 
 test('should render Favorite video list item without new badge', ()=>{
     const uniqVids = sortUniqueVids(videos);
-    const countIds = [];
+    const ids = [];
     const wrapper = shallow(<FavoriteListItem 
                                 key={uniqVids[0].id+1}
                                 video={uniqVids[0]}
-                                countIds={countIds}
+                                ids={ids}
                             />);
     expect(wrapper).toMatchSnapshot();
 })
 
 test('should render Favorite video list item with ONE new badge', ()=>{
     const uniqVids = sortUniqueVids(videos);
-    const countIds = [uniqVids[0].id];
+    const ids = [{DB_id: uniqVids[0].DB_id, videoId: uniqVids[0].id }];
     const wrapper = shallow(<FavoriteListItem 
                                 key={uniqVids[0].id+1}
                                 video={uniqVids[0]}
-                                countIds={countIds}
+                                ids={ids}
                             />);
     expect(wrapper).toMatchSnapshot();
 })

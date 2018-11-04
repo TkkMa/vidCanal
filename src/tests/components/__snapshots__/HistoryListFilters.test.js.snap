@@ -9,7 +9,7 @@ exports[`should render history list filter bar correctly 1`] = `
       className="nav-wrapper row"
     >
       <div
-        className="col s5"
+        className="col s12 m8 l6 xl5"
       >
         <withStyles(DateRangePicker)
           anchorDirection="left"
@@ -108,7 +108,7 @@ exports[`should render history list filter bar correctly 1`] = `
         />
       </div>
       <div
-        className="col s2"
+        className="col s4 m4 l2 xl2"
       >
         <div
           className="switch"
@@ -127,7 +127,7 @@ exports[`should render history list filter bar correctly 1`] = `
         </div>
       </div>
       <div
-        className="col s4"
+        className="col s7 m11 l3 xl4"
       >
         <form
           className="right"
@@ -166,7 +166,7 @@ exports[`should render history list filter bar correctly 1`] = `
         </form>
       </div>
       <div
-        className="col s1"
+        className="col s1 m1 l1 xl1"
       >
         <i
           className="material-icons"

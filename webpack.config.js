@@ -58,7 +58,8 @@ module.exports = (env) =>{
         $: "jquery",
         jQuery: "jquery",
         "window.jQuery": "jquery",
-        "window.$": "jquery"
+        "window.$": "jquery",
+        swiper: "swiper"
       }),
       new webpack.DefinePlugin({
         'process.env.FIREBASE_API_KEY': JSON.stringify(process.env.FIREBASE_API_KEY),

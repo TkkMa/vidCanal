@@ -7,35 +7,46 @@ import videoHistory from '../selectors/videos';
 export const HistoryList = (props) => {
     const filteredVids = props.displayVideos;
     console.log('Begin History List');
-    return (
-        <div className="row">
-        {
-            (filteredVids.length === 0) ? (
-                 <p>No videos in video history under selected filters</p>
-             ):(
-                 <div className="col s12">
-                    <ul className="collection">
-                        {
-                            filteredVids.map((video, index) =>(
-                                <HistoryListItem 
-                                    {...props} 
-                                    key={video.id+index} 
-                                    video={video}
-                                    resultDetail={props.resultDetail}
-                                />
-                            ))
-                        }
-                    </ul>
-                </div>
-            )
-        }
-        </div>
-    )
+    if(filteredVids.length===0) {
+        return(
+            <p>No videos in video history under selected filters</p>
+        )
+    } else{
+        return (
+            <div className="row">
+            {
+                (isSearchByKey) ? (
+                    <div className="swiper-container">
+                        <div className="swiper-wrapper">
+
+                        </div> 
+                    </div>
+                ):
+                    (
+                        <div className="col s12">
+                            <ul className="collection">
+                                {
+                                    filteredVids.map((video, index) =>(
+                                        <HistoryListItem 
+                                            {...props} 
+                                            key={video.id+index} 
+                                            video={video}
+                                            resultDetail={props.resultDetail}
+                                        />
+                                    ))
+                                }
+                            </ul>
+                        </div>
+                    )
+            }
+            </div>
+        )
 }
 
 const mapStateToProps = (state) => ({
     displayVideos: videoHistory(state.videos.visitedVideos, state.filters),
-    resultDetail: state.videos.resultDetail
+    resultDetail: state.videos.resultDetail,
+    isSearchByKey: state.filters.isSearchByKey
 });
   
 export default connect(mapStateToProps)(HistoryList);

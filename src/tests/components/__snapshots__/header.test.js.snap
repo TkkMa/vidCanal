@@ -2,88 +2,111 @@
 
 exports[`should render Header correctly 1`] = `
 <div>
-  <Connect(SearchBar)
-    onChange={[Function]}
-    onSubmit={[Function]}
-    value=""
-  />
   <div
-    className="row nav-bar"
+    className="page-header"
   >
     <div
-      className="col s12"
+      className="container"
     >
-      <ul
-        className="tabsCustom light"
+      <Connect(HeaderBar) />
+    </div>
+  </div>
+  <div
+    className="container"
+  >
+    <SearchBar
+      onChange={[Function]}
+      onSubmit={[Function]}
+      value=""
+    />
+    <div
+      className="row nav-bar"
+    >
+      <div
+        className="col s12"
       >
-        <li
-          className="col s2 tabCustom"
+        <ul
+          className="tabsCustom light"
         >
-          <NavLink
-            activeClassName="active"
-            aria-current="page"
-            exact={true}
-            to="/"
+          <li
+            className="col s2 tabCustom"
           >
-            <i
-              className="material-icons"
+            <NavLink
+              activeClass="active"
+              activeClassName="active"
+              aria-current="page"
+              exact={true}
+              to="/"
             >
-              featured_video
-            </i>
-            Videos
-          </NavLink>
-        </li>
-        <li
-          className="col s2 tabCustom"
-        >
-          <NavLink
-            activeClassName="active"
-            aria-current="page"
-            to="/history"
+              <i
+                className="material-icons"
+              >
+                featured_video
+              </i>
+              <span>
+                Videos
+              </span>
+            </NavLink>
+          </li>
+          <li
+            className="col s2 tabCustom"
           >
-            <i
-              className="material-icons"
+            <NavLink
+              activeClass="active"
+              activeClassName="active"
+              aria-current="page"
+              to="/history"
             >
-              history
-            </i>
-            History
-          </NavLink>
-        </li>
-        <li
-          className="col s2 tabCustom"
-        >
-          <NavLink
-            activeClassName="active"
-            aria-current="page"
-            to="/saved"
+              <i
+                className="material-icons"
+              >
+                history
+              </i>
+              <span>
+                History
+              </span>
+            </NavLink>
+          </li>
+          <li
+            className="col s2 tabCustom"
           >
-            <i
-              className="material-icons"
+            <NavLink
+              activeClass="active"
+              activeClassName="active"
+              aria-current="page"
+              to="/saved"
             >
-              star
-            </i>
-            <span>
-              Favorites
-            </span>
-          </NavLink>
-        </li>
-        <li
-          className="col s2 tabCustom"
-        >
-          <NavLink
-            activeClassName="active"
-            aria-current="page"
-            to="/blog"
+              <i
+                className="material-icons"
+              >
+                star
+              </i>
+              <span>
+                Faves
+              </span>
+            </NavLink>
+          </li>
+          <li
+            className="col s2 tabCustom"
           >
-            <i
-              className="material-icons"
+            <NavLink
+              activeClass="active"
+              activeClassName="active"
+              aria-current="page"
+              to="/blog"
             >
-              note_add
-            </i>
-            Blog
-          </NavLink>
-        </li>
-      </ul>
+              <i
+                className="material-icons"
+              >
+                note_add
+              </i>
+              <span>
+                Blog
+              </span>
+            </NavLink>
+          </li>
+        </ul>
+      </div>
     </div>
   </div>
 </div>

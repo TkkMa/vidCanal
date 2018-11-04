@@ -13,6 +13,7 @@ export class HistoryListFilters extends Component{
     state={
         calendarFocused: null,
         checked: false,
+        checkedSearchKey: false,
         showModal: false,
         message: 'video history'
     }
@@ -33,6 +34,11 @@ export class HistoryListFilters extends Component{
     onSwitchChange = ()=>{
         this.props.toggleIsSavedFilter(!this.state.checked);
         this.setState(prevState => ({checked: !prevState.checked}));
+    }
+
+    onSearchKeySwitchChange = ()=>{
+        this.props.toggleSearchKeyFilter(!this.state.checkedSearchKey);
+        this.setState(prevState => ({checkedSearchKey: !prevState.checkedSearchKey}));
     }
 
     submitHandler= (e)=>{
@@ -63,7 +69,7 @@ export class HistoryListFilters extends Component{
             <div>
                 <nav className='HLF-1'>
                     <div className="nav-wrapper row">
-                        <div className="col s12 m8 l6 xl5">
+                        <div className="col s12 m8 l6 xl3">
                             <DateRangePicker
                                 startDate={this.props.filters.startDate} // momentPropTypes.momentObj or null,
                                 startDateId="your_unique_start_date_id" // PropTypes.string.isRequired,
@@ -88,6 +94,19 @@ export class HistoryListFilters extends Component{
                                 />
                                 <span className="lever"></span>
                                     Liked
+                                </label>
+                            </div>
+                        </div>
+                        <div className="col s4 m4 l2 xl2">
+                            <div className="switch">
+                                <label>
+                                <input 
+                                    onChange={this.onSearchKeySwitchChange} 
+                                    defaultChecked={this.state.checkedSearchKey}
+                                    type="checkbox" 
+                                />
+                                <span className="lever"></span>
+                                    Search Key
                                 </label>
                             </div>
                         </div>
@@ -130,6 +149,7 @@ const mapDispatchToProps = (dispatch)=>({
     setEndDate: (endDate)=> dispatch(setEndDate(endDate)),
     setTextFilter: (text) => dispatch(setTextFilter(text)),
     toggleIsSavedFilter: (isSaved)=> dispatch(toggleIsSavedFilter(isSaved)),
+    toggleSearchKeyFilter: (isSearchByKey)=> dispatch(toggleIsSavedFilter(isSearchByKey)),
     startClearVideoHistory: ()=> dispatch(startClearVideoHistory())
 })
 

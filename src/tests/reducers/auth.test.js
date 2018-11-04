@@ -3,10 +3,16 @@ import authReducer from '../../reducers/auth';
 test('should set uid for login', ()=>{
     const action = {
         type: 'LOGIN',
-        uid: 'abc123'
+        userProf:{
+            uid: 'abc123',
+            name: 'Tim',
+            photo: 'http://localhost/photo.png',
+            email: 'tim@gmail.com'
+        }
+
     }
     const state = authReducer({}, action);
-    expect(state.uid).toBe(action.uid);
+    expect(state.uid).toBe(action.userProf.uid);
 });
 
 test('should clear uid for logout', ()=>{

@@ -5,7 +5,6 @@ import moment from 'moment';
 const FavoriteModal = (props) => {
   const {handleCloseModal, showModal, video} = props;
   const url = `https://www.youtube.com/embed/${video.id}`;
-  console.log(video);
   
   return(
     (!Object.keys(video).length) ? 

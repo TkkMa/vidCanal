@@ -9,28 +9,37 @@ exports[`should render Favorite video list item with ONE new badge 1`] = `
     className="row"
   >
     <div
-      className="col s2 div-record-1"
+      className="col s12 m12 l3 xl2 div-record-1"
     >
-      <span
-        className="span-search-text"
-      >
-        Search term: 
-      </span>
-      london tourism
-      <span
-        className="span-search-text"
-      >
-        Last Visited Time:
-      </span>
-      <span>
-        Tue, Jan 6 1970
-      </span>
-      <span>
-        8:00:00 am
-      </span>
+      <div>
+        <span
+          className="span-search-text"
+        >
+          Search term: 
+        </span>
+        <span>
+           
+          london tourism
+        </span>
+      </div>
+      <div>
+        <span
+          className="span-search-text"
+        >
+          Last Visited Time:
+        </span>
+        <span>
+           
+          Tue, Jan 6 1970
+        </span>
+        <span>
+           
+          8:00:00 am
+        </span>
+      </div>
     </div>
     <div
-      className="col s3 div-record-2"
+      className="col s12 m3 l3 xl3 div-record-2"
     >
       <img
         className="responsive-img"
@@ -38,7 +47,7 @@ exports[`should render Favorite video list item with ONE new badge 1`] = `
       />
     </div>
     <div
-      className="col s6 div-record-3"
+      className="col s11 m8 l5 xl6 div-record-3"
     >
       <span
         className="title"
@@ -70,7 +79,7 @@ A trip to London might as well be a trip through history. This city has long bee
       </p>
     </div>
     <div
-      className="col s1 div-record-4"
+      className="col s1 m1 l1 xl1 div-record-4"
     >
       <i
         className="material-icons right"
@@ -92,28 +101,37 @@ exports[`should render Favorite video list item without new badge 1`] = `
     className="row"
   >
     <div
-      className="col s2 div-record-1"
+      className="col s12 m12 l3 xl2 div-record-1"
     >
-      <span
-        className="span-search-text"
-      >
-        Search term: 
-      </span>
-      london tourism
-      <span
-        className="span-search-text"
-      >
-        Last Visited Time:
-      </span>
-      <span>
-        Tue, Jan 6 1970
-      </span>
-      <span>
-        8:00:00 am
-      </span>
+      <div>
+        <span
+          className="span-search-text"
+        >
+          Search term: 
+        </span>
+        <span>
+           
+          london tourism
+        </span>
+      </div>
+      <div>
+        <span
+          className="span-search-text"
+        >
+          Last Visited Time:
+        </span>
+        <span>
+           
+          Tue, Jan 6 1970
+        </span>
+        <span>
+           
+          8:00:00 am
+        </span>
+      </div>
     </div>
     <div
-      className="col s3 div-record-2"
+      className="col s12 m3 l3 xl3 div-record-2"
     >
       <img
         className="responsive-img"
@@ -121,7 +139,7 @@ exports[`should render Favorite video list item without new badge 1`] = `
       />
     </div>
     <div
-      className="col s6 div-record-3"
+      className="col s11 m8 l5 xl6 div-record-3"
     >
       <span
         className="title"
@@ -151,7 +169,7 @@ A trip to London might as well be a trip through history. This city has long bee
       </p>
     </div>
     <div
-      className="col s1 div-record-4"
+      className="col s1 m1 l1 xl1 div-record-4"
     >
       <i
         className="material-icons right"

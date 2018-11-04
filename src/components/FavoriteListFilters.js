@@ -2,7 +2,7 @@ import React, {Component} from 'react';
 import {connect} from 'react-redux';
 import favorites from '../selectors/favorites';
 import {startSaveVideo} from '../actions/videos';
-import {setFavCount} from '../actions/filters';
+import {clearFavCount} from '../actions/filters';
 import DeletionModal from './DeletionModal';
 
 class FavoriteListFilters extends Component{
@@ -10,19 +10,19 @@ class FavoriteListFilters extends Component{
     state ={
         showModal: false,
         message: 'favorite videos'
-    }
+    };
 
     componentDidMount(){
         $(".dropdown-trigger").dropdown();
-    }
+    };
 
     handleCloseModal = () =>{
         this.setState({showModal: false});
-    }
+    };
 
     handleOpenModal = () =>{
         if (this.props.uniqueLikedVids.length) {this.setState({showModal: true});}
-    }
+    };
     
     clearFavorites=()=>{
         const dbIds = [];
@@ -42,20 +42,17 @@ class FavoriteListFilters extends Component{
             countIds : []
         });
         this.handleCloseModal();                 
-    }
+    };
 
     markAsSeen=()=>{
-        this.props.setFavCount({
-            count: 0,
-            countIds : []
-        });
-    }
+        this.props.clearFavCount();
+    };
 
     render(){
         return(
             <div>
                 <ul id="dropdown1" className="dropdown-content">
-                    <li onClick={this.markAsSeen}><a><i className="material-icons">remove_red_eye</i>Seen</a></li>
+                    <li onClick={this.markAsSeen}><a><i className="material-icons">remove_red_eye</i>Seen All</a></li>
                     <li onClick={this.handleOpenModal}><a><i className="material-icons">clear_all</i>Clear</a></li>
                 </ul>
                 <nav className="FLF-1">
@@ -86,7 +83,7 @@ const mapStateToProps = (state) => ({
 
 const mapDispatchToProps = (dispatch)=>({
     startSaveVideo: (video) => dispatch(startSaveVideo(video)),
-    setFavCount: (favCount) => dispatch(setFavCount(favCount))
+    clearFavCount: () => dispatch(clearFavCount())
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(FavoriteListFilters);

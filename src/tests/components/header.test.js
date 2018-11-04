@@ -26,13 +26,16 @@ test('should render onChange of searchBar', ()=>{
 
 test('should submit search results', ()=>{
     const setSearchKeySpy = jest.fn();
-    history = {push: jest.fn()};
-    const location= {pathname: '/saved'};
+    history = {
+        location:{
+            pathname: '/saved'
+        },
+        push: jest.fn()
+    };
     wrapper = shallow(<Header 
                         {...props}
                         setSearchKey={setSearchKeySpy}
                         history={history}
-                        location={location}
                     />);
     wrapper.find('SearchBar').prop('onSubmit')(e);
     expect(setSearchKeySpy).toHaveBeenLastCalledWith({

@@ -46,14 +46,25 @@ export const removeFavCount = (countData={})=>{
             foundDbId=''
         } = countData;
         return database.ref(`users/${uid}/unSeenLikes/${foundDbId}`).remove().then(()=>{
-            console.log('remove succeeded');
             dispatch(setFavCount({
                 count,
                 ids: videoIds 
-            }))
-        })
-    }
-}
+            }));
+        });
+    };
+};
+
+export const clearFavCount = () =>{
+    return(dispatch, getState) =>{
+        const uid = getState().auth.uid;
+        return database.ref(`users/${uid}/unSeenLikes`).remove().then(()=>{
+            dispatch(setFavCount({
+                count:0,
+                ids: []
+            }));
+        });
+    };
+};
 
 export const loadFavCount =()=>{
     return(dispatch, getState)=>{
@@ -102,4 +113,10 @@ export const setTextFilter = (text = '') => ({
 export const toggleIsSavedFilter = (isSaved)=>({
     type: 'TOGGLE_ISSAVED_FILTER',
     isSaved
+})
+
+// TOGGLE_ISSEARCHBYKEY
+export const toggleIsSavedFilter = (isSearchByKey)=>({
+    type: 'TOGGLE_ISSEARCH_BY_KEY_FILTER',
+    isSearchByKey
 })
