@@ -116,7 +116,7 @@ export const toggleIsSavedFilter = (isSaved)=>({
 })
 
 // TOGGLE_ISSEARCHBYKEY
-export const toggleIsSavedFilter = (isSearchByKey)=>({
+export const toggleSearchKeyFilter = (isSearchByKey)=>({
     type: 'TOGGLE_ISSEARCH_BY_KEY_FILTER',
     isSearchByKey
 })

@@ -4,7 +4,7 @@ import moment from 'moment';
 import {connect} from 'react-redux';
 import 'react-dates/initialize';
 import {DateRangePicker} from 'react-dates';
-import {setStartDate, setEndDate, setTextFilter, toggleIsSavedFilter } from '../actions/filters';
+import {setStartDate, setEndDate, setTextFilter, toggleIsSavedFilter, toggleSearchKeyFilter } from '../actions/filters';
 import DeletionModal from './DeletionModal';
 import {startClearVideoHistory} from '../actions/videos';
 
@@ -149,7 +149,7 @@ const mapDispatchToProps = (dispatch)=>({
     setEndDate: (endDate)=> dispatch(setEndDate(endDate)),
     setTextFilter: (text) => dispatch(setTextFilter(text)),
     toggleIsSavedFilter: (isSaved)=> dispatch(toggleIsSavedFilter(isSaved)),
-    toggleSearchKeyFilter: (isSearchByKey)=> dispatch(toggleIsSavedFilter(isSearchByKey)),
+    toggleSearchKeyFilter: (isSearchByKey)=> dispatch(toggleSearchKeyFilter(isSearchByKey)),
     startClearVideoHistory: ()=> dispatch(startClearVideoHistory())
 })
 

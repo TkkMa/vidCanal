@@ -1,47 +1,112 @@
-import React from 'react';
+import _ from 'lodash';
+import React, {Component} from 'react';
 import {connect} from 'react-redux';
 import HistoryListItem from './HistoryListItem';
-import videoHistory from '../selectors/videos';
+import {videoHistory} from '../selectors/videos';
+import Swiper from 'react-id-swiper';
 
 //-- Note unique id for key is necessary to output the correct number of filtered videos!
-export const HistoryList = (props) => {
-    const filteredVids = props.displayVideos;
-    console.log('Begin History List');
-    if(filteredVids.length===0) {
-        return(
-            <p>No videos in video history under selected filters</p>
-        )
-    } else{
-        return (
-            <div className="row">
-            {
-                (isSearchByKey) ? (
-                    <div className="swiper-container">
-                        <div className="swiper-wrapper">
+export class HistoryList extends Component {
 
-                        </div> 
-                    </div>
-                ):
-                    (
-                        <div className="col s12">
-                            <ul className="collection">
+    render(){
+        const params={
+            pagination: {
+                el: '.swiper-pagination',
+                type: 'fraction',
+              },
+              navigation: {
+                nextEl: '.swiper-button-next',
+                prevEl: '.swiper-button-prev',
+              }
+        };
+
+        const filteredVids = this.props.displayVideos;
+        console.log('Begin History List');
+        if(this.props.isSearchByKey){
+            return(
+            _.mapValues(filteredVids,(videoArray)=>(
+                            <Swiper {...params} >
                                 {
-                                    filteredVids.map((video, index) =>(
+                                    videoArray.map((video, index)=>{
+                                        console.log(video);
+                                    })
+                                }
+                            </Swiper>
+                ))
+            )
+        } else{
+            return(
+                <div className="row">
+                    <div className="col s12">
+                        <ul className="collection">
+                            {
+                                filteredVids.map((video, index) =>(
+                                    <li className="collection-item avatar HLI-1 ">
                                         <HistoryListItem 
-                                            {...props} 
+                                            {...this.props} 
                                             key={video.id+index} 
                                             video={video}
-                                            resultDetail={props.resultDetail}
+                                            resultDetail={this.props.resultDetail}
                                         />
-                                    ))
-                                }
-                            </ul>
-                        </div>
-                    )
-            }
-            </div>
-        )
+                                    </li>
+                                ))
+                            }
+                        </ul>
+                    </div>
+                </div>
+            )           
+        }
+    }
 }
+        // if(filteredVids.length===0) {
+        //     return(
+        //         <p>No videos in video history under selected filters</p>
+        //     )
+        // } else{
+//             return (
+//                 <div className="row">
+//                     <div className="col s12">
+//                         {
+//                             (this.props.isSearchByKey) ? (
+//                                 <div>empty</div>
+//                                 // _.mapValues(filteredVids, (videoArray)=>(
+//                                     // <Swiper {...params}>
+//                                     //     {
+//                                     //         // videoArray.map((video, index)=> (
+//                                     //             <HistoryListItem 
+//                                     //                 {...this.props} 
+//                                     //                 key={videoArray[0].id} 
+//                                     //                 video={videoArray[0]}
+//                                     //                 resultDetail={this.props.resultDetail}
+//                                     //             />
+//                                     //         // ))
+//                                     //     }
+//                                     // </Swiper>
+//                                 // ))
+//                             ):
+//                             (
+//                                 <ul className="collection">
+//                                     {
+//                                         filteredVids.map((video, index) =>(
+//                                             <li className="collection-item avatar HLI-1 ">
+//                                                 <HistoryListItem 
+//                                                     {...this.props} 
+//                                                     key={video.id+index} 
+//                                                     video={video}
+//                                                     resultDetail={this.props.resultDetail}
+//                                                 />
+//                                             </li>
+//                                         ))
+//                                     }
+//                                 </ul>
+//                             )
+//                         }
+//                     </div>
+//                 </div>
+//             )
+//         }
+//     // }
+// }
 
 const mapStateToProps = (state) => ({
     displayVideos: videoHistory(state.videos.visitedVideos, state.filters),
