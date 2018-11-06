@@ -5,7 +5,7 @@ import HistoryList from './HistoryList';
 
 const History = (props)=> {
     return(
-            <div>
+            <div className="container">
                 <HistoryListFilters />
                 <HistoryList {...props} />
             </div>

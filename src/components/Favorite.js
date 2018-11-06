@@ -4,7 +4,7 @@ import FavoriteList from './FavoriteList';
 
 const Favorite = ()=>{
     return(
-        <div>
+        <div className="container">
             <FavoriteListFilters />
             <FavoriteList />
         </div>

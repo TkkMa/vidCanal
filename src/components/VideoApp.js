@@ -189,7 +189,7 @@ class VideoApp extends Component{
         const {nextPageToken, resultsPerPage, selectedVideo} = this.props;
 
         return(
-            <div>
+            <div className="container">
                 <VideoListFilters 
                     onSortByChange={this.onSearchFilterChange}
                     onTimeChange={this.onSearchFilterChange}

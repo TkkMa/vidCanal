@@ -18,6 +18,14 @@ export class HistoryListFilters extends Component{
         message: 'video history'
     }
 
+    componentDidMount(){
+        $('.sidenav').sidenav({
+            onOpenStart:this.onSearchKeySwitchChange,
+            onCloseEnd: this.onSearchKeySwitchChange,
+            preventScrolling: false
+        });
+    }
+
     onDatesChange = ({startDate, endDate}) =>{
         this.props.setStartDate(startDate);
         this.props.setEndDate(endDate);
@@ -36,7 +44,7 @@ export class HistoryListFilters extends Component{
         this.setState(prevState => ({checked: !prevState.checked}));
     }
 
-    onSearchKeySwitchChange = ()=>{
+    onSearchKeySwitchChange = (e)=>{
         this.props.toggleSearchKeyFilter(!this.state.checkedSearchKey);
         this.setState(prevState => ({checkedSearchKey: !prevState.checkedSearchKey}));
     }
@@ -69,7 +77,7 @@ export class HistoryListFilters extends Component{
             <div>
                 <nav className='HLF-1'>
                     <div className="nav-wrapper row">
-                        <div className="col s12 m8 l6 xl3">
+                        <div className="col s12 m8 l6 xl5">
                             <DateRangePicker
                                 startDate={this.props.filters.startDate} // momentPropTypes.momentObj or null,
                                 startDateId="your_unique_start_date_id" // PropTypes.string.isRequired,
@@ -97,20 +105,7 @@ export class HistoryListFilters extends Component{
                                 </label>
                             </div>
                         </div>
-                        <div className="col s4 m4 l2 xl2">
-                            <div className="switch">
-                                <label>
-                                <input 
-                                    onChange={this.onSearchKeySwitchChange} 
-                                    defaultChecked={this.state.checkedSearchKey}
-                                    type="checkbox" 
-                                />
-                                <span className="lever"></span>
-                                    Search Key
-                                </label>
-                            </div>
-                        </div>
-                        <div className="col s7 m11 l3 xl4">
+                        <div className="col s6 m10 l2 xl3">
                             <form id="historyForm" onSubmit={this.submitHandler} className="right">
                                 <div id="historySearchBar" className="right input-field">
                                     <input 
@@ -125,7 +120,14 @@ export class HistoryListFilters extends Component{
                             </form>
                         </div>
                         <div className="col s1 m1 l1 xl1">
-                            <i className="material-icons" onClick={this.handleOpenModal}>delete_forever</i>
+                            <button data-target="slide-out" className="sidenav-trigger btn btn-flat">
+                                <i className="material-icons">list</i>
+                            </button>
+                        </div>
+                        <div className="col s1 m1 l1 xl1">
+                            <button onClick={this.handleOpenModal} className="btn btn-flat">
+                                <i className="material-icons">delete_forever</i>
+                            </button>
                         </div>
                     </div>
                 </nav>
