@@ -109,14 +109,14 @@ export const setTextFilter = (text = '') => ({
     text
 });
 
+// SET_SEARCH_KEY_FILTER
+export const setSearchKeyFilter = (text='') =>({
+    type: 'SET_SEARCH_KEY_FILTER',
+    text
+});
+
 // TOGGLE_ISSAVED
 export const toggleIsSavedFilter = (isSaved)=>({
     type: 'TOGGLE_ISSAVED_FILTER',
     isSaved
-})
-
-// TOGGLE_ISSEARCHBYKEY
-export const toggleSearchKeyFilter = (isSearchByKey)=>({
-    type: 'TOGGLE_ISSEARCH_BY_KEY_FILTER',
-    isSearchByKey
-})
+});

@@ -12,16 +12,12 @@ export class HistoryListFilters extends Component{
     
     state={
         calendarFocused: null,
-        checked: false,
-        checkedSearchKey: false,
         showModal: false,
         message: 'video history'
     }
 
     componentDidMount(){
         $('.sidenav').sidenav({
-            onOpenStart:this.onSearchKeySwitchChange,
-            onCloseEnd: this.onSearchKeySwitchChange,
             preventScrolling: false
         });
     }
@@ -40,13 +36,7 @@ export class HistoryListFilters extends Component{
     }
 
     onSwitchChange = ()=>{
-        this.props.toggleIsSavedFilter(!this.state.checked);
-        this.setState(prevState => ({checked: !prevState.checked}));
-    }
-
-    onSearchKeySwitchChange = (e)=>{
-        this.props.toggleSearchKeyFilter(!this.state.checkedSearchKey);
-        this.setState(prevState => ({checkedSearchKey: !prevState.checkedSearchKey}));
+        this.props.toggleIsSavedFilter(!this.props.filters.isSaved);
     }
 
     submitHandler= (e)=>{
@@ -97,7 +87,7 @@ export class HistoryListFilters extends Component{
                                 <label>
                                 <input 
                                     onChange={this.onSwitchChange} 
-                                    defaultChecked={this.state.checked}
+                                    defaultChecked={this.props.filters.isSaved}
                                     type="checkbox" 
                                 />
                                 <span className="lever"></span>
@@ -120,7 +110,7 @@ export class HistoryListFilters extends Component{
                             </form>
                         </div>
                         <div className="col s1 m1 l1 xl1">
-                            <button data-target="slide-out" className="sidenav-trigger btn btn-flat">
+                            <button data-target="slide-out" className="sidenav-trigger show-on-large btn btn-flat">
                                 <i className="material-icons">list</i>
                             </button>
                         </div>

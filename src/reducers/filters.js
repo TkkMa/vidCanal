@@ -9,9 +9,9 @@ const filtersReducerDefaultState = {
     text: '',
     resultsPerPage: 10,
     isSaved: false,
-    isSearchByKey: false,
     unViewedFavCount: 0,
-    unViewedFavIds:[]
+    unViewedFavIds:[],
+    searchKeyFilter: ''
 };
 
 export default (state=filtersReducerDefaultState, action) =>{
@@ -51,16 +51,16 @@ export default (state=filtersReducerDefaultState, action) =>{
             return{
                 ...state,
                 text: action.text
-            }
+            };
+        case 'SET_SEARCH_KEY_FILTER':
+            return{
+                ...state,
+                searchKeyFilter: action.text
+            };
         case 'TOGGLE_ISSAVED_FILTER':
             return{
                 ...state,
                 isSaved: action.isSaved
-            }
-        case 'TOGGLE_ISSEARCH_BY_KEY_FILTER':
-            return{
-                ...state,
-                isSearchByKey: action.isSearchByKey
             }
         default:
             return state;
