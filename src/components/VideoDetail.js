@@ -28,9 +28,9 @@ class VideoDetail extends Component {
 
     componentDidMount(){
         $('.collapsible').collapsible()
-            .on('click tap', 'li i', ()=>{
-                $(this).toggleClass('rotate');
-            });
+            // .on('click tap', 'li i', function(){
+            //     $(this).toggleClass('rotate');
+            // });
         // $('.VD-1 div.text-display').on('click', 'a', function(){
         //     $('.VD-1 div.description').toggle();
         //     $('.VD-1 div.text-display').html(function(i, html){
@@ -118,7 +118,10 @@ class VideoDetail extends Component {
                         </div>
                         <ul className="row collapsible">
                             <li className= "col s12">
-                                <div className="title collapsible-header"><i className="material-icons">keyboard_arrow_right</i>{video.snippet.title}</div>
+                                <div className="title collapsible-header">
+                                    <span>{video.snippet.title}</span>
+                                    <button className="btn btn-small"><i className="material-icons">description</i></button>
+                                </div>
                                 <div className="description collapsible-body" dangerouslySetInnerHTML={{__html: video.snippet.description.replace(/\n/g, "<br>")}}></div>
                             </li>
                         </ul>
