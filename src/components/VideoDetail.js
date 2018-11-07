@@ -26,10 +26,25 @@ class VideoDetail extends Component {
         });
     }
 
+    componentDidMount(){
+        $('.collapsible').collapsible()
+            .on('click tap', 'li i', ()=>{
+                $(this).toggleClass('rotate');
+            });
+        // $('.VD-1 div.text-display').on('click', 'a', function(){
+        //     $('.VD-1 div.description').toggle();
+        //     $('.VD-1 div.text-display').html(function(i, html){
+        //         return html === 'Click <a>here</a> to see more' ? 'Click <a>here</a> to retract' : 
+        //                             'Click <a>here</a> to see more'
+        //     })
+        // });
+    }
+
     componentDidUpdate(prevProps){
         console.log('componentDidUpdate in VideoDetail initialised!');
         const url = `https://www.youtube.com/embed/${this.props.video.id}`;
         $("iframe").removeAttr('src').attr('src', url);
+
         if(this.props.video.id !== prevProps.video.id){
             console.log('Inside loop of different props');
 
@@ -101,12 +116,12 @@ class VideoDetail extends Component {
                                 </i> 
                             </div>
                         </div>
-                        <div className="row">
-                            <div className= "col s12">
-                                <div className="title">{video.snippet.title}</div>
-                                <div className="description" dangerouslySetInnerHTML={{__html: video.snippet.description.replace(/\n/g, "<br>")}}></div>
-                            </div>
-                        </div>
+                        <ul className="row collapsible">
+                            <li className= "col s12">
+                                <div className="title collapsible-header"><i className="material-icons">keyboard_arrow_right</i>{video.snippet.title}</div>
+                                <div className="description collapsible-body" dangerouslySetInnerHTML={{__html: video.snippet.description.replace(/\n/g, "<br>")}}></div>
+                            </li>
+                        </ul>
                     </div>
                 </div>
             )

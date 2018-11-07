@@ -26,7 +26,7 @@ export class VideoListItem extends Component{
     render(){
         const imageUrl = this.props.video.snippet.thumbnails.default.url;
         return(
-            <li class="collection-item avatar">
+            <li class="VLI-1 collection-item avatar">
                 <div className="row valign-wrapper list-spacing" onClick={()=>this.onVideoSelect()}>
                     <div className="col s4">
                         <img src={imageUrl} className="responsive-img"/>

@@ -19,6 +19,9 @@ export class HistoryListFilters extends Component{
     componentDidMount(){
         $('.sidenav').sidenav({
             preventScrolling: false
+        })
+        .on('click tap', 'li a', ()=>{
+            $('.sidenav').sidenav('close');
         });
     }
 

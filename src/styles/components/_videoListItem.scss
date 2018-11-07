@@ -1,12 +1,12 @@
-.list-items{
+.VLI-1 .list-items{
     font-size: $s-size;
 }
 
-.list-title{
+.VLI-1 .list-title{
     font-weight: bold;
 }
 
-.list-spacing{
+.VLI-1 .list-spacing{
     margin-bottom: 0;
 }
 
@@ -15,6 +15,19 @@
     padding-left: $s-size;
 }
 
+.VLI-1 .list-items a{
+    text-decoration: none;
+    cursor:pointer;
+    color: color('teal', 'lighten-1');
+}
+
+.VLI-1 .list-items a:hover{
+    color: color('teal', 'lighten-3');
+}
+
+.VD-1 .list-items a:visited{
+    color: color("materialize-red", "lighten-3");
+}
 // .collection .collection-item.avatar .secondary-content{
 //     top: $s-size/2;
 //     right: $s-size/2;

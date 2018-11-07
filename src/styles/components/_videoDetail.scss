@@ -9,6 +9,11 @@
     font-size: $s-size;
 }
 
+.VD-1 ul.collapsible{
+    box-shadow: none;
+    border: 0;
+    margin: 0;
+}
 .VD-1 .title{
     font-size: $m-size;
     font-weight:bold;
@@ -16,9 +21,44 @@
 }
 
 .VD-1 .description{
-    font-size: 1.4rem;
+    display:none;
+    @media screen and (min-width: $medium-screen-up){
+        display: inline !important;
+        font-size: 1.4rem;
+        
+        & + div{
+            display:none;
+        }
+    }
+}
+
+.VD-1 .description+div a, 
+.VD-1 .pubDate a{
+    text-decoration: none;
+    cursor:pointer;
+    color: color('teal', 'lighten-1')
+}
+.VD-1 .description+div a:hover, 
+.VD-1 .pubDate a:hover{
+    color: color("teal", "lighten-3");
+}
+.VD-1 .description+div a:visited,
+.VD-1 .pubDate a:visited{
+    color: color("materialize-red", "lighten-3");
 }
 
 .VD-1 .starBorder{
     color: #26a69a;
 }
+
+.VD-1 .collapsible-header i{
+    -moz-transition: all 0.3s linear;
+    -webkit-transition: all 0.3s linear;
+    transition: all 0.3s linear;
+  }
+  
+.VD-1 .collapsible-header i.rotate{
+    -moz-transform:rotate(-90deg);
+    -webkit-transform:rotate(-90deg);
+    transform:rotate(-90deg);
+  }

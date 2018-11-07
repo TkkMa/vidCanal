@@ -22,21 +22,22 @@ export class HistoryList extends Component {
         const filteredVids = this.props.displayVideos;
         const searchKeyObj = _.groupBy(filteredVids, vid=>vid.searchKey);
 
+
         console.log('Begin History List');
             return(
                 <div className="row">
                     <ul id="slide-out" className="sidenav">
                         <li>
                             <div className="user-view">
-                                <a href="#user"><img className="circle" src={this.props.auth.photo}/></a>
-                                <a href="#name"><span className="name">{this.props.auth.name}</span></a>
-                                <a href="#email"><span className="email">{this.props.auth.email}</span></a>
+                                <img className="circle" src={this.props.auth.photo}/>
+                                <span className="name">{this.props.auth.name}</span>
+                                <span className="email">{this.props.auth.email}</span>
                             </div>
                         </li>
                         <li><div className="divider"></div></li>
-                        <li><a className="subheader">Searched terms (A-Z)</a></li>
+                        <li><a className="subheader">Searched terms (A-Z):</a></li>
                         {
-                            Object.keys(searchKeyObj).map(key=>(
+                            Object.keys(searchKeyObj).sort().map(key=>(
                                 <li onClick={this.onClickedKey}><a className="waves-effect" href="#!">{key}</a></li>
                             ))
                         }
