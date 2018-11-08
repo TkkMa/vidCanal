@@ -4,44 +4,28 @@ import {connect} from 'react-redux';
 import HistoryListItem from './HistoryListItem';
 import {videoHistory} from '../selectors/videos';
 import {setSearchKeyFilter} from '../actions/filters';
+import SideNav from './SideNav';
 
 //-- Note unique id for key is necessary to output the correct number of filtered videos!
 export class HistoryList extends Component {
 
-    state = {
-        searchKey: ''
-    };
-
     onClickedKey = (e)=>{
         console.log($(e.target).text());
         this.props.setSearchKeyFilter($(e.target).text());
-        // this.setState({searchKey: $(e.target).text()});
     };
 
     render(){
         const filteredVids = this.props.displayVideos;
         const searchKeyObj = _.groupBy(filteredVids, vid=>vid.searchKey);
 
-
         console.log('Begin History List');
             return(
                 <div className="row">
-                    <ul id="slide-out" className="sidenav">
-                        <li>
-                            <div className="user-view">
-                                <img className="circle" src={this.props.auth.photo}/>
-                                <span className="name">{this.props.auth.name}</span>
-                                <span className="email">{this.props.auth.email}</span>
-                            </div>
-                        </li>
-                        <li><div className="divider"></div></li>
-                        <li><a className="subheader">Searched terms (A-Z):</a></li>
-                        {
-                            Object.keys(searchKeyObj).sort().map(key=>(
-                                <li onClick={this.onClickedKey}><a className="waves-effect" href="#!">{key}</a></li>
-                            ))
-                        }
-                    </ul>
+                    <SideNav 
+                        searchKeyObj={searchKeyObj} 
+                        auth={this.props.auth}
+                        onClickedKey={this.onClickedKey}
+                    />
                     {
                         (filteredVids.length===0) ? (
                             <p>No videos in video history under selected filters</p>
@@ -80,8 +64,7 @@ export class HistoryList extends Component {
                     }
                 </div>
             )           
-        }
-    // }
+    }
 }
 
 const mapStateToProps = (state) => ({

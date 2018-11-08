@@ -8,3 +8,17 @@
     }
 }
 
+.sidenav li.sidenav__list-item{
+    align-items: center;
+    display: flex;
+    justify-content: space-between;
+
+    a{
+        width: 100%
+    }
+    
+    i{
+        color: color("teal", "lighten-2");
+    }
+}
+

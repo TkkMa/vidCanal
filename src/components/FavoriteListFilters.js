@@ -13,7 +13,14 @@ class FavoriteListFilters extends Component{
     };
 
     componentDidMount(){
+        console.log('Favorite list Filters componentDidMount initialized!')
         $(".dropdown-trigger").dropdown();
+        $('.sidenav').sidenav({
+            preventScrolling: false
+        })
+        .on('click tap', 'li a', ()=>{
+            $('.sidenav').sidenav('close');
+        });
     };
 
     handleCloseModal = () =>{
@@ -62,6 +69,11 @@ class FavoriteListFilters extends Component{
                         </div>
                         <div className="col s1 m1 right">
                             <i className="material-icons">star</i>{this.props.uniqueLikedVids.length}
+                        </div>
+                        <div className="col s1 m1 l1 xl1 right">
+                            <button data-target="slide-out" className="sidenav-trigger show-on-large btn btn-flat">
+                                <i className="material-icons">list</i>
+                            </button>
                         </div>
                     </div>
                 </nav>

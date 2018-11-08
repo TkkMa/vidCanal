@@ -6,13 +6,8 @@ nav.FLF-1 .nav-wrapper div{
     display:flex;
     justify-content: flex-end;
 }
-nav.FLF-1 .nav-wrapper div:last-child i{
-    color: #26a69a;
-}
-// nav.FLF-1 .nav-wrapper div:first-child {
-//     margin-right: 1.6rem;
-// }
 
+//-- Actions menu
 nav.FLF-1 .nav-wrapper div:first-child:hover{
     background-color: rgba(0,0,0,.1);
     cursor: pointer;
@@ -20,6 +15,27 @@ nav.FLF-1 .nav-wrapper div:first-child:hover{
 
 nav.FLF-1 .nav-wrapper div:first-child>a {
     color: rgba(255,255,255,0.7);
+}
+
+//-- Star icon
+nav.FLF-1 .nav-wrapper div:nth-of-type(2) i{
+    color: #26a69a;
+}
+
+//-- list icon
+nav.FLF-1 .nav-wrapper div:nth-of-type(3){
+    display: flex;
+    justify-content: center;
+
+    button{
+        height: 100%;
+    }
+
+    i{
+        color: color("materialize-red", "lighten-2");
+        font-size: 3rem;
+        color: rgba(255,255,255,0.7);
+    }
 }
 
 nav.FLF-1 .nav-wrapper i{

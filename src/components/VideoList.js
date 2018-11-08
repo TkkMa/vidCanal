@@ -1,6 +1,7 @@
 import React, {Component} from 'react';
 import { connect } from 'react-redux';
 import VideoListItem from './VideoListItem';
+import LoadingPage from './LoadingPage';
 
 export class VideoList extends Component{
     
@@ -16,7 +17,11 @@ export class VideoList extends Component{
         if(error){
             return <p>{error}</p>
         } else if(!results || !results[searchKey] || results[searchKey].hits.length===0){
-            return <p>Loading video...</p>
+            return (
+                <div className="VL-1 col s12 m12 l5 xl4">
+                    <LoadingPage />
+                </div>
+            )
         } else {
             const startIndex = (pageActive-1)*numResults;
             const endIndex = Math.min(pageActive*numResults, results[searchKey].hits.length);

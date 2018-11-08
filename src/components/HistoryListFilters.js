@@ -4,7 +4,7 @@ import moment from 'moment';
 import {connect} from 'react-redux';
 import 'react-dates/initialize';
 import {DateRangePicker} from 'react-dates';
-import {setStartDate, setEndDate, setTextFilter, toggleIsSavedFilter, toggleSearchKeyFilter } from '../actions/filters';
+import {setStartDate, setEndDate, setTextFilter, toggleIsSavedFilter, toggleSearchKeyFilter} from '../actions/filters';
 import DeletionModal from './DeletionModal';
 import {startClearVideoHistory} from '../actions/videos';
 
@@ -20,9 +20,9 @@ export class HistoryListFilters extends Component{
         $('.sidenav').sidenav({
             preventScrolling: false
         })
-        .on('click tap', 'li a', ()=>{
-            $('.sidenav').sidenav('close');
-        });
+        // .on('click tap', 'li a', ()=>{
+        //     $('.sidenav').sidenav('close');
+        // });
     }
 
     onDatesChange = ({startDate, endDate}) =>{

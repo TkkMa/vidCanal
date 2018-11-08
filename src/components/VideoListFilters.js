@@ -47,7 +47,7 @@ export class VideoListFilters extends Component {
                         </select>
                         <label>Sort by</label>
                     </div>
-                    <div className="input-field col s4 m4 l2 xl2">
+                    <div className="input-field col s3 m4 l2 xl2">
                         <select ref="timeDropdown" value={uploadDate} onChange={this.onDateChange}>
                             <option value="today">Today</option>
                             <option value="week">This week</option>
@@ -58,7 +58,7 @@ export class VideoListFilters extends Component {
                         </select>
                         <label>Upload date</label>
                     </div>
-                    <div className="input-field col s4 m4 l3 xl3">
+                    <div className="input-field col s5 m4 l3 xl3">
                         <p className="range-field">
                                 <input 
                                     value={resultsPerPage}
