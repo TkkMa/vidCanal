@@ -28,13 +28,25 @@ nav.FLF-1 .nav-wrapper div:nth-of-type(3){
     justify-content: center;
 
     button{
+        display:flex;
+        justify-content: center;
         height: 100%;
     }
 
-    i{
-        color: color("materialize-red", "lighten-2");
-        font-size: 3rem;
+    i:first-child{
         color: rgba(255,255,255,0.7);
+        font-size: 2.5rem;
+    }
+
+    i:last-child{
+        bottom: 1.2rem;
+        color: color('teal', 'lighten-2');
+        font-size: 1rem;
+        position: relative;
+        width: 1rem;
+        @media screen and (min-width: $small-screen-up){
+            right: 0.5rem;
+        }
     }
 }
 

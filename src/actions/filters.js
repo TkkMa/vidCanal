@@ -115,6 +115,11 @@ export const setSearchKeyFilter = (text='') =>({
     text
 });
 
+// CLEAR_SEARCH_KEY_FILTER
+export const clearSearchKeyFilter = () =>({
+    type: 'CLEAR_SEARCH_KEY_FILTER'
+})
+
 // TOGGLE_ISSAVED
 export const toggleIsSavedFilter = (isSaved)=>({
     type: 'TOGGLE_ISSAVED_FILTER',

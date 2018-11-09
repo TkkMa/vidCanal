@@ -27,17 +27,7 @@ class VideoDetail extends Component {
     }
 
     componentDidMount(){
-        $('.collapsible').collapsible()
-            // .on('click tap', 'li i', function(){
-            //     $(this).toggleClass('rotate');
-            // });
-        // $('.VD-1 div.text-display').on('click', 'a', function(){
-        //     $('.VD-1 div.description').toggle();
-        //     $('.VD-1 div.text-display').html(function(i, html){
-        //         return html === 'Click <a>here</a> to see more' ? 'Click <a>here</a> to retract' : 
-        //                             'Click <a>here</a> to see more'
-        //     })
-        // });
+        $('.collapsible').collapsible();
     }
 
     componentDidUpdate(prevProps){

@@ -11,7 +11,7 @@ const filtersReducerDefaultState = {
     isSaved: false,
     unViewedFavCount: 0,
     unViewedFavIds:[],
-    searchKeyFilter: ''
+    searchKeyFilter: []
 };
 
 export default (state=filtersReducerDefaultState, action) =>{
@@ -55,13 +55,18 @@ export default (state=filtersReducerDefaultState, action) =>{
         case 'SET_SEARCH_KEY_FILTER':
             return{
                 ...state,
-                searchKeyFilter: action.text
+                searchKeyFilter: [...state.searchKeyFilter, action.text]
+            };
+        case 'CLEAR_SEARCH_KEY_FILTER':
+            return{
+                ...state,
+                searchKeyFilter: []
             };
         case 'TOGGLE_ISSAVED_FILTER':
             return{
                 ...state,
                 isSaved: action.isSaved
-            }
+            };
         default:
             return state;
     };

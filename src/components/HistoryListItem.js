@@ -3,12 +3,9 @@ import {connect} from 'react-redux';
 import moment from "moment";
 import {startSelectVideo, startSaveVideo} from "../actions/videos";
 import {addFavCount, removeFavCount} from '../actions/filters';
+import {history} from '../routers/AppRouter';
 
 export class HistoryListItem extends Component{
-
-    state = {
-        height: "150px"
-    }
 
     onVideoSelect = () =>{
         const {video, resultDetail} = this.props;
@@ -24,8 +21,7 @@ export class HistoryListItem extends Component{
             reRender: false,
             didMount: false
         });
-
-        this.props.history.push('/');
+        history.push('/');
     }
 
     updateIsSavedStatus= (result) =>{
@@ -76,39 +72,44 @@ export class HistoryListItem extends Component{
         
         // console.log(imageUrl);
         return(
+            
             (!video.snippet)? (
-                <div className="row">
-                    <div className="col s12">
-                        MISSING VIDEO
+                <li className="collection-item avatar HLI-1 ">
+                    <div className="row">
+                        <div className="col s12">
+                            MISSING VIDEO
+                        </div>
                     </div>
-                </div>
+                </li>
             ) : (
-                <div className="row" onClick={()=>this.onVideoSelect()}>
-                    <div className="col s12 m12 l3 xl2 div-record-1">
-                        <div>
-                            <span className="span-search-text">Search term: </span>
-                            <span> {video.searchKey}</span>
+                <li className="collection-item avatar HLI-1 ">
+                    <div className="row" onClick={()=>this.onVideoSelect()}>
+                        <div className="col s12 m12 l3 xl2 div-record-1">
+                            <div>
+                                <span className="span-search-text">Search term: </span>
+                                <span> {video.searchKey}</span>
+                            </div>
+                            <div>
+                                <span className="span-search-text">Last Visited Time:</span>
+                                <span> {moment(video.viewedAt).local().format('ddd, MMM D YYYY')}</span>
+                                <span> {moment(video.viewedAt).local().format('h:mm:ss a')}</span>                    
+                            </div>
                         </div>
-                        <div>
-                            <span className="span-search-text">Last Visited Time:</span>
-                            <span> {moment(video.viewedAt).local().format('ddd, MMM D YYYY')}</span>
-                            <span> {moment(video.viewedAt).local().format('h:mm:ss a')}</span>                    
+                        <div className="col s12 m3 l3 xl3 div-record-2">
+                            <img src={imageUrl} className="responsive-img"/>
+                        </div>
+                        <div className="col s11 m8 l5 xl6 div-record-3">
+                            <span className="title">{video.snippet.title}</span>
+                            <p>{moment(video.snippet.publishedAt).format('DD MMM YYYY')} - {video.statistics.viewCount} views<br />
+                                Uploaded by:<a href={`http://www.youtube.com/channel/${video.snippet.channelId}`}> {video.snippet.channelTitle}</a>
+                            </p>
+                            <p>{video.snippet.description.substring(0,200)}...</p>                    
+                        </div>
+                        <div className="col s1 m1 l1 xl1 div-record-4">
+                            <i className="material-icons" onClick={this.onVideoSave}>{(video.isSaved)?'star' : 'star_border'}</i> 
                         </div>
                     </div>
-                    <div className="col s12 m3 l3 xl3 div-record-2">
-                        <img src={imageUrl} className="responsive-img"/>
-                    </div>
-                    <div className="col s11 m8 l5 xl6 div-record-3">
-                        <span className="title">{video.snippet.title}</span>
-                        <p>{moment(video.snippet.publishedAt).format('DD MMM YYYY')} - {video.statistics.viewCount} views<br />
-                            Uploaded by:<a href={`http://www.youtube.com/channel/${video.snippet.channelId}`}> {video.snippet.channelTitle}</a>
-                        </p>
-                        <p>{video.snippet.description.substring(0,200)}...</p>                    
-                    </div>
-                    <div className="col s1 m1 l1 xl1 div-record-4">
-                        <i className="material-icons" onClick={this.onVideoSave}>{(video.isSaved)?'star' : 'star_border'}</i> 
-                    </div>
-                </div>
+                </li>
             )
         )
     }

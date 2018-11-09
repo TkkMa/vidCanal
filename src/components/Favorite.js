@@ -1,12 +1,12 @@
 import React from 'react';
 import FavoriteListFilters from './FavoriteListFilters';
-import FavoriteList from './FavoriteList';
+import List from './List';
 
 const Favorite = ()=>{
     return(
         <div className="container">
             <FavoriteListFilters />
-            <FavoriteList />
+            <List listType={'favorites'} />
         </div>
     )
 }

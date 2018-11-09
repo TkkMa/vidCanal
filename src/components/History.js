@@ -1,13 +1,13 @@
 import React from 'react';
 import HistoryListFilters from './HistoryListFilters';
-import HistoryList from './HistoryList';
+import List from './List';
 
 
 const History = (props)=> {
     return(
             <div className="container">
                 <HistoryListFilters />
-                <HistoryList {...props} />
+                <List listType={'history'} />
             </div>
         )
 }

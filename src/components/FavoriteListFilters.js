@@ -17,9 +17,6 @@ class FavoriteListFilters extends Component{
         $(".dropdown-trigger").dropdown();
         $('.sidenav').sidenav({
             preventScrolling: false
-        })
-        .on('click tap', 'li a', ()=>{
-            $('.sidenav').sidenav('close');
         });
     };
 
@@ -70,9 +67,10 @@ class FavoriteListFilters extends Component{
                         <div className="col s1 m1 right">
                             <i className="material-icons">star</i>{this.props.uniqueLikedVids.length}
                         </div>
-                        <div className="col s1 m1 l1 xl1 right">
-                            <button data-target="slide-out" className="sidenav-trigger show-on-large btn btn-flat">
+                        <div className="col s2 m1 l1 xl1 right">
+                            <button data-target="slide-out" className="sidenav-trigger btn btn-flat">
                                 <i className="material-icons">list</i>
+                                {(this.props.searchKeyFilter.length)? <i className="material-icons">check_circle</i>: <i/>}
                             </button>
                         </div>
                     </div>
@@ -89,6 +87,7 @@ class FavoriteListFilters extends Component{
 }
 
 const mapStateToProps = (state) => ({
+    searchKeyFilter: state.filters.searchKeyFilter,
     uniqueLikedVids: favorites(state.videos.visitedVideos),
     visitedVideos: state.videos.visitedVideos
 });

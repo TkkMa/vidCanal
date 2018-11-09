@@ -46,27 +46,31 @@
     .title{
         font-weight: bold;
     }
+    p{
+        font-size: 1.4rem;
+    }
+    p:last-child{
+        color: grey;
+        display: none;
+        @media screen and (min-width: $medium-screen-up){
+            display: inline;
+        }
+    }
+
 }
-.div-record-3 p{
-    font-size: 1.4rem;
-    // line-height: 2.2rem;
-}
+
 .div-record-3 p a{
     text-decoration: none;
     color: color("teal", "lighten-1");
+    &:hover{
+        color: color("teal", "lighten-3");
+    }
+    &:visited{
+        color: color("materialize-red", "lighten-3");  
+    }
 }
 
-.div-record-3 p a:hover{
-    color: color("teal", "lighten-3");
-}
-
-.div-record-3 p a:visited{
-    color: color("materialize-red", "lighten-3");
-}
-
-.div-record-3 p:last-child{
-    color: grey;
-}
+.div-record-3 
 .div-record-4 > i{
     color: color("teal", "lighten-1");
     font-size: $l-size;

@@ -113,8 +113,9 @@ export class HistoryListFilters extends Component{
                             </form>
                         </div>
                         <div className="col s1 m1 l1 xl1">
-                            <button data-target="slide-out" className="sidenav-trigger show-on-large btn btn-flat">
+                            <button data-target="slide-out" className="sidenav-trigger btn btn-flat">
                                 <i className="material-icons">list</i>
+                                {(this.props.filters.searchKeyFilter.length)? <i className="material-icons">check_circle</i>: <i/>}
                             </button>
                         </div>
                         <div className="col s1 m1 l1 xl1">
