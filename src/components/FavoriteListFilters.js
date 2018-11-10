@@ -13,7 +13,6 @@ class FavoriteListFilters extends Component{
     };
 
     componentDidMount(){
-        console.log('Favorite list Filters componentDidMount initialized!')
         $(".dropdown-trigger").dropdown();
         $('.sidenav').sidenav({
             preventScrolling: false

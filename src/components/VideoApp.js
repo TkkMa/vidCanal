@@ -6,7 +6,7 @@ import {YTSearch, YTVideo} from './YTSearch';
 import VideoDetail from './VideoDetail';
 import VideoList from './VideoList';
 import VideoListFilters from './VideoListFilters';
-import { setVideos, startSelectVideo, setDidMount } from '../actions/videos';
+import { setVideos, startSelectVideo, setReRender } from '../actions/videos';
 
 
 class VideoApp extends Component{
@@ -21,26 +21,26 @@ class VideoApp extends Component{
     }
 
     //-- Runs everytime except when first loading the app
+    //-- didMount stops API call when item from history selected as API call has ran in componentDidMount()
+    //-- (1) Direct to '/' (2) searching term from different page leads top equal prevProps and this.props 
+    //-- due to the setState re-rendering in componentDidMount()
     componentDidUpdate (prevProps){
-        if(this.props.searchKey !== prevProps.searchKey){
-            console.log('componentDidUpdate Initialized!!')
-            console.log('this.props.searchKey', this.props.searchKey);
-            const reRender = this.props.reRender; 
-            console.log('reRender: ', reRender);
-            this.setState({reRender});
+        // console.log('VideoApp componentDidUpdate initialized');
+        if(this.props.didMount && this.props.searchKey !== prevProps.searchKey){
+            // console.log('inside if statement VideoApp componentDidUpdate')
             this.videoSearch(this.props.searchKey, 'first_page');
         }
     }
 
     //-- Runs only (1) upon first loading app AND (2) when navigating to root path from other paths '/*'
-    //-- Only enable when first loading the app - allow componentWillReceiveProps to take over subsequent times
+    //-- componentDidMount runs prior to componentDidUpdate when DOM needs to be mounted
+    //-- setTimeout is necessary to account for case when history item is clicked and searchKey does not immediately update
     componentDidMount(){
-        console.log('componentDidMount Initialized!!');
-        //-- Checks for 3 scenarios: (1) submit search on '/', (2) submit search on '/*', (3) Click history item
-        if(this.props.didMount){this.videoSearch(this.props.searchKey);};
+        // console.log('VideoApp componentDidMount initialized', this.props.didMount);
+        setTimeout(()=>{this.videoSearch(this.props.searchKey)}, 1000);
     }
     
-    vidSearchInputs =(pageToggle, sortTime) => new Promise((resolve)=>{
+    vidSearchInputs =(pageToggle, uploadDate) => new Promise((resolve)=>{
         let {pageActive, maxViewedPage} = this.state;
         switch (pageToggle){
             case 'first_page':
@@ -61,7 +61,7 @@ class VideoApp extends Component{
                 maxViewedPage = 1;
         }
         let sortTimeVal;
-        switch(sortTime){
+        switch(uploadDate){
             case 'today':
                 sortTimeVal = moment().startOf('day').format();
                 break;
@@ -76,7 +76,10 @@ class VideoApp extends Component{
                 break;
             case 'fiveYears':
                 sortTimeVal = moment().subtract(5, 'years').format();
-                break;                                
+                break;
+            case 'allTime':
+                sortTimeVal = '';
+                break;                               
             default:
                 sortTimeVal = '';
         };
@@ -86,27 +89,21 @@ class VideoApp extends Component{
     videoSearch = async (term=this.props.searchKey, pageToggle='') => {
 
         const {nextPageToken, results, resultDetail, resultsPerPage, sortBy, uploadDate} = this.props;
-        console.log('sortBy', sortBy);
-        console.log('sortTime', uploadDate);
-        console.log('resultsPerPage', resultsPerPage);
 
         //-- Determine current and max page numbers and moment date for API call
-        const {pageActive, maxViewedPage, sortTimeVal} = await this.vidSearchInputs(pageToggle, uploadDate); 
+        const {pageActive, maxViewedPage, sortTimeVal} = await this.vidSearchInputs(pageToggle, uploadDate);
+        // console.log('videoSearch chk pt1'); 
         this.setState({ error: null, lastPageReached: false, pageActive, maxViewedPage });
 
         //-- For caching -- use term instead of searchKey as the latter is not set yet
         const oldHits = pageToggle && (results && results[term])? results[term].hits : [];
         const oldHitSelect = pageToggle && (resultDetail && resultDetail[term])? resultDetail[term].hits : [];
 
-        console.log('term', term);
         //-- If video list has been explored, do not fetch list from API.  updatedHitSelect will therefore not contain duplicates
-        console.log('oldHits.length:', oldHits.length);
-        console.log('maxViewedPage', maxViewedPage);
-        if(this.state.reRender && oldHits.length>((maxViewedPage-1)*resultsPerPage)){
-            console.log('maxViewPage > activePage');
-            console.log('searchKey', term);
+        if(this.props.reRender && oldHits.length>((maxViewedPage-1)*resultsPerPage)){
             const index_OH = (pageActive-1)*resultsPerPage;
             const index_OHS = oldHitSelect.findIndex(video=>video.id===oldHits[index_OH].id.videoId);
+            // console.log('videoSearch chk pt2');
             this.props.startSelectVideo({
                 searchKey: term, 
                 updatedHitSelect: oldHitSelect, 
@@ -121,7 +118,7 @@ class VideoApp extends Component{
             //        b. on the first page -- update redux and display message that no videos found
             //    2. Videos<resultsPerPage retrieved -- config lastPageReached, lastPageFound
             //    3. Videos=resultPerPage retrieved -- update redux video data
-            console.log(`Begin to call YT search for searchKey ${term}`);
+            // console.log(`Begin to call YT search for searchKey ${term}`);
             const pageToken = nextPageToken;
             try{
                 const videos = await YTSearch({num: resultsPerPage, term, sortBy, sortTimeVal, pageToken});
@@ -134,7 +131,7 @@ class VideoApp extends Component{
                     }))
                 };
                 const updatedHits = [...oldHits, ...videos.items];
-                console.log('updatedHits: ', updatedHits);
+                // console.log('VideoSearch chk pt3');
                 this.props.setVideos({
                     searchKey:term,
                     updatedHits,
@@ -142,11 +139,11 @@ class VideoApp extends Component{
                 });
 
                 //-- Condition for clicking history item -- do not update VideoDetail component
-                if(this.state.reRender){
-                    console.log('Begin YTVideo search');
+                if(this.props.reRender){
+                    // console.log('Begin YTVideo search');
                     const video = await YTVideo({id:videos.items[0].id.videoId}); // Array with one element returned
                     const updatedHitSelect = [...oldHitSelect, ...video];
-                    console.log('updatedHitSelect', updatedHitSelect);
+                    // console.log('VideoSearch chk pt4');
                     this.props.startSelectVideo({
                         searchKey:term,
                         updatedHitSelect, 
@@ -173,26 +170,21 @@ class VideoApp extends Component{
             }
         }
     }
-    onNumResultsChange = ()=>{
-        this.setState({reRender:true});
+
+    onSearchFilterChange = ()=>{
+        this.props.setReRender(true);
         this.videoSearch();
     }
 
-    onSearchFilterChange = (term)=>{
-        this.setState({reRender: true});
-        this.videoSearch(term);
-    }
-
     render(){
-        const onNumResultsChange = _.debounce(()=>{this.onNumResultsChange()},500);
+        const onNumResultsChange = _.debounce(()=>{this.onSearchFilterChange()},500);
         const {pageActive, lastPageReached, lastPageFound, error} = this.state;
         const {nextPageToken, resultsPerPage, selectedVideo} = this.props;
 
         return(
             <div className="container">
                 <VideoListFilters 
-                    onSortByChange={this.onSearchFilterChange}
-                    onTimeChange={this.onSearchFilterChange}
+                    onSortByTimeChange={this.onSearchFilterChange}
                     onNumChange={onNumResultsChange}
                 />
                 {(error && this.state.reRender) ? (
@@ -234,7 +226,7 @@ const mapStateToProps = (state)=>({
 const mapDispatchToProps = (dispatch)=>({
     setVideos: (videos)=> dispatch(setVideos(videos)),
     startSelectVideo: (video)=> dispatch(startSelectVideo(video)),
-    setDidMount: (didMount) => dispatch(setDidMount(didMount))
+    setReRender : (isReRender) => dispatch(setReRender(isReRender))
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(VideoApp)

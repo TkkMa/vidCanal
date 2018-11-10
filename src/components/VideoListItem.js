@@ -11,7 +11,6 @@ export class VideoListItem extends Component{
     }
 
     onVideoSelect = async () =>{
-        console.log('clicked video', this.props.video);
         const {video, resultDetail, searchKey} = this.props;
         const videoClicked = await YTVideo({id:video.id.videoId});
         const updatedHitSelect = [...resultDetail[searchKey].hits, ...videoClicked];

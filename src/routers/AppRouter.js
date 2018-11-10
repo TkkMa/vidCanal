@@ -5,6 +5,7 @@ import {connect} from 'react-redux';
 import VideoApp from '../components/VideoApp';
 import History from '../components/History';
 import Favorite from '../components/Favorite';
+import Blog from '../components/Blog';
 import Header from '../components/Header';
 import NotFoundPage from '../components/NotFoundPage';
 import PrivateRoute from './PrivateRoute';
@@ -14,7 +15,6 @@ export const history = createHistory();
 class AppRouter extends Component {
 
     render(){
-        console.log('AppRouter: ', this.props.searchKey);
         return(
             <Router history={history}>
                 <div>
@@ -23,6 +23,7 @@ class AppRouter extends Component {
                         <Route path="/" render={(props)=><VideoApp searchKey={this.props.searchKey} {...props} />} exact={true}/>
                         <PrivateRoute path="/history" component={History}/>
                         <PrivateRoute path="/saved" component={Favorite}/>
+                        <PrivateRoute path="/blog" component={Blog}/>
                         <Route component={NotFoundPage} />
                     </Switch>
                 </div>

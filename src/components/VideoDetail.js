@@ -31,13 +31,11 @@ class VideoDetail extends Component {
     }
 
     componentDidUpdate(prevProps){
-        console.log('componentDidUpdate in VideoDetail initialised!');
+        // console.log('componentDidUpdate in VideoDetail initialised!');
         const url = `https://www.youtube.com/embed/${this.props.video.id}`;
         $("iframe").removeAttr('src').attr('src', url);
 
         if(this.props.video.id !== prevProps.video.id){
-            console.log('Inside loop of different props');
-
             //-- Find isSaved state of the most recent re-visited video
             const prevVid = this.props.visitedVideos
                                 .slice(0,this.props.visitedVideos.length-1)

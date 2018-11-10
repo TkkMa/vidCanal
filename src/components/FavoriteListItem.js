@@ -6,10 +6,6 @@ import {removeFavCount} from '../actions/filters';
 
 export class FavoriteListItem extends Component{
 
-    state = {
-        height: "150px"
-    }
-
     updateCountData = () =>{
         const index = this.props.ids.findIndex(idElement=> idElement.videoId===this.props.video.id);
         if(index>-1){

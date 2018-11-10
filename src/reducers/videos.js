@@ -56,6 +56,11 @@ export default (state = videosReducerDefaultState, action) =>{
             return{
                 ...state,
                 visitedVideos: []
+            };
+        case 'SET_RE_RENDER':
+            return{
+                ...state,
+                reRender: action.reRender
             }
         default:
             return state;

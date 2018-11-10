@@ -44,7 +44,8 @@ export const loadViewedVideos =()=>{
                         dispatch(selectVideo({
                             searchKey: videos[videos.length-1].searchKey,
                             uniqueVideos:videos,
-                            didMount: true
+                            didMount: true,
+                            reRender: true
                         }));
                     }
                 })
@@ -127,3 +128,8 @@ export const startClearVideoHistory = ()=>{
         })
     }
 }
+
+export const setReRender = (isReRender=false)=>({
+    type: 'SET_RE_RENDER',
+    reRender: isReRender
+})

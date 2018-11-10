@@ -9,8 +9,6 @@ export class HistoryListItem extends Component{
 
     onVideoSelect = () =>{
         const {video, resultDetail} = this.props;
-        console.log(`clicked video: ${video}`);
-        console.log(`Existing hits in resultDetail: ${resultDetail}`);
         this.props.startSelectVideo({
             searchKey: video.searchKey,
             updatedHitSelect: (resultDetail[video.searchKey] && 
@@ -20,8 +18,9 @@ export class HistoryListItem extends Component{
             isSaved: video.isSaved,
             reRender: false,
             didMount: false
-        });
+        })
         history.push('/');
+
     }
 
     updateIsSavedStatus= (result) =>{
@@ -70,7 +69,6 @@ export class HistoryListItem extends Component{
         const {video} = this.props;
         const imageUrl = video.snippet && video.snippet.thumbnails.medium.url || video.DB_id;
         
-        // console.log(imageUrl);
         return(
             
             (!video.snippet)? (

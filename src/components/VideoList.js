@@ -12,8 +12,7 @@ export class VideoList extends Component{
 
     render(){
         const {results, searchKey, pageToken, pageActive, lastPageReached, lastPageFound, numResults, error} = this.props;
-        console.log('VideoList-results', results);
-        console.log('searchKey', searchKey);
+
         if(error){
             return <p>{error}</p>
         } else if(!results || !results[searchKey] || results[searchKey].hits.length===0){

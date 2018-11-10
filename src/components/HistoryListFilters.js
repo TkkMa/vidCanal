@@ -20,9 +20,6 @@ export class HistoryListFilters extends Component{
         $('.sidenav').sidenav({
             preventScrolling: false
         })
-        // .on('click tap', 'li a', ()=>{
-        //     $('.sidenav').sidenav('close');
-        // });
     }
 
     onDatesChange = ({startDate, endDate}) =>{

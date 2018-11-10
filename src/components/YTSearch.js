@@ -14,7 +14,6 @@ const YTSearch = (options={})=>{
     order: options.sortBy,
     pageToken: options.pageToken
   };
-  console.log('sortTimeVal', options.sortTimeVal);
   if(options.sortTimeVal){params.publishedAfter=options.sortTimeVal;}
 
   return axios.get(ROOT_URL, { params: params })

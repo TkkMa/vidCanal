@@ -21,9 +21,7 @@ export class Header extends Component {
     }
 
     onSearchSubmit = (e)=>{
-        e.preventDefault();
-        console.log('query in header: ', this.state.term);
-        // $("input[type='text']").val('');        
+        e.preventDefault();    
         this.props.setSearchKey({
             text: this.state.term,
             reRender: true,

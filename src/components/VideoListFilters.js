@@ -6,26 +6,19 @@ import {setSortBy, setUploadDate, setResPerPage} from '../actions/filters';
 export class VideoListFilters extends Component {
 
     componentDidMount(){
-        const ele1 = ReactDOM.findDOMNode(this.refs.sortbyDropdown);
-        const ele2 = ReactDOM.findDOMNode(this.refs.timeDropdown);
-
-        $(ele1).ready(function(){
-            $('select').formSelect();
-        });
-        $(ele2).ready(function(){
-            $('select').formSelect();
-        });
+        $('select').formSelect();
     }
+
     onSortChange = (e) =>{
         const sortVal = e.target.value;
         this.props.setSortBy(sortVal);
-        this.props.onSortByChange(undefined);
+        this.props.onSortByTimeChange()
     };
 
     onDateChange = (e) =>{
         const dateVal = e.target.value;
         this.props.setUploadDate(dateVal);
-        this.props.onTimeChange(undefined);
+        this.props.onSortByTimeChange();
     };
 
     onNumResultsChange = (e) =>{
@@ -39,7 +32,7 @@ export class VideoListFilters extends Component {
             <nav>
                 <div className="VLF-1 nav-wrapper row">
                     <div className="input-field col s4 m4 l2 xl2">
-                        <select ref="sortbyDropdown" value={sortBy} onChange = {this.onSortChange}>
+                        <select value={sortBy} onChange = {this.onSortChange}>
                             <option value="relevance">Relevance</option>
                             <option value="viewCount">Popularity</option>
                             <option value="date">Most Recent</option>
@@ -48,7 +41,7 @@ export class VideoListFilters extends Component {
                         <label>Sort by</label>
                     </div>
                     <div className="input-field col s3 m4 l2 xl2">
-                        <select ref="timeDropdown" value={uploadDate} onChange={this.onDateChange}>
+                        <select value={uploadDate} onChange={this.onDateChange}>
                             <option value="today">Today</option>
                             <option value="week">This week</option>
                             <option value="month">This month</option>
@@ -72,21 +65,21 @@ export class VideoListFilters extends Component {
                     </div>
                     <div className="input-field col s3 m2 l1 offset-l1 xl1 offset-xl2">
                         <label className="chk-label">
-                            <input type="checkbox" />
+                            <input type="checkbox" checked />
                             <span></span>
                         </label>
                         <img className="responsive-img" src="/images/yt_icon_mono_light.png"/>
                     </div>
                     <div className="input-field col s3 m2 l1 xl1">
                         <label className="chk-label">
-                            <input type="checkbox" />
+                            <input type="checkbox" disabled />
                             <span></span>
                         </label>
                         <img className="responsive-img" src="/images/vimeo_icon_dark.png"/>
                     </div>
                     <div className="input-field col s3 m2 l1 xl1">
                         <label className="chk-label">
-                            <input type="checkbox" />
+                            <input disabled type="checkbox" disabled />
                             <span></span>
                         </label>
                         <img className="responsive-img" src="/images/d_dailymotion.jpg"/>

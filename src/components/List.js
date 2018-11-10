@@ -17,7 +17,6 @@ export class FavoriteList extends Component {
     }
 
     onClickedKey = (e)=>{
-        console.log($(e.target).text());
         this.props.setSearchKeyFilter($(e.target).text());
     };
 
@@ -123,7 +122,8 @@ const mapStateToProps = (state) => ({
     visitedVideos: state.videos.visitedVideos,
     displayVideos: videoHistory(state.videos.visitedVideos, state.filters),
     uniqueLikedVideos: favorites(state.videos.visitedVideos),
-    searchKeyFilter: state.filters.searchKeyFilter
+    searchKeyFilter: state.filters.searchKeyFilter,
+    resultDetail: state.videos.resultDetail
 });
 
 const mapDispatchToProps = (dispatch)=>({
