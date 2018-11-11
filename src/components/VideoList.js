@@ -5,8 +5,12 @@ import LoadingPage from './LoadingPage';
 
 export class VideoList extends Component{
     
+    componentDidMount(){
+        $('.tabs').tabs();
+    }
+    
     onChangePage=(e)=>{
-        const clickedIcon = e.target.querySelector('i').innerHTML;
+        const clickedIcon = $(e.target).children('i').text();
         this.props.onPageChange(undefined, clickedIcon);
     }
 
@@ -39,6 +43,18 @@ export class VideoList extends Component{
                                 <i className="material-icons">last_page</i>
                             </li>
                         </ul>
+                    </div>
+                    <div className="row">
+                        <div className="col s12">
+                        <ul className="tabs">
+                            <li className="tab col s3"><a className="active" href="#test1">Youtube</a></li>
+                            <li className="tab col s3"><a href="#test2">Vimeo</a></li>
+                            <li className="tab col s3"><a href="#test3">Dailymotion</a></li>
+                        </ul>
+                        </div>
+                        <div id="test1" className="col s12">Youtube</div>
+                        <div id="test2" className="col s12">Vimeo</div>
+                        <div id="test3" className="col s12">Dailymotion</div>
                     </div>
                     <ul className="collection">
                         {

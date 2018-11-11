@@ -65,21 +65,21 @@ export class VideoListFilters extends Component {
                     </div>
                     <div className="input-field col s3 m2 l1 offset-l1 xl1 offset-xl2">
                         <label className="chk-label">
-                            <input type="checkbox" checked />
+                            <input type="checkbox" className="filled-in" defaultChecked='checked'/>
                             <span></span>
                         </label>
                         <img className="responsive-img" src="/images/yt_icon_mono_light.png"/>
                     </div>
                     <div className="input-field col s3 m2 l1 xl1">
                         <label className="chk-label">
-                            <input type="checkbox" disabled />
+                            <input type="checkbox" disabled="disabled" />
                             <span></span>
                         </label>
                         <img className="responsive-img" src="/images/vimeo_icon_dark.png"/>
                     </div>
                     <div className="input-field col s3 m2 l1 xl1">
                         <label className="chk-label">
-                            <input disabled type="checkbox" disabled />
+                            <input disabled type="checkbox" disabled="disabled" />
                             <span></span>
                         </label>
                         <img className="responsive-img" src="/images/d_dailymotion.jpg"/>
