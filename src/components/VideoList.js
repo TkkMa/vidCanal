@@ -44,18 +44,6 @@ export class VideoList extends Component{
                             </li>
                         </ul>
                     </div>
-                    <div className="row">
-                        <div className="col s12">
-                        <ul className="tabs">
-                            <li className="tab col s3"><a className="active" href="#test1">Youtube</a></li>
-                            <li className="tab col s3"><a href="#test2">Vimeo</a></li>
-                            <li className="tab col s3"><a href="#test3">Dailymotion</a></li>
-                        </ul>
-                        </div>
-                        <div id="test1" className="col s12">Youtube</div>
-                        <div id="test2" className="col s12">Vimeo</div>
-                        <div id="test3" className="col s12">Dailymotion</div>
-                    </div>
                     <ul className="collection">
                         {
                             results[searchKey].hits.slice(startIndex, endIndex).map((video)=>{

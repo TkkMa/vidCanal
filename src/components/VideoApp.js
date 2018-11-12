@@ -10,11 +10,11 @@ import { setVideos, startSelectVideo, setReRender } from '../actions/videos';
 
 
 class VideoApp extends Component{
-    //-- 'emptyItemSet' accounts for an API call with *page token*, BUT no videos returned.  Disables next page button
+    //-- 'lastPageReached' accounts for an API call with *page token*, BUT no videos returned.  Disables next page button
     state={
         pageActive: 1,
         maxViewedPage: 1,
-        emptyItemSet: false,
+        lastPageReached: false,
         lastPageFound: false,  //-- designed for the end of page click
         error: null,
         reRender: true
