@@ -1,19 +1,15 @@
 import React, {Component} from "react";
 import {connect} from 'react-redux';
 import moment from "moment";
-import {startSelectVideo, saveVideo} from "../actions/videos";
-import {YTVideo} from './YTSearch';
+import {startSelectVideo} from "../actions/videos";
+import {indVidAPISearch} from './APISearch';
 
 export class VideoListItem extends Component{
 
-    state={
-        isSaved: false
-    }
-
     onVideoSelect = async () =>{
-        const {video, resultDetail, searchKey} = this.props;
-        const videoClicked = await YTVideo({id:video.id.videoId});
-        const updatedHitSelect = [...resultDetail[searchKey].hits, ...videoClicked];
+        const {video, resultDetail, searchKey, engine} = this.props;
+        const videoClicked = await indVidAPISearch({id:video.id.videoId}, engine);
+        const updatedHitSelect = [...resultDetail[engine][searchKey].hits, ...videoClicked];
         this.props.startSelectVideo({
             searchKey,
             updatedHitSelect,
@@ -46,8 +42,7 @@ const mapStateToProps = (state)=>({
 })
 
 const mapDispatchToProps = (dispatch)=>({
-    startSelectVideo: (video)=> dispatch(startSelectVideo(video)),
-    saveVideo: (isSaved) => dispatch(saveVideo(isSaved))
+    startSelectVideo: (video)=> dispatch(startSelectVideo(video))
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(VideoListItem);

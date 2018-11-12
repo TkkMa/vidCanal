@@ -19,21 +19,21 @@ export const setDidMount = ({
 export const setVideos = ({
         searchKey = '',
         updatedHits = [],
-        nextPageToken = ''    
+        engine = 'YT'   
     } = {}
 ) => ({
     type: 'SET_VIDEOS',
-    videos: {searchKey, updatedHits, nextPageToken}
+    videos: {searchKey, updatedHits, engine}
 });
 
 export const loadViewedVideos =()=>{
     return(dispatch, getState)=>{
         const uid = getState().auth.uid;
+
         return database.ref(`users/${uid}/history`)
                 .once('value')
                 .then((snapshot)=>{
                     const videos = [];
-
                     snapshot.forEach((childSnapshot)=>{
                         videos.push({
                             DB_id: childSnapshot.key,
@@ -45,11 +45,11 @@ export const loadViewedVideos =()=>{
                             searchKey: videos[videos.length-1].searchKey,
                             uniqueVideos:videos,
                             didMount: true,
-                            reRender: true
+                            reRender: true,
+                            engine: 'YT'
                         }));
                     }
                 })
-
     }
 }
 
@@ -71,12 +71,13 @@ export const startSelectVideo = (videoData={})=>{
             viewedAt = '',
             isSaved = false,
             reRender = true,
-            didMount= true
+            didMount= true,
+            engine='YT'
         } = videoData;
-        const videoObj = {searchKey, updatedHitSelect, video, uniqueVideos, viewedAt, isSaved, reRender, didMount};
+        const videoObj = {searchKey, updatedHitSelect, video, uniqueVideos, viewedAt, isSaved, reRender, didMount, engine};
         if(!!uid){
-            return database.ref(`users/${uid}/history`).push({...video[0], viewedAt, searchKey, isSaved}).then((ref)=>{
-                videoObj.uniqueVideos=[{...video[0], DB_id:ref.key, viewedAt, searchKey, isSaved}];
+            return database.ref(`users/${uid}/history`).push({...video[0], viewedAt, searchKey, isSaved, engine}).then((ref)=>{
+                videoObj.uniqueVideos=[{...video[0], DB_id:ref.key, viewedAt, searchKey, isSaved, engine}];
                 dispatch(selectVideo(videoObj));
             })
         } else{

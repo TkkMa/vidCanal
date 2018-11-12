@@ -38,7 +38,10 @@ export class FavoriteList extends Component {
     render(){
         const filteredVids = (this.props.listType === 'favorites')? this.props.uniqueLikedVideos : this.props.displayVideos;
         const searchKeyObj = _.groupBy(filteredVids, vid=>vid.searchKey);
-        let filteredList, fullList;
+
+
+        //-- filteredList accounts for the user choosing searchKey from sideNav where searchKeyFilter is the array of terms
+        let filteredList, fullList; 
         if(this.props.listType === 'favorites'){
             filteredList = (
                 this.props.searchKeyFilter.map(term=>(

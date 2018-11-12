@@ -1,7 +1,7 @@
 const axios = require('axios');
 const ROOT_URL = 'https://api.dailymotion.com/videos';
-const ROOT_URL_VIDEO = 'https://www.googleapis.com/youtube/v3/videos';
-const API_KEY='AIzaSyDWU_q-QSxsSUECDdeWI8WBnVE2q07p804';
+// const ROOT_URL_VIDEO = 'https://www.googleapis.com/youtube/v3/videos';
+// const API_KEY='AIzaSyDWU_q-QSxsSUECDdeWI8WBnVE2q07p804';
 
 const DSearch = (options={})=>{
 

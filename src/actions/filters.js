@@ -10,11 +10,6 @@ export const setUploadDate = (text='') => ({
     text
 });
 
-export const setResPerPage = (num)=>({
-    type: 'SET_RESULTS_PER_PAGE',
-    num
-})
-
 export const setFavCount = (favCount)=>({
     type: 'SET_FAV_COUNT',
     favCount

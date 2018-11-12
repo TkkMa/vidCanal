@@ -26,11 +26,6 @@ export default (state=filtersReducerDefaultState, action) =>{
                 ...state,
                 uploadDate: action.text
             };
-        case 'SET_RESULTS_PER_PAGE':
-            return{
-                ...state,
-                resultsPerPage: action.num
-            };
         case 'SET_FAV_COUNT':
             return{
                 ...state,

@@ -2,20 +2,34 @@ import _ from 'lodash';
 import moment from 'moment';
 import React, {Component} from 'react';
 import {connect} from 'react-redux';
-import {YTSearch, YTVideo} from './YTSearch';
+import {vidAPISearch, indVidAPISearch} from './APISearch';
 import VideoDetail from './VideoDetail';
 import VideoList from './VideoList';
 import VideoListFilters from './VideoListFilters';
 import { setVideos, startSelectVideo, setReRender } from '../actions/videos';
-
+import { setPageConfig, setPageToken } from '../actions/pagination';
+import { vidSearchInputs } from '../selectors/videos';
+const defaultSearchEngine = 'YT';
 
 class VideoApp extends Component{
     //-- 'emptyItemSet' accounts for an API call with *page token*, BUT no videos returned.  Disables next page button
     state={
-        pageActive: 1,
-        maxViewedPage: 1,
-        emptyItemSet: false,
-        lastPageFound: false,  //-- designed for the end of page click
+        pageActive: {
+            YT: 1,
+            D: 1
+        },
+        maxViewedPage: {
+            YT: 1,
+            D: 1
+        },
+        lastPageFound: {
+            YT: false,  //-- designed for the end of page click
+            D: false
+        },
+        lastPageReached: {
+            YT: false,
+            D: false
+        },
         error: null,
         reRender: true
     }
@@ -28,7 +42,7 @@ class VideoApp extends Component{
         // console.log('VideoApp componentDidUpdate initialized');
         if(this.props.didMount && this.props.searchKey !== prevProps.searchKey){
             // console.log('inside if statement VideoApp componentDidUpdate')
-            this.videoSearch(this.props.searchKey, 'first_page');
+            this.videoSearch(this.props.searchKey, undefined, 'first_page');
         }
     }
 
@@ -40,68 +54,31 @@ class VideoApp extends Component{
         setTimeout(()=>{this.videoSearch(this.props.searchKey)}, 1000);
     }
     
-    vidSearchInputs =(pageToggle, uploadDate) => new Promise((resolve)=>{
-        let {pageActive, maxViewedPage} = this.state;
-        switch (pageToggle){
-            case 'first_page':
-                pageActive = 1;
-                break;
-            case 'chevron_left':
-                pageActive = Math.max(pageActive-1, 1);
-                break;
-            case 'chevron_right':
-                pageActive = pageActive + 1;
-                maxViewedPage = Math.max(pageActive, maxViewedPage);
-                break;
-            case 'last_page':
-                pageActive = maxViewedPage;
-                break;
-            default:
-                pageActive = 1;
-                maxViewedPage = 1;
-        }
-        let sortTimeVal;
-        switch(uploadDate){
-            case 'today':
-                sortTimeVal = moment().startOf('day').format();
-                break;
-            case 'week':
-                sortTimeVal = moment().startOf('week').format();
-                break;
-            case 'month':
-                sortTimeVal =  moment().startOf('month').format();
-                break;
-            case 'year':
-                sortTimeVal = moment().startOf('year').format();
-                break;
-            case 'fiveYears':
-                sortTimeVal = moment().subtract(5, 'years').format();
-                break;
-            case 'allTime':
-                sortTimeVal = '';
-                break;                               
-            default:
-                sortTimeVal = '';
-        };
-        resolve({pageActive, maxViewedPage, sortTimeVal});
-    })
+    
+    videoSearch = async (term=this.props.searchKey, engine=defaultSearchEngine, pageToggle='') => {
 
-    videoSearch = async (term=this.props.searchKey, pageToggle='') => {
-
-        const {nextPageToken, results, resultDetail, resultsPerPage, sortBy, uploadDate} = this.props;
+        const {results, resultDetail, sortBy, uploadDate, page} = this.props;
 
         //-- Determine current and max page numbers and moment date for API call
-        const {pageActive, maxViewedPage, sortTimeVal} = await this.vidSearchInputs(pageToggle, uploadDate);
+        const {pageActive, maxViewedPage, sortTimeVal} = await vidSearchInputs(pageToggle, uploadDate, 
+                                                            {pageActive: page.pageActive[engine], 
+                                                            maxViewedPage: page.maxViewedPage[engine]});
         // console.log('videoSearch chk pt1'); 
-        this.setState({ error: null, lastPageReached: false, pageActive, maxViewedPage });
+        this.setState({ error: null });
+        this.props.setPageConfig({
+            lastPageReached: false, 
+            pageActive, 
+            maxViewedPage,
+            engine
+        });
 
         //-- For caching -- use term instead of searchKey as the latter is not set yet
-        const oldHits = pageToggle && (results && results[term])? results[term].hits : [];
-        const oldHitSelect = pageToggle && (resultDetail && resultDetail[term])? resultDetail[term].hits : [];
+        const oldHits = pageToggle && (results && results[engine][term])? results[engine][term].hits : [];
+        const oldHitSelect = pageToggle && (resultDetail && resultDetail[engine][term])? resultDetail[engine][term].hits : [];
 
         //-- If video list has been explored, do not fetch list from API.  updatedHitSelect will therefore not contain duplicates
-        if(this.props.reRender && oldHits.length>((maxViewedPage-1)*resultsPerPage)){
-            const index_OH = (pageActive-1)*resultsPerPage;
+        if(this.props.reRender && oldHits.length>((maxViewedPage-1)*page.resultsPerPage)){
+            const index_OH = (pageActive-1)*page.resultsPerPage;
             const index_OHS = oldHitSelect.findIndex(video=>video.id===oldHits[index_OH].id.videoId);
             // console.log('videoSearch chk pt2');
             this.props.startSelectVideo({
@@ -119,52 +96,56 @@ class VideoApp extends Component{
             //    2. Videos<resultsPerPage retrieved -- config lastPageReached, lastPageFound
             //    3. Videos=resultPerPage retrieved -- update redux video data
             // console.log(`Begin to call YT search for searchKey ${term}`);
-            const pageToken = nextPageToken;
             try{
-                const videos = await YTSearch({num: resultsPerPage, term, sortBy, sortTimeVal, pageToken});
+                const videos = await vidAPISearch({num: page.resultsPerPage, term, sortBy, sortTimeVal, nextPageToken: page.nextPageToken}, engine);
+                
                 if(!videos.items.length){
                     throw new Error('No videos found with selected criteria.  Please search again.')
-                } else if(videos.items.length < resultsPerPage){
-                    this.setState(prevState => ({
-                        lastPageReached: !prevState.lastPageReached,
-                        lastPageFound: true
-                    }))
+                } else if(videos.items.length < page.resultsPerPage){
+                    this.props.setPageConfig({
+                        lastPageReached: true,
+                        lastPageFound: true,
+                        engine
+                    });
                 };
                 const updatedHits = [...oldHits, ...videos.items];
                 // console.log('VideoSearch chk pt3');
                 this.props.setVideos({
                     searchKey:term,
-                    updatedHits,
-                    nextPageToken: videos.nextPageToken
+                    updatedHits,    
+                    engine
                 });
-
+                this.props.setPageToken({nextPageToken: videos.nextPageToken, engine})
                 //-- Condition for clicking history item -- do not update VideoDetail component
                 if(this.props.reRender){
                     // console.log('Begin YTVideo search');
-                    const video = await YTVideo({id:videos.items[0].id.videoId}); // Array with one element returned
+                    const video = await indVidAPISearch({id:videos.items[0].id.videoId}, engine); // Array with one element returned
                     const updatedHitSelect = [...oldHitSelect, ...video];
                     // console.log('VideoSearch chk pt4');
                     this.props.startSelectVideo({
                         searchKey:term,
                         updatedHitSelect, 
                         video: video,
-                        viewedAt: moment().utc().toISOString()
+                        viewedAt: moment().utc().toISOString(),
+                        engine
                     });
                 }
             } catch(error){
                 console.log(error);
-                this.setState(prevState => ({
-                    pageActive: Math.max(prevState.pageActive -1,1),
-                    maxViewedPage: Math.max(prevState.maxViewedPage -1, 1),
-                    lastPageReached: !prevState.lastPageReached,
-                    lastPageFound: true
-                }))
+                this.props.setPageConfig({
+                    pageActive: Math.max(page.pageActive[engine] -1,1),
+                    maxViewedPage: Math.max(page.maxViewedPage[engine]-1, 1), 
+                    lastPageReached: true,
+                    lastPageFound: true,
+                    engine
+                });
                 if(pageActive ===1 && maxViewedPage===1){
                     this.props.setVideos({
                         searchKey:term,
                         updatedHits:[],
-                        nextPageToken: ''
+                        engine
                     });
+                    this.props.setPageToken({nextPageToken: '', engine})
                     this.setState({error: error.message});
                 }
             }
@@ -178,8 +159,8 @@ class VideoApp extends Component{
 
     render(){
         const onNumResultsChange = _.debounce(()=>{this.onSearchFilterChange()},500);
-        const {pageActive, lastPageReached, lastPageFound, error} = this.state;
-        const {nextPageToken, resultsPerPage, selectedVideo} = this.props;
+        const {error} = this.state;
+        const {selectedVideo} = this.props;
 
         return(
             <div className="container">
@@ -195,12 +176,7 @@ class VideoApp extends Component{
                         <div className="VA-1 row">
                             <VideoDetail video={selectedVideo}/>
                             <VideoList
-                                pageActive={pageActive}
-                                pageToken={nextPageToken} 
                                 onPageChange={this.videoSearch}
-                                lastPageReached={lastPageReached}
-                                lastPageFound={lastPageFound}
-                                numResults={resultsPerPage}
                                 error={error}
                             />
                         </div>
@@ -212,7 +188,6 @@ class VideoApp extends Component{
 };
 
 const mapStateToProps = (state)=>({
-    nextPageToken: state.videos.nextPageToken,
     results: state.videos.results,
     resultDetail: state.videos.resultDetail,
     reRender: state.videos.reRender,
@@ -220,13 +195,15 @@ const mapStateToProps = (state)=>({
     selectedVideo: state.videos.selectedVideo,
     sortBy: state.filters.sortBy,
     uploadDate: state.filters.uploadDate,
-    resultsPerPage: state.filters.resultsPerPage
+    page: state.page
 });  
 
 const mapDispatchToProps = (dispatch)=>({
     setVideos: (videos)=> dispatch(setVideos(videos)),
     startSelectVideo: (video)=> dispatch(startSelectVideo(video)),
-    setReRender : (isReRender) => dispatch(setReRender(isReRender))
+    setReRender : (isReRender) => dispatch(setReRender(isReRender)),
+    setPageConfig: (pagination) => dispatch(setPageConfig(pagination)),
+    setPageToken: (token) => dispatch(setPageToken(token))
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(VideoApp)

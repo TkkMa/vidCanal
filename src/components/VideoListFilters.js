@@ -27,7 +27,9 @@ export class VideoListFilters extends Component {
     };
 
     render() {
-        const {sortBy, uploadDate, resultsPerPage} = this.props.filters;
+        const {sortBy, uploadDate} = this.props.filters;
+        const {resultsPerPage} = this.props.page;
+        
         return(
             <nav>
                 <div className="VLF-1 nav-wrapper row">
@@ -91,7 +93,8 @@ export class VideoListFilters extends Component {
 }
 
 const mapStateToProps = (state) =>({
-    filters: state.filters
+    filters: state.filters,
+    page: state.page
 });
 
 const mapDispatchToProps = (dispatch)=>({

@@ -11,8 +11,8 @@ export class HistoryListItem extends Component{
         const {video, resultDetail} = this.props;
         this.props.startSelectVideo({
             searchKey: video.searchKey,
-            updatedHitSelect: (resultDetail[video.searchKey] && 
-                                resultDetail[video.searchKey].hits) || [],
+            updatedHitSelect: (resultDetail[video.engine][video.searchKey] && 
+                                resultDetail[video.engine][video.searchKey].hits) || [],
             video: [video],
             viewedAt: moment().utc().toISOString(),
             isSaved: video.isSaved,
