@@ -17,6 +17,7 @@ export const videoHistory = (videoArray, {startDate, endDate, text, isSaved}) =>
 
 export const vidSearchInputs =(pageToggle, uploadDate, stateValues) => new Promise((resolve)=>{
     let {pageActive, maxViewedPage} = stateValues;
+    console.log('pageActive', pageActive);
     switch (pageToggle){
         case 'first_page':
             pageActive = 1;
@@ -35,6 +36,7 @@ export const vidSearchInputs =(pageToggle, uploadDate, stateValues) => new Promi
             pageActive = 1;
             maxViewedPage = 1;
     }
+    console.log('pageActive after', pageActive);
     let sortTimeVal;
     switch(uploadDate){
         case 'today':

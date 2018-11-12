@@ -15,9 +15,15 @@
         display: inline;
     }
 }
+.VL-1 .list-nav button{
+    display: flex;
+    justify-content: center;
+}
 
-.VL-1 div.row:nth-of-type(1),
-.VL-1 div.row:nth-of-type(2){
+.VL-1 div.row{
     margin-bottom: 0;
     
+    & > div:first-child{
+        margin-bottom: 0.5rem;
+    }  
 }

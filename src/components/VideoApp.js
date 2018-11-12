@@ -56,7 +56,7 @@ class VideoApp extends Component{
     
     
     videoSearch = async (term=this.props.searchKey, engine=defaultSearchEngine, pageToggle='') => {
-
+        console.log('pageToggle', pageToggle);
         const {results, resultDetail, sortBy, uploadDate, page} = this.props;
 
         //-- Determine current and max page numbers and moment date for API call

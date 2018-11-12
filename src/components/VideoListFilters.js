@@ -26,6 +26,9 @@ export class VideoListFilters extends Component {
         this.props.onNumChange();
     };
 
+    playerCheck = (e)=>{
+        console.log(e.target.value);
+    }
     render() {
         const {sortBy, uploadDate} = this.props.filters;
         const {resultsPerPage} = this.props.page;
@@ -67,21 +70,34 @@ export class VideoListFilters extends Component {
                     </div>
                     <div className="input-field col s3 m2 l1 offset-l1 xl1 offset-xl2">
                         <label className="chk-label">
-                            <input type="checkbox" className="filled-in" defaultChecked='checked'/>
+                            <input type="checkbox" 
+                                className="filled-in" 
+                                defaultChecked="checked"
+                                onChange={this.playerCheck}
+                                value="YT"
+                            />
                             <span></span>
                         </label>
                         <img className="responsive-img" src="/images/yt_icon_mono_light.png"/>
                     </div>
                     <div className="input-field col s3 m2 l1 xl1">
                         <label className="chk-label">
-                            <input type="checkbox" disabled="disabled" />
+                            <input type="checkbox"
+                                className="filled-in" 
+                                onChange={this.playerCheck}
+                                value="V"
+                            />
                             <span></span>
                         </label>
                         <img className="responsive-img" src="/images/vimeo_icon_dark.png"/>
                     </div>
                     <div className="input-field col s3 m2 l1 xl1">
                         <label className="chk-label">
-                            <input disabled type="checkbox" disabled="disabled" />
+                            <input type="checkbox"
+                                className="filled-in" 
+                                onChange={this.playerCheck}
+                                value="D"
+                            />
                             <span></span>
                         </label>
                         <img className="responsive-img" src="/images/d_dailymotion.jpg"/>

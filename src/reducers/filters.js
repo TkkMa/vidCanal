@@ -11,7 +11,12 @@ const filtersReducerDefaultState = {
     isSaved: false,
     unViewedFavCount: 0,
     unViewedFavIds:[],
-    searchKeyFilter: []
+    searchKeyFilter: [],
+    playerChecked : {
+        YT: true,
+        V: false,
+        D: false
+    }
 };
 
 export default (state=filtersReducerDefaultState, action) =>{

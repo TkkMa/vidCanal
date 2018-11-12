@@ -6,7 +6,9 @@ import LoadingPage from './LoadingPage';
 class VideoListEngine extends Component {
 
     onChangePage=(e)=>{
-        const clickedIcon = $(e.target).children('i').text();
+        e.stopPropagation();
+        const clickedIcon = $(e.target).children('i').text() || $(e.target).text();
+        console.log('clickedIcon', clickedIcon);
         this.props.onChangePage(this.props.engine, clickedIcon);
     }
 
@@ -25,15 +27,26 @@ class VideoListEngine extends Component {
             return(
                 <div>
                     <ul className="list-nav">
-                        <li onClick={this.onChangePage} className={(pageActive[engine]===1) ? "btn-flat disabled btn-small col s2" : "waves-effect waves-light btn-flat btn-small col s2"}><i className="material-icons">first_page</i></li>
-                        <li onClick={this.onChangePage} className={(pageActive[engine]===1) ? "btn-flat disabled btn-small col s4" : "waves-effect waves-light btn-flat btn-small col s4"}>
-                            <i className="material-icons left">chevron_left</i><span>Prev</span>
+                        <li>
+                            <button onClick={this.onChangePage} className={(pageActive[engine]===1) ? "btn-flat disabled btn-small col s2" : "waves-effect waves-light btn-flat btn-small col s2"}>
+                                <i onClick={this.onChangePage} className="material-icons">first_page</i>
+                            </button>    
                         </li>
-                        <li onClick={this.onChangePage} className={(nextPageToken[engine]==='' || lastPageReached[engine])? "btn-flat disabled btn-small col s4" : "waves-effect waves-light btn-flat btn-small col s4"}>
-                            <i className="material-icons right">chevron_right</i><span>Next</span>
+                        
+                        <li>
+                            <button onClick={this.onChangePage} className={(pageActive[engine]===1) ? "btn-flat disabled btn-small col s4" : "waves-effect waves-light btn-flat btn-small col s4"}>
+                                <i onClick={this.onChangePage} className="material-icons left">chevron_left</i>Prev
+                            </button>
                         </li>
-                        <li onClick={this.onChangePage} className={(!lastPageFound[engine] || lastPageReached[engine])? "btn-flat disabled btn-small col s2" : "waves-effect waves-light btn-flat btn-small col s2"}>
-                            <i className="material-icons">last_page</i>
+                        <li>
+                            <button onClick={this.onChangePage} className={(nextPageToken[engine]==='' || lastPageReached[engine])? "btn-flat disabled btn-small col s4" : "waves-effect waves-light btn-flat btn-small col s4"}>
+                                Next <i onClick={this.onChangePage} className="material-icons right">chevron_right</i>
+                            </button>
+                        </li>
+                        <li>
+                            <button onClick={this.onChangePage} className={(!lastPageFound[engine] || lastPageReached[engine])? "btn-flat disabled btn-small col s2" : "waves-effect waves-light btn-flat btn-small col s2"}>
+                                <i onClick={this.onChangePage} className="material-icons">last_page</i>
+                            </button>
                         </li>
                     </ul>
                     <ul className="collection">
