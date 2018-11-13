@@ -14,24 +14,12 @@ const defaultSearchEngine = 'YT';
 class VideoApp extends Component{
     //-- 'emptyItemSet' accounts for an API call with *page token*, BUT no videos returned.  Disables next page button
     state={
-        pageActive: {
-            YT: 1,
-            D: 1
-        },
-        maxViewedPage: {
-            YT: 1,
-            D: 1
-        },
-        lastPageFound: {
-            YT: false,  //-- designed for the end of page click
-            D: false
-        },
-        lastPageReached: {
-            YT: false,
-            D: false
-        },
         error: null,
-        reRender: true
+        reRender: true,
+        chkBox:{    D: false,
+                    V: false,
+                    YT:true
+        }
     }
 
     //-- Runs everytime except when first loading the app
@@ -56,7 +44,7 @@ class VideoApp extends Component{
     
     
     videoSearch = async (term=this.props.searchKey, engine=defaultSearchEngine, pageToggle='') => {
-        console.log('pageToggle', pageToggle);
+
         const {results, resultDetail, sortBy, uploadDate, page} = this.props;
 
         //-- Determine current and max page numbers and moment date for API call
@@ -97,8 +85,10 @@ class VideoApp extends Component{
             //    3. Videos=resultPerPage retrieved -- update redux video data
             // console.log(`Begin to call YT search for searchKey ${term}`);
             try{
-                const videos = await vidAPISearch({num: page.resultsPerPage, term, sortBy, sortTimeVal, nextPageToken: page.nextPageToken}, engine);
-                
+                const videos = await vidAPISearch({num: page.resultsPerPage, term, sortBy, sortTimeVal, pageToken: page.nextPageToken}, engine);
+                console.log('engine', engine);
+                console.log('videos', videos);
+
                 if(!videos.items.length){
                     throw new Error('No videos found with selected criteria.  Please search again.')
                 } else if(videos.items.length < page.resultsPerPage){
@@ -116,10 +106,13 @@ class VideoApp extends Component{
                     engine
                 });
                 this.props.setPageToken({nextPageToken: videos.nextPageToken, engine})
+
                 //-- Condition for clicking history item -- do not update VideoDetail component
                 if(this.props.reRender){
                     // console.log('Begin YTVideo search');
-                    const video = await indVidAPISearch({id:videos.items[0].id.videoId}, engine); // Array with one element returned
+                    const video = await indVidAPISearch(videos.items[0], engine); // Array with one element returned
+                    console.log('engine Detail', engine);
+                    console.log('videoDetail', video);
                     const updatedHitSelect = [...oldHitSelect, ...video];
                     // console.log('VideoSearch chk pt4');
                     this.props.startSelectVideo({
@@ -157,6 +150,17 @@ class VideoApp extends Component{
         this.videoSearch();
     }
 
+    onPlayerCheck = (e)=>{
+        const name = e.target.getAttribute('name');
+        this.setState(prevState=>({
+            chkBox:{
+                ...prevState.chkBox,
+                [name]: !prevState.chkBox[name]
+            }
+        }));
+        if (this.state.chkBox[name]){this.videoSearch(undefined, name);};
+    };
+
     render(){
         const onNumResultsChange = _.debounce(()=>{this.onSearchFilterChange()},500);
         const {error} = this.state;
@@ -167,6 +171,8 @@ class VideoApp extends Component{
                 <VideoListFilters 
                     onSortByTimeChange={this.onSearchFilterChange}
                     onNumChange={onNumResultsChange}
+                    onPlayerCheck={this.onPlayerCheck}
+                    valueCheck={this.state.chkBox}
                 />
                 {(error && this.state.reRender) ? (
                         <div>
@@ -178,6 +184,7 @@ class VideoApp extends Component{
                             <VideoList
                                 onPageChange={this.videoSearch}
                                 error={error}
+                                playerChecked={this.state.chkBox}
                             />
                         </div>
                     )

@@ -1,7 +1,7 @@
 import React, {Component} from 'react';
 import ReactDOM from 'react-dom';
 import {connect} from 'react-redux';
-import {setSortBy, setUploadDate, setResPerPage} from '../actions/filters';
+import {setSortBy, setUploadDate, setPlayer, setResPerPage} from '../actions/filters';
 
 export class VideoListFilters extends Component {
 
@@ -26,13 +26,14 @@ export class VideoListFilters extends Component {
         this.props.onNumChange();
     };
 
-    playerCheck = (e)=>{
-        console.log(e.target.value);
-    }
     render() {
-        const {sortBy, uploadDate} = this.props.filters;
+        const {sortBy, uploadDate, playerChecked} = this.props.filters;
         const {resultsPerPage} = this.props.page;
-        
+        const logoURL = {
+            D: "/images/d_dailymotion.jpg",
+            V: "/images/vimeo_icon_dark.png",
+            YT:"/images/yt_icon_mono_light.png"
+        }
         return(
             <nav>
                 <div className="VLF-1 nav-wrapper row">
@@ -68,40 +69,22 @@ export class VideoListFilters extends Component {
                         </p>
                         <label>Hits Per Page ({resultsPerPage}/50)</label>
                     </div>
-                    <div className="input-field col s3 m2 l1 offset-l1 xl1 offset-xl2">
-                        <label className="chk-label">
-                            <input type="checkbox" 
-                                className="filled-in" 
-                                defaultChecked="checked"
-                                onChange={this.playerCheck}
-                                value="YT"
-                            />
-                            <span></span>
-                        </label>
-                        <img className="responsive-img" src="/images/yt_icon_mono_light.png"/>
-                    </div>
-                    <div className="input-field col s3 m2 l1 xl1">
-                        <label className="chk-label">
-                            <input type="checkbox"
-                                className="filled-in" 
-                                onChange={this.playerCheck}
-                                value="V"
-                            />
-                            <span></span>
-                        </label>
-                        <img className="responsive-img" src="/images/vimeo_icon_dark.png"/>
-                    </div>
-                    <div className="input-field col s3 m2 l1 xl1">
-                        <label className="chk-label">
-                            <input type="checkbox"
-                                className="filled-in" 
-                                onChange={this.playerCheck}
-                                value="D"
-                            />
-                            <span></span>
-                        </label>
-                        <img className="responsive-img" src="/images/d_dailymotion.jpg"/>
-                    </div>
+                    {
+                        Object.keys(this.props.valueCheck).map(key=>(
+                            <div key={key} className="input-field col s3 m2 l1 xl1 right">
+                                <label className="chk-label">
+                                    <input type="checkbox"
+                                        name={key} 
+                                        className="filled-in"
+                                        onChange={this.props.onPlayerCheck}
+                                        checked={this.props.valueCheck[key]}
+                                    />
+                                    <span></span>
+                                </label>
+                                <img className="responsive-img" src={logoURL[key]}/>
+                            </div>                           
+                        ))
+                    }
                 </div>
             </nav>
         )
@@ -116,7 +99,8 @@ const mapStateToProps = (state) =>({
 const mapDispatchToProps = (dispatch)=>({
     setSortBy: (text)=> dispatch(setSortBy(text)),
     setUploadDate: (text)=> dispatch(setUploadDate(text)),
-    setResPerPage: (num)=> dispatch(setResPerPage(num))
+    setResPerPage: (num)=> dispatch(setResPerPage(num)),
+    setPlayer: (choice)=> dispatch(setPlayer(choice))
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(VideoListFilters);

@@ -21,7 +21,7 @@ const paginationReducerDefaultState= {
     },
     nextPageToken:{
         YT: '',
-        D: '',
+        D: 1,
         V: ''
     },
     resultsPerPage: 10,

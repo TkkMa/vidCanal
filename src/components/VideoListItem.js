@@ -3,12 +3,13 @@ import {connect} from 'react-redux';
 import moment from "moment";
 import {startSelectVideo} from "../actions/videos";
 import {indVidAPISearch} from './APISearch';
+import {videoListObj} from '../selectors/videos';
 
 export class VideoListItem extends Component{
 
     onVideoSelect = async () =>{
         const {video, resultDetail, searchKey, engine} = this.props;
-        const videoClicked = await indVidAPISearch({id:video.id.videoId}, engine);
+        const videoClicked = await indVidAPISearch({id:video.id}, engine);
         const updatedHitSelect = [...resultDetail[engine][searchKey].hits, ...videoClicked];
         this.props.startSelectVideo({
             searchKey,
@@ -19,17 +20,18 @@ export class VideoListItem extends Component{
     }
 
     render(){
-        const imageUrl = this.props.video.snippet.thumbnails.default.url;
+        const video = videoListObj(this.props.video, this.props.engine);
+        
         return(
             <li class="VLI-1 collection-item avatar">
                 <div className="row valign-wrapper list-spacing" onClick={()=>this.onVideoSelect()}>
                     <div className="col s4">
-                        <img src={imageUrl} className="responsive-img"/>
+                        <img src={video.imageUrl} className="responsive-img"/>
                     </div>
                     <div className="col s8 list-items">
-                        <span className="list-title">{this.props.video.snippet.title}</span>
-                        <p>{moment(this.props.video.snippet.publishedAt).format('DD MMM YYYY')}<br />
-                        Uploaded by:<a href={`http://www.youtube.com/channel/${this.props.video.snippet.channelId}`}> {this.props.video.snippet.channelTitle}</a></p>
+                        <span className="list-title">{video.title}</span>
+                        <p>{moment(video.publishedAt).format('DD MMM YYYY')}<br />
+                        Uploaded by:<a href={video.channelUrl}> {video.channelTitle}</a></p>
                     </div>
                 </div>
             </li>

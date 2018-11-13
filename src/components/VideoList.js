@@ -3,8 +3,15 @@ import VideoListEngine from './VideoListEngine';
 
 export class VideoList extends Component{
     
+    state={
+        YT: 'Youtube',
+        V: 'Vimeo',
+        D: 'Dailymotion'
+    }
+
     componentDidMount(){
         $('.tabs').tabs();
+        $('')
     }
     
     onChangePage=(selectedEngine, clickedIcon)=>{
@@ -12,14 +19,22 @@ export class VideoList extends Component{
     }
 
     render(){
+        const {playerChecked} = this.props;
         return(
             <div className="VL-1 col s12 m12 l5 xl4">
                 <div className="row">
                     <div className="col s12">
                         <ul className="tabs">
-                            <li className="tab col s3"><a className="active" href="#YT">Youtube</a></li>
+                            {
+                                Object.keys(playerChecked).map((key)=>(
+                                    <li className={`tab col s3 ${(playerChecked[key])?'':'disabled'}`}>
+                                        <a href={`#${key}`}>{this.state[key]}</a>
+                                    </li>
+                                ))
+                            }
+                            {/* <li className="tab col s3"><a className="active" href="#YT">Youtube</a></li>
                             <li className="tab col s3"><a href="#V">Vimeo</a></li>
-                            <li className="tab col s3"><a href="#D">Dailymotion</a></li>
+                            <li className="tab col s3"><a href="#D">Dailymotion</a></li> */}
                         </ul>
                     </div>
                     <div id="YT" className="col s12">

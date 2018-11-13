@@ -14,11 +14,6 @@ const videosReducerDefaultState = {
         D: null,
         V: null 
     },
-    nextPageToken: {
-        YT: '',
-        D: '',
-        V: ''
-    },
     reRender: true,
     didMount: true
 };

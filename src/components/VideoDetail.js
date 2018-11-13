@@ -3,6 +3,7 @@ import {connect} from 'react-redux';
 import moment from 'moment';
 import {startSaveVideo} from '../actions/videos';
 import {addFavCount, removeFavCount} from '../actions/filters';
+import {videoDetailObj} from '../selectors/videos';
 // import updateIsSavedStatus from '../selectors/updateIsSavedStatus';
 
 class VideoDetail extends Component {
@@ -78,7 +79,9 @@ class VideoDetail extends Component {
     }
 
     render(){
-        const {video, isAuthenticated} =this.props;
+        const {isAuthenticated} =this.props;
+        const video = videoDetailObj(this.props.video);
+
         return (
             (!video) ? (<div>Loading...</div>) :
             (
@@ -89,12 +92,12 @@ class VideoDetail extends Component {
                     <div className="VD-1 card-panel grey lighten-5">
                         <div className="row valign-wrapper">
                             <div className="col s9">
-                                <div className="pubDate">Published on: {moment(video.snippet.publishedAt).format('DD MMM YYYY')} by  
-                                    <a href={`http://www.youtube.com/channel/${video.snippet.channelId}`}> {video.snippet.channelTitle}</a>
+                                <div className="pubDate">Published on: {moment(video.publishedAt).format('DD MMM YYYY')} by  
+                                    <a href={video.channelUrl}> {video.channelTitle}</a>
                                 </div>
                             </div>
                             <div className="col s2">
-                                <div className="views">{video.statistics.viewCount} views</div> 
+                                <div className="views">{video.viewCount} views</div> 
                             </div>
                             <div className="col s1">
                                 <i className="starBorder material-icons" 
@@ -107,10 +110,10 @@ class VideoDetail extends Component {
                         <ul className="row collapsible">
                             <li className= "col s12">
                                 <div className="title collapsible-header">
-                                    <span>{video.snippet.title}</span>
+                                    <span>{video.title}</span>
                                     <button className="btn btn-small"><i className="material-icons">description</i></button>
                                 </div>
-                                <div className="description collapsible-body" dangerouslySetInnerHTML={{__html: video.snippet.description.replace(/\n/g, "<br>")}}></div>
+                                {/* <div className="description collapsible-body" dangerouslySetInnerHTML={{__html: video.description.replace(/\n/g, "<br>")}}></div> */}
                             </li>
                         </ul>
                     </div>

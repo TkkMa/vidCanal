@@ -31,6 +31,14 @@ export default (state=filtersReducerDefaultState, action) =>{
                 ...state,
                 uploadDate: action.text
             };
+        case 'SET_PLAYER':
+            return{
+                ...state,
+                playerChecked: {
+                    ...state.playerChecked,
+                    [action.choice.name]: action.choice.status
+                }
+            }
         case 'SET_FAV_COUNT':
             return{
                 ...state,
@@ -67,6 +75,7 @@ export default (state=filtersReducerDefaultState, action) =>{
                 ...state,
                 isSaved: action.isSaved
             };
+        
         default:
             return state;
     };
