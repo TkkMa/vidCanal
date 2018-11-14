@@ -23,7 +23,6 @@ class VideoApp extends Component{
         }
     }
 
-    //-- Runs everytime except when first loading the app
     //-- didMount stops API call when item from history selected as API call has ran in componentDidMount()
     //-- (1) Direct to '/' (2) searching term from different page leads top equal prevProps and this.props 
     //-- due to the setState re-rendering in componentDidMount()
@@ -40,15 +39,15 @@ class VideoApp extends Component{
     //-- setTimeout is necessary to account for case when history item is clicked and searchKey does not immediately update
     componentDidMount(){
         // console.log('VideoApp componentDidMount initialized', this.props.didMount);
+        const {YT, V, D} = this.props.playerChecked;
         this.setState({
-            chkBox:{
-                YT: this.props.playerChecked.YT,
-                V: this.props.playerChecked.V,
-                D: this.props.playerChecked.D
-            }
-        }, ()=>{setTimeout(()=>{this.videoSearch(this.props.searchKey)}, 500)})
+            chkBox:{ YT, V, D }
+        }, ()=>{
+            setTimeout(()=>{this.videoSearch(this.props.searchKey, )}, 500);
+        })
     }
     
+    //-- Store final checkbox state prior to leaving page
     componentWillUnmount(){
         this.props.setPlayer(this.state.chkBox);
     }
