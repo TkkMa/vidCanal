@@ -1,4 +1,4 @@
-const DEFAULT_QUERY = 'redux';
+const DEFAULT_QUERY = 'default';
 
 const videosReducerDefaultState = {
     searchKey: DEFAULT_QUERY,

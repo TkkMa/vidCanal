@@ -2,12 +2,14 @@ import React, {Component} from 'react';
 import {connect} from 'react-redux';
 import VideoListItem from './VideoListItem';
 import LoadingPage from './LoadingPage';
+import { setReRender } from '../actions/videos';
 
 class VideoListEngine extends Component {
 
     onChangePage=(e)=>{
         e.stopPropagation();
         const clickedIcon = $(e.target).children('i').text() || $(e.target).text();
+        this.props.setReRender(true);
         this.props.onChangePage(this.props.engine, clickedIcon);
     }
 
@@ -77,4 +79,7 @@ const mapStateToProps = (state)=>({
     searchKey: state.videos.searchKey
 })
 
-export default connect(mapStateToProps)(VideoListEngine);
+const mapDispatchToProps = (dispatch)=>({
+    setReRender : (isReRender) => dispatch(setReRender(isReRender))
+})
+export default connect(mapStateToProps, mapDispatchToProps)(VideoListEngine);

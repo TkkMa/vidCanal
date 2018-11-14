@@ -48,6 +48,8 @@ export const loadViewedVideos =()=>{
                             reRender: true,
                             engine: videos[videos.length-1].engine
                         }));
+                    } else{
+                        dispatch(setSearchKey({text: ''}));
                     }
                 })
     }

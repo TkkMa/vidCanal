@@ -28,7 +28,9 @@ class VideoApp extends Component{
     //-- due to the setState re-rendering in componentDidMount()
     componentDidUpdate (prevProps){
         // console.log('VideoApp componentDidUpdate initialized');
-        if(this.props.didMount && this.props.searchKey !== prevProps.searchKey){
+        console.log('this.props.searchKey', this.props.searchKey);
+        console.log('prevProps.searchKey', prevProps.searchKey);
+        if(this.props.searchKey !== prevProps.searchKey){
             console.log('inside if statement VideoApp componentDidUpdate')
             this.videoSearch(this.props.searchKey, undefined, 'first_page');
         }
@@ -43,7 +45,8 @@ class VideoApp extends Component{
         this.setState({
             chkBox:{ YT, V, D }
         }, ()=>{
-            setTimeout(()=>{this.videoSearch(this.props.searchKey, )}, 500);
+
+            // setTimeout(()=>{this.videoSearch(this.props.searchKey, )}, 500);
         })
     }
     
@@ -70,8 +73,8 @@ class VideoApp extends Component{
         });
 
         //-- For caching -- use term instead of searchKey as the latter is not set yet
-        const oldHits = pageToggle && (results && results[engine][term])? results[engine][term].hits : [];
-        const oldHitSelect = pageToggle && (resultDetail && resultDetail[engine][term])? resultDetail[engine][term].hits : [];
+        const oldHits = pageToggle && (results[engine] && results[engine][term])? results[engine][term].hits : [];
+        const oldHitSelect = pageToggle && (resultDetail[engine] && resultDetail[engine][term])? resultDetail[engine][term].hits : [];
 
         //-- If video list has been explored, do not fetch list from API.  updatedHitSelect will therefore not contain duplicates
         if(this.props.reRender && oldHits.length>((maxViewedPage-1)*page.resultsPerPage)){
