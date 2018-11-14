@@ -7,7 +7,7 @@ const videosReducerDefaultState = {
        D: null,
        V: null 
     },
-    selectedVideo: '',
+    selectedVideo: {},
     visitedVideos:[],
     resultDetail: {
         YT: null,

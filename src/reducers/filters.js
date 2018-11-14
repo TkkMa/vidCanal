@@ -35,10 +35,11 @@ export default (state=filtersReducerDefaultState, action) =>{
             return{
                 ...state,
                 playerChecked: {
-                    ...state.playerChecked,
-                    [action.choice.name]: action.choice.status
+                    YT: action.choice.YT,
+                    V: action.choice.V,
+                    D: action.choice.D
                 }
-            }
+            };
         case 'SET_FAV_COUNT':
             return{
                 ...state,

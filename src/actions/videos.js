@@ -46,7 +46,7 @@ export const loadViewedVideos =()=>{
                             uniqueVideos:videos,
                             didMount: true,
                             reRender: true,
-                            engine: 'YT'
+                            engine: videos[videos.length-1].engine
                         }));
                     }
                 })

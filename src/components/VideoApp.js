@@ -7,6 +7,7 @@ import VideoDetail from './VideoDetail';
 import VideoList from './VideoList';
 import VideoListFilters from './VideoListFilters';
 import { setVideos, startSelectVideo, setReRender } from '../actions/videos';
+import { setPlayer } from '../actions/filters';
 import { setPageConfig, setPageToken } from '../actions/pagination';
 import { vidSearchInputs } from '../selectors/videos';
 const defaultSearchEngine = 'YT';
@@ -16,9 +17,9 @@ class VideoApp extends Component{
     state={
         error: null,
         reRender: true,
-        chkBox:{    D: false,
+        chkBox:{    YT:true,    
                     V: false,
-                    YT:true
+                    D: false
         }
     }
 
@@ -29,7 +30,7 @@ class VideoApp extends Component{
     componentDidUpdate (prevProps){
         // console.log('VideoApp componentDidUpdate initialized');
         if(this.props.didMount && this.props.searchKey !== prevProps.searchKey){
-            // console.log('inside if statement VideoApp componentDidUpdate')
+            console.log('inside if statement VideoApp componentDidUpdate')
             this.videoSearch(this.props.searchKey, undefined, 'first_page');
         }
     }
@@ -39,10 +40,19 @@ class VideoApp extends Component{
     //-- setTimeout is necessary to account for case when history item is clicked and searchKey does not immediately update
     componentDidMount(){
         // console.log('VideoApp componentDidMount initialized', this.props.didMount);
-        setTimeout(()=>{this.videoSearch(this.props.searchKey)}, 1000);
+        this.setState({
+            chkBox:{
+                YT: this.props.playerChecked.YT,
+                V: this.props.playerChecked.V,
+                D: this.props.playerChecked.D
+            }
+        }, ()=>{setTimeout(()=>{this.videoSearch(this.props.searchKey)}, 500)})
     }
     
-    
+    componentWillUnmount(){
+        this.props.setPlayer(this.state.chkBox);
+    }
+
     videoSearch = async (term=this.props.searchKey, engine=defaultSearchEngine, pageToggle='') => {
 
         const {results, resultDetail, sortBy, uploadDate, page} = this.props;
@@ -67,13 +77,14 @@ class VideoApp extends Component{
         //-- If video list has been explored, do not fetch list from API.  updatedHitSelect will therefore not contain duplicates
         if(this.props.reRender && oldHits.length>((maxViewedPage-1)*page.resultsPerPage)){
             const index_OH = (pageActive-1)*page.resultsPerPage;
-            const index_OHS = oldHitSelect.findIndex(video=>video.id===oldHits[index_OH].id.videoId);
+            const index_OHS = oldHitSelect.findIndex(video=>video.id=== oldHits[index_OH].id.videoId || oldHits[index_OH].id);
             // console.log('videoSearch chk pt2');
             this.props.startSelectVideo({
                 searchKey: term, 
                 updatedHitSelect: oldHitSelect, 
                 video: [oldHitSelect[index_OHS]],
-                viewedAt: moment().utc().toISOString()
+                viewedAt: moment().utc().toISOString(),
+                engine
             });
         } else {
             // Call youtubeAPI and fetch new videos
@@ -108,6 +119,7 @@ class VideoApp extends Component{
                 this.props.setPageToken({nextPageToken: videos.nextPageToken, engine})
 
                 //-- Condition for clicking history item -- do not update VideoDetail component
+                //-- 'video' is an ARRAY with ONE element
                 if(this.props.reRender){
                     // console.log('Begin YTVideo search');
                     const video = await indVidAPISearch(videos.items[0], engine); // Array with one element returned
@@ -138,7 +150,8 @@ class VideoApp extends Component{
                         updatedHits:[],
                         engine
                     });
-                    this.props.setPageToken({nextPageToken: '', engine})
+                    const defaultToken = (engine==='YT')? '' : 1;
+                    this.props.setPageToken({nextPageToken: defaultToken, engine})
                     this.setState({error: error.message});
                 }
             }
@@ -157,8 +170,9 @@ class VideoApp extends Component{
                 ...prevState.chkBox,
                 [name]: !prevState.chkBox[name]
             }
-        }));
-        if (this.state.chkBox[name]){this.videoSearch(undefined, name);};
+        }), ()=>{
+            if (this.state.chkBox[name]) {this.videoSearch(undefined, name)}
+        });
     };
 
     render(){
@@ -202,6 +216,7 @@ const mapStateToProps = (state)=>({
     selectedVideo: state.videos.selectedVideo,
     sortBy: state.filters.sortBy,
     uploadDate: state.filters.uploadDate,
+    playerChecked: state.filters.playerChecked,
     page: state.page
 });  
 
@@ -210,7 +225,8 @@ const mapDispatchToProps = (dispatch)=>({
     startSelectVideo: (video)=> dispatch(startSelectVideo(video)),
     setReRender : (isReRender) => dispatch(setReRender(isReRender)),
     setPageConfig: (pagination) => dispatch(setPageConfig(pagination)),
-    setPageToken: (token) => dispatch(setPageToken(token))
+    setPageToken: (token) => dispatch(setPageToken(token)),
+    setPlayer: (choice)=> dispatch(setPlayer(choice))
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(VideoApp)

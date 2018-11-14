@@ -48,12 +48,23 @@ const vidAPISearch = (options={}, engine='YT')=>{
 
         return axios.get(ROOT_URL[engine], {params: params})
         .then(response=>{
+
+            const arrayOfObj = response.data.list.map(({
+                ['owner.screenname']: ownerScreenname,
+                ['owner.url']: ownerUrl,
+                ...rest
+            })=>({
+                ownerScreenname,
+                ownerUrl,
+                ...rest
+            }))
+            console.log('list', arrayOfObj);
             return {
                 pageInfo: {
                     total: response.data.total,
                     has_more: response.data.has_more
                 }, 
-                items: response.data.list, 
+                items: arrayOfObj, 
                 nextPageToken: options.pageToken[engine]+1
             };            
         })
@@ -63,6 +74,8 @@ const vidAPISearch = (options={}, engine='YT')=>{
     }  
 }
 
+//-- Daily motion only requires one API Call in the previous search request to get all fields
+//-- Youtube requires two API calls
 const indVidAPISearch = (options, engine='YT') =>{
     let params;
     if(engine==='YT'){
@@ -80,7 +93,7 @@ const indVidAPISearch = (options, engine='YT') =>{
             console.error(error);
         });
     } else if(engine==='D'){
-        return options;
+        return [options];
     }
 };
 

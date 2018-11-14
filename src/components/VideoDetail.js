@@ -33,8 +33,8 @@ class VideoDetail extends Component {
 
     componentDidUpdate(prevProps){
         // console.log('componentDidUpdate in VideoDetail initialised!');
-        const url = `https://www.youtube.com/embed/${this.props.video.id}`;
-        $("iframe").removeAttr('src').attr('src', url);
+        // const {embedURL} = videoDetailObj(this.props.video);
+        // $("iframe").removeAttr('src').attr('src', embedURL);
 
         if(this.props.video.id !== prevProps.video.id){
             //-- Find isSaved state of the most recent re-visited video
@@ -80,6 +80,7 @@ class VideoDetail extends Component {
 
     render(){
         const {isAuthenticated} =this.props;
+        console.log('VideoDetail selectedVideo: ', this.props.video);
         const video = videoDetailObj(this.props.video);
 
         return (
@@ -87,7 +88,7 @@ class VideoDetail extends Component {
             (
                 <div className="col s12 m12 l7 xl8">
                     <div className="video-container">
-                        <iframe width="853" height="480" frameBorder="0" allowFullScreen="allowFullScreen" />
+                        <iframe width="853" height="480" frameBorder="0" src={video.embedURL} allowFullScreen="allowFullScreen" />
                     </div>
                     <div className="VD-1 card-panel grey lighten-5">
                         <div className="row valign-wrapper">
@@ -133,7 +134,7 @@ const mapStateToProps = (state)=>({
 const mapDispatchToProps = (dispatch)=>({
     startSaveVideo: (video) => dispatch(startSaveVideo(video)),
     addFavCount: (favCount) => dispatch(addFavCount(favCount)),
-    removeFavCount: (favCount) => dispatch(removeFavCount(favCount)),
+    removeFavCount: (favCount) => dispatch(removeFavCount(favCount))
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(VideoDetail);

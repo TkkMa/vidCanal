@@ -6,7 +6,8 @@ const HeaderBar = ({isAuthenticated, name, startLogin, startLogout})=>(
     <div className="HB-1">
         <ul className="HB-1__list">
             <li className="HB-1__item-1">{
-                (isAuthenticated) ? <div><i className="material-icons small">person</i><span>{name}</span></div> : ''}</li>
+                (isAuthenticated) ? <div><i className="material-icons small">person</i><span>{name}</span></div> : ''}
+            </li>
             <li>       
                 <button 
                     onClick={(isAuthenticated) ? startLogout : startLogin}

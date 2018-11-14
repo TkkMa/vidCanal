@@ -81,8 +81,8 @@ export const videoListObj = (video, engine) => {
                 imageUrl: video.thumbnail_120_url,
                 title: video.title,
                 publishedAt: video.created_time,
-                channelUrl: video["owner.url"],
-                channelTitle: video["owner.screenname"]
+                channelUrl: video.ownerUrl,
+                channelTitle: video.ownerScreenname
             };
         default:
             return null;
@@ -94,15 +94,19 @@ export const videoDetailObj = (video) => {
     switch (video.engine){
         case 'YT':
             return{
-                id: video.id.videoId,
+                id: video.id,
                 imageUrl: video.snippet.thumbnails.medium.url,
                 title: video.snippet.title,
                 publishedAt: video.snippet.publishedAt,
                 channelUrl: `http://www.youtube.com/channel/${video.snippet.channelId}`,
                 channelTitle: video.snippet.channelTitle,
                 viewCount: video.statistics.viewCount,
-                description: video.snippet.description
-
+                description: video.snippet.description,
+                embedURL: `http://www.youtube.com/embed/${video.id}`,
+                searchKey: video.searchKey,
+                viewedAt: video.viewedAt,
+                isSaved: video.isSaved,
+                engine: video.engine
             };
         case 'D':
             return{
@@ -110,10 +114,15 @@ export const videoDetailObj = (video) => {
                 imageUrl: video.thumbnail_180_url,
                 title: video.title,
                 publishedAt: video.created_time,
-                channelUrl: video["owner.url"],
-                channelTitle: video["owner.screenname"],
+                channelUrl: video.ownerUrl,
+                channelTitle: video.ownerScreenname,
                 viewCount: video.views_total,
-                description: video.description
+                description: video.description,
+                embedURL: video.embed_url,
+                searchKey: video.searchKey,
+                viewedAt: video.viewedAt,
+                isSaved: video.isSaved,
+                engine: video.engine
             };
         default:
             return null;

@@ -4,6 +4,7 @@ import moment from "moment";
 import {startSelectVideo, startSaveVideo} from "../actions/videos";
 import {addFavCount, removeFavCount} from '../actions/filters';
 import {history} from '../routers/AppRouter';
+import {videoDetailObj} from '../selectors/videos';
 
 export class HistoryListItem extends Component{
 
@@ -17,10 +18,10 @@ export class HistoryListItem extends Component{
             viewedAt: moment().utc().toISOString(),
             isSaved: video.isSaved,
             reRender: false,
-            didMount: false
+            didMount: false,
+            engine: video.engine
         })
         history.push('/');
-
     }
 
     updateIsSavedStatus= (result) =>{
@@ -66,12 +67,10 @@ export class HistoryListItem extends Component{
     }
 
     render(){
-        const {video} = this.props;
-        const imageUrl = video.snippet && video.snippet.thumbnails.medium.url || video.DB_id;
+        const video = videoDetailObj(this.props.video);
         
         return(
-            
-            (!video.snippet)? (
+            (!video.title)? (
                 <li className="collection-item avatar HLI-1 ">
                     <div className="row">
                         <div className="col s12">
@@ -94,14 +93,14 @@ export class HistoryListItem extends Component{
                             </div>
                         </div>
                         <div className="col s12 m3 l3 xl3 div-record-2">
-                            <img src={imageUrl} className="responsive-img"/>
+                            <img src={video.imageUrl} className="responsive-img"/>
                         </div>
                         <div className="col s11 m8 l5 xl6 div-record-3">
-                            <span className="title">{video.snippet.title}</span>
-                            <p>{moment(video.snippet.publishedAt).format('DD MMM YYYY')} - {video.statistics.viewCount} views<br />
-                                Uploaded by:<a href={`http://www.youtube.com/channel/${video.snippet.channelId}`}> {video.snippet.channelTitle}</a>
+                            <span className="title">{video.title}</span>
+                            <p>{moment(video.publishedAt).format('DD MMM YYYY')} - {video.viewCount} views<br />
+                                Uploaded by:<a href={video.channelUrl}> {video.channelTitle}</a>
                             </p>
-                            <p>{video.snippet.description.substring(0,200)}...</p>                    
+                            <p>{video.description.substring(0,200)}...</p>                    
                         </div>
                         <div className="col s1 m1 l1 xl1 div-record-4">
                             <i className="material-icons" onClick={this.onVideoSave}>{(video.isSaved)?'star' : 'star_border'}</i> 

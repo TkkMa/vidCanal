@@ -27,12 +27,12 @@ export class VideoListFilters extends Component {
     };
 
     render() {
-        const {sortBy, uploadDate, playerChecked} = this.props.filters;
+        const {sortBy, uploadDate} = this.props.filters;
         const {resultsPerPage} = this.props.page;
         const logoURL = {
-            D: "/images/d_dailymotion.jpg",
+            YT:"/images/yt_icon_mono_light.png",
             V: "/images/vimeo_icon_dark.png",
-            YT:"/images/yt_icon_mono_light.png"
+            D: "/images/d_dailymotion.jpg"
         }
         return(
             <nav>
@@ -59,19 +59,20 @@ export class VideoListFilters extends Component {
                     </div>
                     <div className="input-field col s5 m4 l3 xl3">
                         <p className="range-field">
-                                <input 
-                                    value={resultsPerPage}
-                                    onChange={this.onNumResultsChange}
-                                    type="range" 
-                                    id="searchNum" 
-                                    min="1" max="50" 
-                                />
+                            <input 
+                                value={resultsPerPage}
+                                onChange={this.onNumResultsChange}
+                                type="range" 
+                                id="searchNum" 
+                                min="1" max="50" 
+                            />
                         </p>
                         <label>Hits Per Page ({resultsPerPage}/50)</label>
                     </div>
                     {
-                        Object.keys(this.props.valueCheck).map(key=>(
-                            <div key={key} className="input-field col s3 m2 l1 xl1 right">
+                        Object.keys(this.props.valueCheck).map((key, index)=>(
+                            <div key={key} 
+                                className={`input-field col s3 m2 l1 ${(index===0) ? 'offset-l1 xl1 offset-xl2':'xl1'}`}>
                                 <label className="chk-label">
                                     <input type="checkbox"
                                         name={key} 

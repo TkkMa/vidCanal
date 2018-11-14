@@ -8,7 +8,6 @@ class VideoListEngine extends Component {
     onChangePage=(e)=>{
         e.stopPropagation();
         const clickedIcon = $(e.target).children('i').text() || $(e.target).text();
-        console.log('clickedIcon', clickedIcon);
         this.props.onChangePage(this.props.engine, clickedIcon);
     }
 
@@ -28,23 +27,31 @@ class VideoListEngine extends Component {
                 <div>
                     <ul className="list-nav">
                         <li>
-                            <button onClick={this.onChangePage} className={(pageActive[engine]===1) ? "btn-flat disabled btn-small col s2" : "waves-effect waves-light btn-flat btn-small col s2"}>
+                            <button onClick={this.onChangePage} 
+                                className={(pageActive[engine]===1) ? 
+                                    "btn-flat disabled btn-small col s2" : "waves-effect waves-light btn-flat btn-small col s2"}>
                                 <i onClick={this.onChangePage} className="material-icons">first_page</i>
                             </button>    
                         </li>
                         
                         <li>
-                            <button onClick={this.onChangePage} className={(pageActive[engine]===1) ? "btn-flat disabled btn-small col s4" : "waves-effect waves-light btn-flat btn-small col s4"}>
+                            <button onClick={this.onChangePage} 
+                                className={(pageActive[engine]===1) ?
+                                    "btn-flat disabled btn-small col s4" : "waves-effect waves-light btn-flat btn-small col s4"}>
                                 <i onClick={this.onChangePage} className="material-icons left">chevron_left</i>Prev
                             </button>
                         </li>
                         <li>
-                            <button onClick={this.onChangePage} className={(nextPageToken[engine]==='' || lastPageReached[engine])? "btn-flat disabled btn-small col s4" : "waves-effect waves-light btn-flat btn-small col s4"}>
+                            <button onClick={this.onChangePage} 
+                                className={(nextPageToken[engine]==='' || lastPageReached[engine]) ?
+                                    "btn-flat disabled btn-small col s4" : "waves-effect waves-light btn-flat btn-small col s4"}>
                                 Next <i onClick={this.onChangePage} className="material-icons right">chevron_right</i>
                             </button>
                         </li>
                         <li>
-                            <button onClick={this.onChangePage} className={(!lastPageFound[engine] || lastPageReached[engine])? "btn-flat disabled btn-small col s2" : "waves-effect waves-light btn-flat btn-small col s2"}>
+                            <button onClick={this.onChangePage} 
+                                className={(!lastPageFound[engine] || lastPageReached[engine]) ? 
+                                    "btn-flat disabled btn-small col s2" : "waves-effect waves-light btn-flat btn-small col s2"}>
                                 <i onClick={this.onChangePage} className="material-icons">last_page</i>
                             </button>
                         </li>
@@ -52,7 +59,9 @@ class VideoListEngine extends Component {
                     <ul className="collection">
                         {
                             results[engine][searchKey].hits.slice(startIndex, endIndex).map(video=>(
-                                <VideoListItem key={video.id.videoId || video.id} video={video} searchKey={searchKey} engine={engine} />
+                                <VideoListItem key={video.id.videoId || video.id} 
+                                            video={video} 
+                                            searchKey={searchKey} engine={engine} />
                             ))
                         }
                     </ul>

@@ -11,7 +11,6 @@ export class VideoList extends Component{
 
     componentDidMount(){
         $('.tabs').tabs();
-        $('')
     }
     
     onChangePage=(selectedEngine, clickedIcon)=>{
@@ -32,9 +31,6 @@ export class VideoList extends Component{
                                     </li>
                                 ))
                             }
-                            {/* <li className="tab col s3"><a className="active" href="#YT">Youtube</a></li>
-                            <li className="tab col s3"><a href="#V">Vimeo</a></li>
-                            <li className="tab col s3"><a href="#D">Dailymotion</a></li> */}
                         </ul>
                     </div>
                     <div id="YT" className="col s12">

@@ -3,6 +3,7 @@ import {connect} from 'react-redux';
 import moment from "moment";
 import {selectVideo, startSaveVideo} from "../actions/videos";
 import {removeFavCount} from '../actions/filters';
+import {videoDetailObj} from '../selectors/videos';
 
 export class FavoriteListItem extends Component{
 
@@ -38,8 +39,8 @@ export class FavoriteListItem extends Component{
     };
 
     render(){
-        const {video} = this.props;
-        const imageUrl = video.snippet.thumbnails.medium.url;
+        const video = videoDetailObj(this.props.video);
+
         return(
             <li className="collection-item avatar FLI-1" onClick={this.handleOpenModal}>
                 <div className="row">
@@ -59,13 +60,13 @@ export class FavoriteListItem extends Component{
                     </div>
                     <div className="col s11 m8 l5 xl6 div-record-3">
                         <span className="title">
-                            {video.snippet.title}
+                            {video.title}
                             {(this.props.ids.findIndex(idElement=>idElement.videoId===video.id)>-1) ? <span className="new badge"></span>: <span/>}
                         </span>
-                        <p>{moment(video.snippet.publishedAt).format('DD MMM YYYY')} - {video.statistics.viewCount} views<br />
-                            Uploaded by:<a href={`http://www.youtube.com/channel/${video.snippet.channelId}`}> {video.snippet.channelTitle}</a>
+                        <p>{moment(video.publishedAt).format('DD MMM YYYY')} - {video.viewCount} views<br />
+                            Uploaded by:<a href={video.channelUrl}> {video.channelTitle}</a>
                         </p>
-                        <p>{video.snippet.description.substring(0,200)}...</p>                    
+                        <p>{video.description.substring(0,200)}...</p>                    
                     </div>
                     <div className="col s1 m1 l1 xl1 div-record-4">
                         <i className="material-icons right" onClick={this.clearItem}>clear</i>

@@ -1,13 +1,14 @@
 import React from 'react';
 import Modal from 'react-modal';
 import moment from 'moment';
+import {videoDetailObj} from '../selectors/videos';
 
 const FavoriteModal = (props) => {
-  const {handleCloseModal, showModal, video} = props;
-  const url = `https://www.youtube.com/embed/${video.id}`;
-  
+  const {handleCloseModal, showModal} = props;
+  const video = videoDetailObj(props.video);
+
   return(
-    (!Object.keys(video).length) ? 
+    (!video) ? 
       (<div></div>):
       (
         <Modal
@@ -18,12 +19,12 @@ const FavoriteModal = (props) => {
           className="modal-1"
         >
           <div className="video-container">
-            <iframe width="853" height="480" src={url} frameborder="0" allowFullScreen="allowFullScreen"></iframe>
+            <iframe width="853" height="480" src={video.embedURL} frameborder="0" allowFullScreen="allowFullScreen"></iframe>
           </div>
           <div className="modal_caption">
-            <div>Published on: {moment(video.snippet.publishedAt).format('DD MMM YYYY')} by  
-                <a href={`http://www.youtube.com/channel/${video.snippet.channelId}`}> {video.snippet.channelTitle}</a>
-                <div className="views">{video.statistics.viewCount} views</div> 
+            <div>Published on: {moment(video.publishedAt).format('DD MMM YYYY')} by  
+                <a href={video.channelUrl}> {video.channelTitle}</a>
+                <div className="views">{video.viewCount} views</div> 
             </div>
             <div>
                 <button className="btn-flat waves-effect waves-light btn-small" onClick={props.handleCloseModal}>Close</button>

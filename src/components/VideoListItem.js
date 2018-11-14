@@ -9,13 +9,14 @@ export class VideoListItem extends Component{
 
     onVideoSelect = async () =>{
         const {video, resultDetail, searchKey, engine} = this.props;
-        const videoClicked = await indVidAPISearch({id:video.id}, engine);
+        const videoClicked = await indVidAPISearch(video, engine);
         const updatedHitSelect = [...resultDetail[engine][searchKey].hits, ...videoClicked];
         this.props.startSelectVideo({
             searchKey,
             updatedHitSelect,
             video:videoClicked,
-            viewedAt: moment().utc().toISOString()
+            viewedAt: moment().utc().toISOString(),
+            engine
         });
     }
 
