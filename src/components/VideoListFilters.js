@@ -76,6 +76,7 @@ export class VideoListFilters extends Component {
                                         className="filled-in"
                                         onChange={this.props.onPlayerCheck}
                                         checked={this.props.valueCheck[key]}
+                                        disabled={(index===1)? 'disabled':''}
                                     />
                                     <span></span>
                                 </label>

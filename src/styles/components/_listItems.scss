@@ -77,6 +77,24 @@ li.FLI-1, li.HLI-1 {
     }    
 }
 
+.div-record-4{
+    display: flex;
+    justify-content: center;
+    align-items: center
+}
+
+.div-record-4 img{
+    max-width: 50%;
+    @media screen and (min-width: $small-screen-up){
+        max-width: 30%;
+    }
+    @media screen and (min-width: $medium-screen-up){
+        max-width: 35%;
+    }
+    @media screen and (min-width: $large-screen-up){
+        max-width: 55%;
+    }
+}
 // -- Favorite List Item cross icon
 li.FLI-1 .div-record-4 > i{
     font-size: 2rem;

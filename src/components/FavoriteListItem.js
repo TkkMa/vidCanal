@@ -4,6 +4,7 @@ import moment from "moment";
 import {selectVideo, startSaveVideo} from "../actions/videos";
 import {removeFavCount} from '../actions/filters';
 import {videoDetailObj} from '../selectors/videos';
+import {playerLabelsObj} from '../fixtures/playerLabels';
 
 export class FavoriteListItem extends Component{
 
@@ -56,9 +57,9 @@ export class FavoriteListItem extends Component{
                         </div>
                     </div>
                     <div className="col s12 m3 l3 xl3 div-record-2">
-                        <img src={imageUrl} className="responsive-img"/>
+                        <img src={video.imageUrl} className="responsive-img"/>
                     </div>
-                    <div className="col s11 m8 l5 xl6 div-record-3">
+                    <div className="col s10 m7 l5 xl6 div-record-3">
                         <span className="title">
                             {video.title}
                             {(this.props.ids.findIndex(idElement=>idElement.videoId===video.id)>-1) ? <span className="new badge"></span>: <span/>}
@@ -68,7 +69,8 @@ export class FavoriteListItem extends Component{
                         </p>
                         <p>{video.description.substring(0,200)}...</p>                    
                     </div>
-                    <div className="col s1 m1 l1 xl1 div-record-4">
+                    <div className="col s2 m2 l1 xl1 div-record-4">
+                        <img className="responsive-img" src={playerLabelsObj[video.engine].img} /> 
                         <i className="material-icons right" onClick={this.clearItem}>clear</i>
                     </div>
                 </div>

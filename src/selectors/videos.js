@@ -17,7 +17,6 @@ export const videoHistory = (videoArray, {startDate, endDate, text, isSaved}) =>
 
 export const vidSearchInputs =(pageToggle, uploadDate, stateValues) => new Promise((resolve)=>{
     let {pageActive, maxViewedPage} = stateValues;
-    console.log('pageActive', pageActive);
     switch (pageToggle){
         case 'first_page':
             pageActive = 1;
@@ -36,7 +35,6 @@ export const vidSearchInputs =(pageToggle, uploadDate, stateValues) => new Promi
             pageActive = 1;
             maxViewedPage = 1;
     }
-    console.log('pageActive after', pageActive);
     let sortTimeVal;
     switch(uploadDate){
         case 'today':
@@ -80,7 +78,7 @@ export const videoListObj = (video, engine) => {
                 id: video.id,
                 imageUrl: video.thumbnail_120_url,
                 title: video.title,
-                publishedAt: video.created_time,
+                publishedAt: video.created_time*1000,
                 channelUrl: video.ownerUrl,
                 channelTitle: video.ownerScreenname
             };
@@ -113,7 +111,7 @@ export const videoDetailObj = (video) => {
                 id: video.id,
                 imageUrl: video.thumbnail_180_url,
                 title: video.title,
-                publishedAt: video.created_time,
+                publishedAt: video.created_time*1000,
                 channelUrl: video.ownerUrl,
                 channelTitle: video.ownerScreenname,
                 viewCount: video.views_total,

@@ -1,4 +1,6 @@
 const axios = require('axios');
+const moment = require('moment');
+
 const ROOT_URL = {
     YT: 'https://www.googleapis.com/youtube/v3/search',
     D: 'https://api.dailymotion.com/videos',
@@ -44,7 +46,7 @@ const vidAPISearch = (options={}, engine='YT')=>{
             page: options.pageToken[engine],
             fields: 'id,title,owner.screenname,owner.url,views_total,embed_url,created_time,description,thumbnail_60_url,thumbnail_120_url,thumbnail_180_url'
           };
-        if(options.sortTimeVal){params.createdAfter=options.sortTimeVal;}
+        if(options.sortTimeVal){params.created_after=moment(options.sortTimeVal).unix();}
 
         return axios.get(ROOT_URL[engine], {params: params})
         .then(response=>{
@@ -58,7 +60,6 @@ const vidAPISearch = (options={}, engine='YT')=>{
                 ownerUrl,
                 ...rest
             }))
-            console.log('list', arrayOfObj);
             return {
                 pageInfo: {
                     total: response.data.total,

@@ -27,17 +27,11 @@ class VideoApp extends Component{
     //-- (1) Direct to '/' (2) searching term from different page leads top equal prevProps and this.props 
     //-- due to the setState re-rendering in componentDidMount()
     componentDidUpdate (prevProps){
-        // console.log('VideoApp componentDidUpdate initialized');
-        console.log('this.props.searchKey', this.props.searchKey);
-        console.log('prevProps.searchKey', prevProps.searchKey);
-        console.log('didUpdate', this.props.didUpdate);
-        if(this.props.searchKey !== prevProps.searchKey || this.props.didUpdate){
-            console.log('inside if statement VideoApp componentDidUpdate')
+        if(this.props.searchKey !== prevProps.searchKey){
             const keyArray = _.keys(_.pickBy(this.state.chkBox));
             keyArray.forEach((key)=>{
                 this.videoSearch(this.props.searchKey, key, 'first_page');
             })
-            this.props.setDidUpdate({didUpdate: false});
         }
     }
 
@@ -45,12 +39,12 @@ class VideoApp extends Component{
     //-- componentDidMount runs prior to componentDidUpdate when DOM needs to be mounted
     //-- setTimeout is necessary to account for case when history item is clicked and searchKey does not immediately update
     componentDidMount(){
-        // console.log('VideoApp componentDidMount initialized', this.props.didMount);
         const {YT, V, D} = this.props.playerChecked;
-        console.log('this.props.searchKey in componentDidMount', this.props.searchKey);
-        this.setState({chkBox:{ YT, V, D }});
-        //     // setTimeout(()=>{this.videoSearch(this.props.searchKey, )}, 500);
-        // })
+        this.setState({chkBox:{ YT, V, D }},()=>{
+            if(this.props.didMount){
+                setTimeout(()=>{this.videoSearch(this.props.searchKey, )}, 500);
+            }
+        });
     }
     
     //-- Store final checkbox state prior to leaving page
@@ -83,7 +77,7 @@ class VideoApp extends Component{
         if(this.props.reRender && oldHits.length>((maxViewedPage-1)*page.resultsPerPage)){
             const index_OH = (pageActive-1)*page.resultsPerPage;
             const index_OHS = oldHitSelect.findIndex(video=>video.id=== oldHits[index_OH].id.videoId || oldHits[index_OH].id);
-            // console.log('videoSearch chk pt2');
+
             this.props.startSelectVideo({
                 searchKey: term, 
                 updatedHitSelect: oldHitSelect, 
@@ -102,8 +96,6 @@ class VideoApp extends Component{
             // console.log(`Begin to call YT search for searchKey ${term}`);
             try{
                 const videos = await vidAPISearch({num: page.resultsPerPage, term, sortBy, sortTimeVal, pageToken: page.nextPageToken}, engine);
-                console.log('engine', engine);
-                console.log('videos', videos);
 
                 if(!videos.items.length){
                     throw new Error('No videos found with selected criteria.  Please search again.')
@@ -115,7 +107,6 @@ class VideoApp extends Component{
                     });
                 };
                 const updatedHits = [...oldHits, ...videos.items];
-                // console.log('VideoSearch chk pt3');
                 this.props.setVideos({
                     searchKey:term,
                     updatedHits,    
@@ -126,12 +117,9 @@ class VideoApp extends Component{
                 //-- Condition for clicking history item -- do not update VideoDetail component
                 //-- 'video' is an ARRAY with ONE element
                 if(this.props.reRender){
-                    // console.log('Begin YTVideo search');
                     const video = await indVidAPISearch(videos.items[0], engine); // Array with one element returned
-                    console.log('engine Detail', engine);
-                    console.log('videoDetail', video);
+
                     const updatedHitSelect = [...oldHitSelect, ...video];
-                    // console.log('VideoSearch chk pt4');
                     this.props.startSelectVideo({
                         searchKey:term,
                         updatedHitSelect, 
@@ -166,9 +154,9 @@ class VideoApp extends Component{
     onSearchFilterChange = ()=>{
         this.props.setReRender(true);
         const keyArray = _.keys(_.pickBy(this.state.chkBox));
-            keyArray.forEach((key)=>{
-                this.videoSearch(undefined, key, 'first_page');
-            })
+        keyArray.forEach((key)=>{
+            this.videoSearch(undefined, key, '');
+        })
     }
 
     onPlayerCheck = (e)=>{
@@ -184,36 +172,35 @@ class VideoApp extends Component{
     };
 
     render(){
-        // const onNumResultsChange = _.debounce(()=>{this.onSearchFilterChange()},500);
+        const onNumResultsChange = _.debounce(()=>{this.onSearchFilterChange()},500);
         const {error} = this.state;
         const {selectedVideo} = this.props;
 
         return(
-            <div>Loading</div>
-            // <div className="container">
-            //     <VideoListFilters 
-            //         onSortByTimeChange={this.onSearchFilterChange}
-            //         onNumChange={this.onSearchFilterChange}
-            //         onPlayerCheck={this.onPlayerCheck}
-            //         valueCheck={this.state.chkBox}
-            //     />
-            //     {(error && this.state.reRender) ? (
-            //             <div>
-            //                 <p>{error}</p>
-            //             </div>
-            //         ) : (
-            //             <div className="VA-1 row">
-            //                 <VideoDetail video={selectedVideo}/>
-            //                 <VideoList
-            //                     onPageChange={this.videoSearch}
-            //                     error={error}
-            //                     playerChecked={this.state.chkBox}
-            //                     video={selectedVideo}
-            //                 />
-            //             </div>
-            //         )
-            //     }
-            // </div>
+            <div className="container">
+                <VideoListFilters 
+                    onSortByTimeChange={this.onSearchFilterChange}
+                    onNumChange={onNumResultsChange}
+                    onPlayerCheck={this.onPlayerCheck}
+                    valueCheck={this.state.chkBox}
+                />
+                {(error && this.state.reRender) ? (
+                        <div>
+                            <p>{error}</p>
+                        </div>
+                    ) : (
+                        <div className="VA-1 row">
+                            <VideoDetail video={selectedVideo}/>
+                            <VideoList
+                                onPageChange={this.videoSearch}
+                                error={error}
+                                playerChecked={this.state.chkBox}
+                                video={selectedVideo}
+                            />
+                        </div>
+                    )
+                }
+            </div>
         );
     };
 };
@@ -222,7 +209,7 @@ const mapStateToProps = (state)=>({
     results: state.videos.results,
     resultDetail: state.videos.resultDetail,
     reRender: state.videos.reRender,
-    didUpdate: state.videos.didUpdate,
+    didMount: state.videos.didMount,
     selectedVideo: state.videos.selectedVideo,
     sortBy: state.filters.sortBy,
     uploadDate: state.filters.uploadDate,
