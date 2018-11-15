@@ -39,23 +39,31 @@
 }
 
 // -- checkbox positioning
-.VLF-1 .input-field:nth-of-type(4) img{
-    position:relative;
-    left: 3rem;
-    top: 0.8rem;
+.VLF-1 div:nth-child(4),
+.VLF-1 div:nth-child(5),
+.VLF-1 div:nth-child(6) {
+    display: flex;
+    justify-content: center;
+    align-items: center;
 }
 
-.VLF-1 .input-field:nth-of-type(5) img{
-    position:relative;
-    left: 3rem;
-    top: 1rem;
-}
+// .VLF-1 .input-field:nth-of-type(4) img{
+//     position:relative;
+//     left: 3rem;
+//     top: 0.8rem;
+// }
 
-.VLF-1 .input-field:nth-of-type(6) img{
-    position:relative;
-    left: 3rem;
-    top: 0.8rem;
-}
+// .VLF-1 .input-field:nth-of-type(5) img{
+//     position:relative;
+//     left: 3rem;
+//     top: 1rem;
+// }
+
+// .VLF-1 .input-field:nth-of-type(6) img{
+//     position:relative;
+//     left: 3rem;
+//     top: 0.8rem;
+// }
 
 .VLF-1 img.responsive-img{
     max-width: 30%;
@@ -64,6 +72,7 @@
     }
     @media screen and (min-width: $medium-screen-up){
         max-width: 60%;
+        margin-left: 2.5rem;
     }
     @media screen and (min-width: $large-screen-up){
         max-width: 45%;

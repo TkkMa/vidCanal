@@ -1,3 +1,10 @@
+// $small-screen-up: 601px !default;
+// $medium-screen-up: 993px !default;
+// $large-screen-up: 1201px !default;
+// $small-screen: 600px !default;
+// $medium-screen: 992px !default;
+// $large-screen: 1200px !default;
+
 .VL-1 .btn-small i, .btn-flat i.material-icons {
     font-size: $m-size;
 }
@@ -26,4 +33,43 @@
     & > div:first-child{
         margin-bottom: 0.5rem;
     }  
+}
+
+//-- tab treatment
+
+.VL-1 ul.tabs li.disabled a img{
+    opacity: 0.1;
+}
+.VL-1 ul.tabs li a {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    img{
+        opacity: 0.45;
+        max-width: 25%;
+        @media screen and (min-width: $small-screen-up){
+            max-width: 15%;
+        }
+        @media screen and (min-width: $medium-screen-up){
+            max-width: 50%;
+        }
+        @media screen and (min-width: $large-screen-up){
+            max-width: 45%;
+        }
+    }
+    span.player-label {
+        display: none;
+        margin-left: 1rem;
+        @media screen and (min-width: $small-screen-up) and (max-width: $medium-screen){
+            display: inline;
+        }        
+    }
+}
+
+.VL-1 ul.tabs a.active {
+
+    img, span {
+        opacity: 0.9;
+    }
 }

@@ -2,6 +2,7 @@ import React, {Component} from 'react';
 import ReactDOM from 'react-dom';
 import {connect} from 'react-redux';
 import {setSortBy, setUploadDate, setPlayer, setResPerPage} from '../actions/filters';
+import { playerLabelsObj } from '../fixtures/playerLabels';
 
 export class VideoListFilters extends Component {
 
@@ -29,11 +30,7 @@ export class VideoListFilters extends Component {
     render() {
         const {sortBy, uploadDate} = this.props.filters;
         const {resultsPerPage} = this.props.page;
-        const logoURL = {
-            YT:"/images/yt_icon_mono_light.png",
-            V: "/images/vimeo_icon_dark.png",
-            D: "/images/d_dailymotion.jpg"
-        }
+
         return(
             <nav>
                 <div className="VLF-1 nav-wrapper row">
@@ -82,7 +79,7 @@ export class VideoListFilters extends Component {
                                     />
                                     <span></span>
                                 </label>
-                                <img className="responsive-img" src={logoURL[key]}/>
+                                <img className="responsive-img" src={playerLabelsObj[key].img}/>
                             </div>                           
                         ))
                     }

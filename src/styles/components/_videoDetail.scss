@@ -1,18 +1,23 @@
 .VD-1 .pubDate{
     font-size: $s-size;
+    @media screen and (min-width: $small-screen-up){
+        font-size: 1.4rem;
+    }     
 }
 
 .VD-1.card-panel > .row:first-child{
     margin-bottom: 0;
 }
+
+.VD-1 img.logo{
+    width: 100%
+}
+
 .VD-1 .views{
     font-size: $s-size;
 }
 
-.VD-1 ul.collapsible{
-    box-shadow: none;
-    border: 0;
-}
+
 .VD-1 .title{
     font-size: 1.4rem;
     font-weight:bold;
@@ -20,6 +25,11 @@
     @media screen and (min-width: $medium-screen-up){
         font-size: 1.6rem;
     }   
+}
+
+.VD-1 ul.collapsible{
+    box-shadow: none;
+    border: 0;
 }
 
 .VD-1 .collapsible-header {

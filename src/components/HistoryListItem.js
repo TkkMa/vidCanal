@@ -18,7 +18,7 @@ export class HistoryListItem extends Component{
             viewedAt: moment().utc().toISOString(),
             isSaved: video.isSaved,
             reRender: false,
-            didMount: false,
+            didUpdate: true,
             engine: video.engine
         })
         history.push('/');

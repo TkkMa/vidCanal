@@ -30,9 +30,14 @@ class VideoApp extends Component{
         // console.log('VideoApp componentDidUpdate initialized');
         console.log('this.props.searchKey', this.props.searchKey);
         console.log('prevProps.searchKey', prevProps.searchKey);
-        if(this.props.searchKey !== prevProps.searchKey){
+        console.log('didUpdate', this.props.didUpdate);
+        if(this.props.searchKey !== prevProps.searchKey || this.props.didUpdate){
             console.log('inside if statement VideoApp componentDidUpdate')
-            this.videoSearch(this.props.searchKey, undefined, 'first_page');
+            const keyArray = _.keys(_.pickBy(this.state.chkBox));
+            keyArray.forEach((key)=>{
+                this.videoSearch(this.props.searchKey, key, 'first_page');
+            })
+            this.props.setDidUpdate({didUpdate: false});
         }
     }
 
@@ -42,12 +47,10 @@ class VideoApp extends Component{
     componentDidMount(){
         // console.log('VideoApp componentDidMount initialized', this.props.didMount);
         const {YT, V, D} = this.props.playerChecked;
-        this.setState({
-            chkBox:{ YT, V, D }
-        }, ()=>{
-
-            // setTimeout(()=>{this.videoSearch(this.props.searchKey, )}, 500);
-        })
+        console.log('this.props.searchKey in componentDidMount', this.props.searchKey);
+        this.setState({chkBox:{ YT, V, D }});
+        //     // setTimeout(()=>{this.videoSearch(this.props.searchKey, )}, 500);
+        // })
     }
     
     //-- Store final checkbox state prior to leaving page
@@ -162,7 +165,10 @@ class VideoApp extends Component{
 
     onSearchFilterChange = ()=>{
         this.props.setReRender(true);
-        this.videoSearch();
+        const keyArray = _.keys(_.pickBy(this.state.chkBox));
+            keyArray.forEach((key)=>{
+                this.videoSearch(undefined, key, 'first_page');
+            })
     }
 
     onPlayerCheck = (e)=>{
@@ -178,34 +184,36 @@ class VideoApp extends Component{
     };
 
     render(){
-        const onNumResultsChange = _.debounce(()=>{this.onSearchFilterChange()},500);
+        // const onNumResultsChange = _.debounce(()=>{this.onSearchFilterChange()},500);
         const {error} = this.state;
         const {selectedVideo} = this.props;
 
         return(
-            <div className="container">
-                <VideoListFilters 
-                    onSortByTimeChange={this.onSearchFilterChange}
-                    onNumChange={onNumResultsChange}
-                    onPlayerCheck={this.onPlayerCheck}
-                    valueCheck={this.state.chkBox}
-                />
-                {(error && this.state.reRender) ? (
-                        <div>
-                            <p>{error}</p>
-                        </div>
-                    ) : (
-                        <div className="VA-1 row">
-                            <VideoDetail video={selectedVideo}/>
-                            <VideoList
-                                onPageChange={this.videoSearch}
-                                error={error}
-                                playerChecked={this.state.chkBox}
-                            />
-                        </div>
-                    )
-                }
-            </div>
+            <div>Loading</div>
+            // <div className="container">
+            //     <VideoListFilters 
+            //         onSortByTimeChange={this.onSearchFilterChange}
+            //         onNumChange={this.onSearchFilterChange}
+            //         onPlayerCheck={this.onPlayerCheck}
+            //         valueCheck={this.state.chkBox}
+            //     />
+            //     {(error && this.state.reRender) ? (
+            //             <div>
+            //                 <p>{error}</p>
+            //             </div>
+            //         ) : (
+            //             <div className="VA-1 row">
+            //                 <VideoDetail video={selectedVideo}/>
+            //                 <VideoList
+            //                     onPageChange={this.videoSearch}
+            //                     error={error}
+            //                     playerChecked={this.state.chkBox}
+            //                     video={selectedVideo}
+            //                 />
+            //             </div>
+            //         )
+            //     }
+            // </div>
         );
     };
 };
@@ -214,7 +222,7 @@ const mapStateToProps = (state)=>({
     results: state.videos.results,
     resultDetail: state.videos.resultDetail,
     reRender: state.videos.reRender,
-    didMount: state.videos.didMount,
+    didUpdate: state.videos.didUpdate,
     selectedVideo: state.videos.selectedVideo,
     sortBy: state.filters.sortBy,
     uploadDate: state.filters.uploadDate,

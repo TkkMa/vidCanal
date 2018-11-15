@@ -128,3 +128,8 @@ export const toggleIsSavedFilter = (isSaved)=>({
     type: 'TOGGLE_ISSAVED_FILTER',
     isSaved
 });
+
+// RESET_FILTERS
+export const resetFilters = ()=>({
+    type: 'RESET_FILTERS'
+});

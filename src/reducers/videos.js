@@ -15,7 +15,7 @@ const videosReducerDefaultState = {
         V: null 
     },
     reRender: true,
-    didMount: true
+    didUpdate: true
 };
 
 export default (state = videosReducerDefaultState, action) =>{
@@ -25,12 +25,12 @@ export default (state = videosReducerDefaultState, action) =>{
                 ...state,
                 searchKey: action.query.text,
                 reRender: action.query.reRender,
-                didMount: action.query.didMount
+                didUpdate: action.query.didUpdate
             };
-        case 'SET_DID_MOUNT':
+        case 'SET_DID_UPDATE':
             return{
                 ...state,
-                didMount: action.didMount
+                didUpdate: action.didUpdate
             }
         case 'SET_VIDEOS':
             return {
@@ -46,7 +46,7 @@ export default (state = videosReducerDefaultState, action) =>{
         case 'SELECT_VIDEO':
             return{
                 ...state,
-                didMount: action.video.didMount,
+                didUpdate: action.video.didUpdate,
                 searchKey: action.video.searchKey,
                 resultDetail:{
                     ...state.resultDetail,

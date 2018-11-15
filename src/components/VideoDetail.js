@@ -4,6 +4,9 @@ import moment from 'moment';
 import {startSaveVideo} from '../actions/videos';
 import {addFavCount, removeFavCount} from '../actions/filters';
 import {videoDetailObj} from '../selectors/videos';
+import {playerLabelsObj} from '../fixtures/playerLabels';
+import LoadingPage from './LoadingPage';
+
 // import updateIsSavedStatus from '../selectors/updateIsSavedStatus';
 
 class VideoDetail extends Component {
@@ -80,11 +83,14 @@ class VideoDetail extends Component {
 
     render(){
         const {isAuthenticated} =this.props;
-        console.log('VideoDetail selectedVideo: ', this.props.video);
         const video = videoDetailObj(this.props.video);
 
         return (
-            (!video) ? (<div>Loading...</div>) :
+            (!video) ? (
+                <div className="col s12 m12 l7 xl8">
+                    <LoadingPage />
+                </div>
+            ) :
             (
                 <div className="col s12 m12 l7 xl8">
                     <div className="video-container">
@@ -92,15 +98,18 @@ class VideoDetail extends Component {
                     </div>
                     <div className="VD-1 card-panel grey lighten-5">
                         <div className="row valign-wrapper">
-                            <div className="col s9">
+                            <div className="col s2 m1 l2 xl1">
+                                <img className="logo responsive-img" src={playerLabelsObj[video.engine].img} />
+                            </div>
+                            <div className="col s7 m8 l7 xl8">
                                 <div className="pubDate">Published on: {moment(video.publishedAt).format('DD MMM YYYY')} by  
                                     <a href={video.channelUrl}> {video.channelTitle}</a>
                                 </div>
                             </div>
-                            <div className="col s2">
+                            <div className="col s2 m2 l2 xl2">
                                 <div className="views">{video.viewCount} views</div> 
                             </div>
-                            <div className="col s1">
+                            <div className="col s1 m1 l1 xl1">
                                 <i className="starBorder material-icons" 
                                     onClick={(isAuthenticated) ? this.onVideoSave : this.blockSave}
                                 >
@@ -114,7 +123,7 @@ class VideoDetail extends Component {
                                     <span>{video.title}</span>
                                     <button className="btn btn-small"><i className="material-icons">description</i></button>
                                 </div>
-                                {/* <div className="description collapsible-body" dangerouslySetInnerHTML={{__html: video.description.replace(/\n/g, "<br>")}}></div> */}
+                                <div className="description collapsible-body" dangerouslySetInnerHTML={{__html: video.description.replace(/\n/g, "<br>")}}></div>
                             </li>
                         </ul>
                     </div>

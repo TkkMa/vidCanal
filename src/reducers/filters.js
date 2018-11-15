@@ -76,7 +76,6 @@ export default (state=filtersReducerDefaultState, action) =>{
                 ...state,
                 isSaved: action.isSaved
             };
-        
         default:
             return state;
     };

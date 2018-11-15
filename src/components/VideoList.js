@@ -1,5 +1,6 @@
 import React, {Component} from 'react';
 import VideoListEngine from './VideoListEngine';
+import {playerLabelsObj} from '../fixtures/playerLabels';
 
 export class VideoList extends Component{
     
@@ -7,6 +8,14 @@ export class VideoList extends Component{
         YT: 'Youtube',
         V: 'Vimeo',
         D: 'Dailymotion'
+    }
+
+    componentDidUpdate(prevProps){
+        if(this.props.video.engine !== prevProps.video.engine){
+            const el = document.querySelector('.tabs');
+            const instance = M.Tabs.getInstance(el);
+            instance.select(this.props.video.engine);
+        }
     }
 
     componentDidMount(){
@@ -18,16 +27,20 @@ export class VideoList extends Component{
     }
 
     render(){
+
         const {playerChecked} = this.props;
         return(
             <div className="VL-1 col s12 m12 l5 xl4">
                 <div className="row">
                     <div className="col s12">
-                        <ul className="tabs">
+                        <ul className="tabs tabs-fixed-width">
                             {
                                 Object.keys(playerChecked).map((key)=>(
                                     <li className={`tab col s3 ${(playerChecked[key])?'':'disabled'}`}>
-                                        <a href={`#${key}`}>{this.state[key]}</a>
+                                        <a href={`#${key}`}>
+                                            <img className="responsive-img" src={playerLabelsObj[key].img} />
+                                            <span className="player-label">{playerLabelsObj[key].text}</span>
+                                        </a>
                                     </li>
                                 ))
                             }

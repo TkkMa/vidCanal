@@ -3,17 +3,17 @@ import database from '../firebase/firebase';
 export const setSearchKey = ({
     text='',
     reRender=true,
-    didMount=true
+    didUpdate=true
 })=>({
     type:'SET_SEARCH_KEY',
-    query: {text, reRender, didMount}
+    query: {text, reRender, didUpdate}
 });
 
-export const setDidMount = ({
-    didMount= true
+export const setDidUpdate = ({
+    didUpdate= true
 }) => ({
-    type: 'SET_DID_MOUNT',
-    didMount
+    type: 'SET_DID_UPDATE',
+    didUpdate
 });
 
 export const setVideos = ({
@@ -44,7 +44,7 @@ export const loadViewedVideos =()=>{
                         dispatch(selectVideo({
                             searchKey: videos[videos.length-1].searchKey,
                             uniqueVideos:videos,
-                            didMount: true,
+                            didUpdate: true,
                             reRender: true,
                             engine: videos[videos.length-1].engine
                         }));
@@ -73,17 +73,17 @@ export const startSelectVideo = (videoData={})=>{
             viewedAt = '',
             isSaved = false,
             reRender = true,
-            didMount= true,
+            didUpdate= true,
             engine='YT'
         } = videoData;
-        const videoObj = {searchKey, updatedHitSelect, video, uniqueVideos, viewedAt, isSaved, reRender, didMount, engine};
+        const videoObj = {searchKey, updatedHitSelect, video, uniqueVideos, viewedAt, isSaved, reRender, didUpdate, engine};
         if(!!uid){
             return database.ref(`users/${uid}/history`).push({...video[0], viewedAt, searchKey, isSaved, engine}).then((ref)=>{
                 videoObj.uniqueVideos=[{...video[0], DB_id:ref.key, viewedAt, searchKey, isSaved, engine}];
                 dispatch(selectVideo(videoObj));
             })
         } else{
-            videoObj.uniqueVideos=video;
+            videoObj.uniqueVideos=[{...video[0], engine}];
             dispatch(selectVideo(videoObj));
         }
     };
