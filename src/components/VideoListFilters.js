@@ -7,7 +7,18 @@ import { playerLabelsObj } from '../fixtures/playerLabels';
 export class VideoListFilters extends Component {
 
     componentDidMount(){
-        $('select').formSelect();
+        $("select").formSelect();
+        const {tabStatus} = this.props;
+        if (_.findKey(tabStatus) === 'V'){
+            $('#upload-date').attr('disabled', 'disabled')
+        } else{
+            $('#upload-date').removeAttr('disabled');
+        };
+        // if ($("input[name='D']").attr('checked')===true){
+        //     $("option[value='title']").attr('disabled', 'disabled');
+        // } else{
+        //     $("option[value='title']").removeAttr('disabled');
+        // }
     }
 
     onSortChange = (e) =>{
@@ -44,7 +55,7 @@ export class VideoListFilters extends Component {
                         <label>Sort by</label>
                     </div>
                     <div className="input-field col s3 m4 l2 xl2">
-                        <select value={uploadDate} onChange={this.onDateChange}>
+                        <select id="upload-date" value={uploadDate} onChange={this.onDateChange}>
                             <option value="today">Today</option>
                             <option value="week">This week</option>
                             <option value="month">This month</option>
@@ -76,7 +87,7 @@ export class VideoListFilters extends Component {
                                         className="filled-in"
                                         onChange={this.props.onPlayerCheck}
                                         checked={this.props.valueCheck[key]}
-                                        disabled={(index===1)? 'disabled':''}
+                                        // disabled={(index===1)? 'disabled':''}
                                     />
                                     <span></span>
                                 </label>

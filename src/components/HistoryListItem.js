@@ -4,7 +4,7 @@ import moment from "moment";
 import {startSelectVideo, startSaveVideo} from "../actions/videos";
 import {addFavCount, removeFavCount} from '../actions/filters';
 import {history} from '../routers/AppRouter';
-import {videoDetailObj} from '../selectors/videos';
+import {videoDetailObj} from '../fixtures/vidFieldNorm';
 import {playerLabelsObj} from '../fixtures/playerLabels';
 
 export class HistoryListItem extends Component{

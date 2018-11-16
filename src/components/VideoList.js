@@ -4,12 +4,6 @@ import {playerLabelsObj} from '../fixtures/playerLabels';
 
 export class VideoList extends Component{
     
-    state={
-        YT: 'Youtube',
-        V: 'Vimeo',
-        D: 'Dailymotion'
-    }
-
     componentDidUpdate(prevProps){
         if(this.props.video.engine !== prevProps.video.engine){
             const el = document.querySelector('.tabs');
@@ -20,6 +14,9 @@ export class VideoList extends Component{
 
     componentDidMount(){
         $('.tabs').tabs();
+        $(`a[href='${this.props.video.engine}']`).on('click', ()=>{
+            this.props.activateTab(this.props.video.engine);
+        });
     }
     
     onChangePage=(selectedEngine, clickedIcon)=>{

@@ -3,7 +3,7 @@ import {connect} from 'react-redux';
 import moment from 'moment';
 import {startSaveVideo} from '../actions/videos';
 import {addFavCount, removeFavCount} from '../actions/filters';
-import {videoDetailObj} from '../selectors/videos';
+import {videoDetailObj} from '../fixtures/vidFieldNorm';
 import {playerLabelsObj} from '../fixtures/playerLabels';
 import LoadingPage from './LoadingPage';
 
@@ -123,7 +123,7 @@ class VideoDetail extends Component {
                                     <span>{video.title}</span>
                                     <button className="btn btn-small"><i className="material-icons">description</i></button>
                                 </div>
-                                <div className="description collapsible-body" dangerouslySetInnerHTML={{__html: video.description.replace(/\n/g, "<br>")}}></div>
+                                <div className="description collapsible-body" dangerouslySetInnerHTML={(video.description)? {__html: video.description.replace(/\n/g, "<br>")}: ''}></div>
                             </li>
                         </ul>
                     </div>

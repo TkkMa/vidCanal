@@ -3,7 +3,7 @@ import {connect} from 'react-redux';
 import moment from "moment";
 import {selectVideo, startSaveVideo} from "../actions/videos";
 import {removeFavCount} from '../actions/filters';
-import {videoDetailObj} from '../selectors/videos';
+import {videoDetailObj} from '../fixtures/vidFieldNorm';
 import {playerLabelsObj} from '../fixtures/playerLabels';
 
 export class FavoriteListItem extends Component{

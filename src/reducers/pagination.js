@@ -22,7 +22,7 @@ const paginationReducerDefaultState= {
     nextPageToken:{
         YT: '',
         D: 1,
-        V: ''
+        V: 1
     },
     resultsPerPage: 10,
 };

@@ -17,15 +17,41 @@ export const setDidMount = ({
     didMount
 });
 
-export const setVideos = ({
-        searchKey = '',
-        updatedHits = [],
-        engine = 'YT'   
-    } = {}
-) => ({
+export const setVideos = (videos) => ({
     type: 'SET_VIDEOS',
-    videos: {searchKey, updatedHits, engine}
+    videos
 });
+
+export const startSetVideos = (videoData={})=>{
+    return(dispatch) =>{
+        const {
+            searchKey = '',
+            updatedHits = [],
+            engine='YT'
+        } = videoData;
+
+        console.log(updatedHits);
+        const vidArray = updatedHits.map(hit => {
+            let hitNew;
+            switch (engine){
+                case 'YT':
+                    hitNew = {...hit, refId: hit.id.videoId}
+                    break;
+                case 'D':
+                    hitNew = {...hit, refId: hit.id}
+                    break;
+                case 'V':
+                    hitNew = {...hit, refId: hit.uri.slice(8)};
+                    break;
+            }
+            return hitNew;
+        });
+        console.log(`vidArray`, vidArray);
+        const videoObj = {searchKey, vidArray, engine};
+        dispatch(setVideos(videoObj));
+    }
+}
+
 
 export const loadViewedVideos =()=>{
     return(dispatch, getState)=>{
@@ -78,7 +104,9 @@ export const startSelectVideo = (videoData={})=>{
             engine='YT'
         } = videoData;
         const videoObj = {searchKey, updatedHitSelect, video, uniqueVideos, viewedAt, isSaved, reRender, didMount, engine};
+
         if(!!uid){
+            if (engine==='V' && video[0].stats.plays===null){video[0].stats.plays = 0;}; //-- Firebase doesn't store null values
             return database.ref(`users/${uid}/history`).push({...video[0], viewedAt, searchKey, isSaved, engine}).then((ref)=>{
                 videoObj.uniqueVideos=[{...video[0], DB_id:ref.key, viewedAt, searchKey, isSaved, engine}];
                 return dispatch(selectVideo(videoObj));

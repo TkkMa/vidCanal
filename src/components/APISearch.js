@@ -4,14 +4,38 @@ const moment = require('moment');
 const ROOT_URL = {
     YT: 'https://www.googleapis.com/youtube/v3/search',
     D: 'https://api.dailymotion.com/videos',
-    V: ''
+    V: 'https://api.vimeo.com/videos'
 }
 const ROOT_URL_VIDEO = {
-    YT: 'https://www.googleapis.com/youtube/v3/videos',
-    D: 'https://api.dailymotion.com/video/',
-    V: ''
+    YT: 'https://www.googleapis.com/youtube/v3/videos'
+    // D: 'https://api.dailymotion.com/video/',
+    // V: 'https://api.vimeo.com/videos'
 };
-const API_KEY='AIzaSyDWU_q-QSxsSUECDdeWI8WBnVE2q07p804';
+const API_KEY= {
+    YT:'AIzaSyDWU_q-QSxsSUECDdeWI8WBnVE2q07p804',
+    V: 'f0ca0fbcd4918f82208f732dfded4341'
+}
+
+// Mapping sort values where object keys belong to YT's
+const sortValueMap = {
+    relevance: {
+        D: 'relevance',
+        V: 'relevant'
+    },
+    viewCount: {
+        D: 'visited',
+        V: 'plays'
+    },
+    date: {
+        D: 'recent',
+        V: 'date'
+    },
+    title:{
+        D: '',
+        V: 'alphabetical'
+    }
+}
+
 
 const vidAPISearch = (options={}, engine='YT')=>{
     let params;
@@ -19,7 +43,7 @@ const vidAPISearch = (options={}, engine='YT')=>{
         params = {
             maxResults: options.num,
             part: 'snippet',
-            key: API_KEY,
+            key: API_KEY.YT,
             q: options.term,
             type: 'video',
             order: options.sortBy,
@@ -46,6 +70,11 @@ const vidAPISearch = (options={}, engine='YT')=>{
             page: options.pageToken[engine],
             fields: 'id,title,owner.screenname,owner.url,views_total,embed_url,created_time,description,thumbnail_60_url,thumbnail_120_url,thumbnail_180_url'
           };
+        Object.keys(sortValueMap).map(key=>{
+            if(key === params.sort){
+                params.sort = sortValueMap[key][engine]
+            }
+        })
         if(options.sortTimeVal){params.created_after=moment(options.sortTimeVal).unix();}
 
         return axios.get(ROOT_URL[engine], {params: params})
@@ -72,6 +101,35 @@ const vidAPISearch = (options={}, engine='YT')=>{
         .catch(function(error) {
             console.error(error);
         });
+    } else if(engine==='V'){
+        params = {
+            access_token: API_KEY.V,
+            per_page: options.num,
+            query: options.term,
+            page: options.pageToken[engine],
+            sort: options.sortBy,
+            fields:'total,page,per_page,paging,data,uri,pictures,name,release_time,user,stats,description,embed'
+        }
+        Object.keys(sortValueMap).map(key=>{
+            if(key === params.sort){
+                params.sort = sortValueMap[key][engine];
+            }
+        })
+        // if(options.sortTimeVal){params.filter=moment(options.sortTimeVal).unix();}
+        return axios.get(ROOT_URL[engine], { params: params })
+        .then(response=>{
+            return {
+                pageInfo: {
+                    paging: response.data.paging,
+                    total: response.data.total
+                }, 
+                items: response.data.data, 
+                nextPageToken: options.pageToken[engine]+1
+            };
+        })
+        .catch(function(error) {
+            console.error(error);
+        });
     }  
 }
 
@@ -82,7 +140,7 @@ const indVidAPISearch = (options, engine='YT') =>{
     if(engine==='YT'){
         params={
             id: options.id.videoId,
-            key: API_KEY,
+            key: API_KEY.YT,
             part: 'snippet, statistics'
         }
 
@@ -94,6 +152,8 @@ const indVidAPISearch = (options, engine='YT') =>{
             console.error(error);
         });
     } else if(engine==='D'){
+        return [options];
+    } else if(engine==='V'){
         return [options];
     }
 };

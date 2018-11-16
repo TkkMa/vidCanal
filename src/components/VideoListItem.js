@@ -3,7 +3,7 @@ import {connect} from 'react-redux';
 import moment from "moment";
 import {startSelectVideo} from "../actions/videos";
 import {indVidAPISearch} from './APISearch';
-import {videoListObj} from '../selectors/videos';
+import {videoListObj} from '../fixtures/vidFieldNorm';
 
 export class VideoListItem extends Component{
 

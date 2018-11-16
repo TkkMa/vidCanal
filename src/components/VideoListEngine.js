@@ -3,6 +3,7 @@ import {connect} from 'react-redux';
 import VideoListItem from './VideoListItem';
 import LoadingPage from './LoadingPage';
 import { setReRender } from '../actions/videos';
+import { database } from 'firebase';
 
 class VideoListEngine extends Component {
 
@@ -61,7 +62,7 @@ class VideoListEngine extends Component {
                     <ul className="collection">
                         {
                             results[engine][searchKey].hits.slice(startIndex, endIndex).map(video=>(
-                                <VideoListItem key={video.id.videoId || video.id} 
+                                <VideoListItem key={video.refId} 
                                             video={video} 
                                             searchKey={searchKey} engine={engine} />
                             ))

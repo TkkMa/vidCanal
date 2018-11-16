@@ -39,7 +39,7 @@ export default (state = videosReducerDefaultState, action) =>{
                     ...state.results,
                     [action.videos.engine]: {
                         ...state.results[action.videos.engine],
-                        [action.videos.searchKey]: {hits:action.videos.updatedHits}
+                        [action.videos.searchKey]: {hits:action.videos.vidArray}
                     }
                 }
             };
