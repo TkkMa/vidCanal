@@ -3,7 +3,6 @@ import {connect} from 'react-redux';
 import moment from "moment";
 import {selectVideo, startSaveVideo} from "../actions/videos";
 import {removeFavCount} from '../actions/filters';
-import {videoDetailObj} from '../fixtures/vidFieldNorm';
 import {playerLabelsObj} from '../fixtures/playerLabels';
 
 export class FavoriteListItem extends Component{
@@ -40,7 +39,7 @@ export class FavoriteListItem extends Component{
     };
 
     render(){
-        const video = videoDetailObj(this.props.video);
+        const {video} = this.props.video;
 
         return(
             <li className="collection-item avatar FLI-1" onClick={this.handleOpenModal}>

@@ -13,7 +13,7 @@ export const setSearchKey = ({
 export const setDidMount = ({
     didMount= true
 }) => ({
-    type: 'SET_DID_UPDATE',
+    type: 'SET_DID_MOUNT',
     didMount
 });
 
@@ -21,6 +21,27 @@ export const setVideos = (videos) => ({
     type: 'SET_VIDEOS',
     videos
 });
+
+// const insertRefId = (videos, engine)=>{
+//     return videos.map(hit => {
+//         let hitNew;
+//         switch (engine){
+//             case 'YT-list':
+//                 hitNew = {...hit, refId: hit.id.videoId}
+//                 break;
+//             case 'D-list':
+//             case 'D-detail':
+//             case 'YT-detail':
+//                 hitNew = {...hit, refId: hit.id}
+//                 break;
+//             case 'V-list':
+//             case 'V-detail':
+//                 hitNew = {...hit, refId: hit.uri.slice(8)};
+//                 break;
+//         };
+//         return hitNew;
+//     });
+// }
 
 export const startSetVideos = (videoData={})=>{
     return(dispatch) =>{
@@ -30,24 +51,8 @@ export const startSetVideos = (videoData={})=>{
             engine='YT'
         } = videoData;
 
-        console.log(updatedHits);
-        const vidArray = updatedHits.map(hit => {
-            let hitNew;
-            switch (engine){
-                case 'YT':
-                    hitNew = {...hit, refId: hit.id.videoId}
-                    break;
-                case 'D':
-                    hitNew = {...hit, refId: hit.id}
-                    break;
-                case 'V':
-                    hitNew = {...hit, refId: hit.uri.slice(8)};
-                    break;
-            }
-            return hitNew;
-        });
-        console.log(`vidArray`, vidArray);
-        const videoObj = {searchKey, vidArray, engine};
+        // const updatedHitsWRefId = insertRefId(updatedHits, `${engine}-list`);
+        const videoObj = {searchKey, updatedHits, engine};
         dispatch(setVideos(videoObj));
     }
 }
@@ -70,10 +75,10 @@ export const loadViewedVideos =()=>{
                     if(videos.length){
                         dispatch(selectVideo({
                             searchKey: videos[videos.length-1].searchKey,
-                            uniqueVideos:videos,
+                            procVideos: videos,
                             didMount: true,
                             reRender: true,
-                            engine: videos[videos.length-1].engine
+                            engine: videos[videos.length-1].engine,
                         }));
                     } else{
                         dispatch(setSearchKey({text: ''}));
@@ -96,23 +101,24 @@ export const startSelectVideo = (videoData={})=>{
             searchKey = '',
             updatedHitSelect = [],
             video = [],
-            uniqueVideos = [],
+            procVideos = [],
             viewedAt = '',
             isSaved = false,
             reRender = true,
             didMount= true,
             engine='YT'
         } = videoData;
-        const videoObj = {searchKey, updatedHitSelect, video, uniqueVideos, viewedAt, isSaved, reRender, didMount, engine};
-
+        // const updatedHitSelectWRefId = insertRefId(updatedHitSelect, `${engine}-detail`);
+        const videoObj = {searchKey, updatedHitSelect, procVideos, viewedAt, reRender, didMount, engine};
+        
         if(!!uid){
-            if (engine==='V' && video[0].stats.plays===null){video[0].stats.plays = 0;}; //-- Firebase doesn't store null values
+            // if (engine==='V' && video[0].stats.plays===null){video[0].stats.plays = 0;}; //-- Firebase doesn't store null values
             return database.ref(`users/${uid}/history`).push({...video[0], viewedAt, searchKey, isSaved, engine}).then((ref)=>{
-                videoObj.uniqueVideos=[{...video[0], DB_id:ref.key, viewedAt, searchKey, isSaved, engine}];
+                videoObj.procVideos=[{...video[0], DB_id:ref.key, viewedAt, searchKey, isSaved, engine}];
                 return dispatch(selectVideo(videoObj));
             })
         } else{
-            videoObj.uniqueVideos=[{...video[0], engine}];
+            videoObj.procVideos=[{...video[0], engine}];
             dispatch(selectVideo(videoObj));
         }
     };

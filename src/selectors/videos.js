@@ -68,7 +68,7 @@ export const isLastPageFunc = ({items, pageInfo}, {resultsPerPage}, engine)=>{
             isLastPageBool = (items.length < resultsPerPage);
             break;
         case('D'):
-            isLastPageBool = (pageInfo.has_more);
+            isLastPageBool = !pageInfo.has_more;
             break;
         case('V'):
             isLastPageBool = (pageInfo.paging.next === null)

@@ -62,7 +62,7 @@ class VideoListEngine extends Component {
                     <ul className="collection">
                         {
                             results[engine][searchKey].hits.slice(startIndex, endIndex).map(video=>(
-                                <VideoListItem key={video.refId} 
+                                <VideoListItem key={video.id} 
                                             video={video} 
                                             searchKey={searchKey} engine={engine} />
                             ))

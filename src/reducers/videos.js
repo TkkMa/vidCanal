@@ -27,7 +27,7 @@ export default (state = videosReducerDefaultState, action) =>{
                 reRender: action.query.reRender,
                 didMount: action.query.didMount
             };
-        case 'SET_DID_UPDATE':
+        case 'SET_DID_MOUNT':
             return{
                 ...state,
                 didMount: action.didMount
@@ -39,7 +39,7 @@ export default (state = videosReducerDefaultState, action) =>{
                     ...state.results,
                     [action.videos.engine]: {
                         ...state.results[action.videos.engine],
-                        [action.videos.searchKey]: {hits:action.videos.vidArray}
+                        [action.videos.searchKey]: {hits:action.videos.updatedHits}
                     }
                 }
             };
@@ -55,8 +55,12 @@ export default (state = videosReducerDefaultState, action) =>{
                         [action.video.searchKey]:{hits:action.video.updatedHitSelect}
                     }    
                 },
-                selectedVideo: action.video.uniqueVideos[0],
-                visitedVideos: [...state.visitedVideos, ...action.video.uniqueVideos],
+                selectedVideo: {
+                    ...state.selectedVideo,
+                    [action.video.engine] :  action.video.procVideos[action.video.procVideos.length-1]
+                },
+                // selectedVideo: action.video.procVideos[action.video.procVideos.length-1],
+                visitedVideos: [...state.visitedVideos, ...action.video.procVideos],
                 reRender: action.video.reRender
             };
         case 'SAVE_VIDEO':
@@ -73,7 +77,7 @@ export default (state = videosReducerDefaultState, action) =>{
             return{
                 ...state,
                 reRender: action.reRender
-            }
+            };
         default:
             return state;
     }

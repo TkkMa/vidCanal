@@ -3,11 +3,8 @@ import {connect} from 'react-redux';
 import moment from 'moment';
 import {startSaveVideo} from '../actions/videos';
 import {addFavCount, removeFavCount} from '../actions/filters';
-import {videoDetailObj} from '../fixtures/vidFieldNorm';
 import {playerLabelsObj} from '../fixtures/playerLabels';
 import LoadingPage from './LoadingPage';
-
-// import updateIsSavedStatus from '../selectors/updateIsSavedStatus';
 
 class VideoDetail extends Component {
 
@@ -35,20 +32,18 @@ class VideoDetail extends Component {
     }
 
     componentDidUpdate(prevProps){
-        // console.log('componentDidUpdate in VideoDetail initialised!');
-        // const {embedURL} = videoDetailObj(this.props.video);
-        // $("iframe").removeAttr('src').attr('src', embedURL);
-
-        if(this.props.video.id !== prevProps.video.id){
-            //-- Find isSaved state of the most recent re-visited video
-            const prevVid = this.props.visitedVideos
-                                .slice(0,this.props.visitedVideos.length-1)
-                                .reverse()
-                                .find(video =>video.id===this.props.video.id)
-            //-- Update the previous isSaved state to all visited videos       
-            if(prevVid && prevVid.isSaved !== this.props.video.isSaved){
-                console.log('Call update is Saved Status');
-                this.updateIsSavedStatus(prevVid);
+        if(!this.props.error && !prevProps.error){
+            if(this.props.video.id !== prevProps.video.id){
+                //-- Find isSaved state of the most recent re-visited video
+                const prevVid = this.props.visitedVideos
+                                    .slice(0,this.props.visitedVideos.length-1)
+                                    .reverse()
+                                    .find(video =>video.id===this.props.video.id)
+                //-- Update the previous isSaved state to all visited videos       
+                if(prevVid && prevVid.isSaved !== this.props.video.isSaved){
+                    console.log('Call update is Saved Status');
+                    this.updateIsSavedStatus(prevVid);
+                }
             }
         }
     }
@@ -82,54 +77,58 @@ class VideoDetail extends Component {
     }
 
     render(){
-        const {isAuthenticated} =this.props;
-        const video = videoDetailObj(this.props.video);
+        const {isAuthenticated, video, error} =this.props;
 
-        return (
-            (!video) ? (
-                <div className="col s12 m12 l7 xl8">
-                    <LoadingPage />
-                </div>
-            ) :
-            (
-                <div className="col s12 m12 l7 xl8">
-                    <div className="video-container">
-                        <iframe width="853" height="480" frameBorder="0" src={video.embedURL} allowFullScreen="allowFullScreen" />
-                    </div>
-                    <div className="VD-1 card-panel grey lighten-5">
-                        <div className="row valign-wrapper">
-                            <div className="col s2 m1 l2 xl1">
-                                <img className="logo responsive-img" src={playerLabelsObj[video.engine].img} />
-                            </div>
-                            <div className="col s7 m8 l7 xl8">
-                                <div className="pubDate">Published on: {moment(video.publishedAt).format('DD MMM YYYY')} by  
-                                    <a href={video.channelUrl}> {video.channelTitle}</a>
-                                </div>
-                            </div>
-                            <div className="col s2 m2 l2 xl2">
-                                <div className="views">{video.viewCount} views</div> 
-                            </div>
-                            <div className="col s1 m1 l1 xl1">
-                                <i className="starBorder material-icons" 
-                                    onClick={(isAuthenticated) ? this.onVideoSave : this.blockSave}
-                                >
-                                    {video.isSaved ? 'star': 'star_border'}
-                                </i> 
-                            </div>
-                        </div>
-                        <ul className="row collapsible">
-                            <li className= "col s12">
-                                <div className="title collapsible-header">
-                                    <span>{video.title}</span>
-                                    <button className="btn btn-small"><i className="material-icons">description</i></button>
-                                </div>
-                                <div className="description collapsible-body" dangerouslySetInnerHTML={(video.description)? {__html: video.description.replace(/\n/g, "<br>")}: ''}></div>
-                            </li>
-                        </ul>
-                    </div>
-                </div>
+        if(error){
+            return(
+                <div className="col s12 m12 l7 xl8">{error}</div>
             )
-        )
+        }
+        if(!video){
+            return (
+                <div className="col s12 m12 l7 xl8"><LoadingPage /></div>
+            )
+        } else {
+            const video_desc = (video.description)? video.description.replace(/\n/g, "<br>") : ''
+            return (
+                    <div className="col s12 m12 l7 xl8">
+                        <div className="video-container">
+                            <iframe width="853" height="480" frameBorder="0" src={video.embedURL} allowFullScreen="allowFullScreen" />
+                        </div>
+                        <div className="VD-1 card-panel grey lighten-5">
+                            <div className="row valign-wrapper">
+                                <div className="col s2 m1 l2 xl1">
+                                    <img className="logo responsive-img" src={playerLabelsObj[video.engine].img} />
+                                </div>
+                                <div className="col s7 m8 l7 xl8">
+                                    <div className="pubDate">Published on: {moment(video.publishedAt).format('DD MMM YYYY')} by  
+                                        <a href={video.channelUrl}> {video.channelTitle}</a>
+                                    </div>
+                                </div>
+                                <div className="col s2 m2 l2 xl2">
+                                    <div className="views">{video.viewCount} views</div> 
+                                </div>
+                                <div className="col s1 m1 l1 xl1">
+                                    <i className="starBorder material-icons" 
+                                        onClick={(isAuthenticated) ? this.onVideoSave : this.blockSave}
+                                    >
+                                        {video.isSaved ? 'star': 'star_border'}
+                                    </i> 
+                                </div>
+                            </div>
+                            <ul className="row collapsible">
+                                <li className= "col s12">
+                                    <div className="title collapsible-header">
+                                        <span>{video.title}</span>
+                                        <button className="btn btn-small"><i className="material-icons">description</i></button>
+                                    </div>
+                                    <div className="description collapsible-body" dangerouslySetInnerHTML={{__html: video_desc}}></div>
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+            )
+        }
     }
 }
 

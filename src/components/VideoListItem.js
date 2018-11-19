@@ -3,25 +3,26 @@ import {connect} from 'react-redux';
 import moment from "moment";
 import {startSelectVideo} from "../actions/videos";
 import {indVidAPISearch} from './APISearch';
-import {videoListObj} from '../fixtures/vidFieldNorm';
+import {videoDetailArr} from '../fixtures/vidFieldNorm';
 
 export class VideoListItem extends Component{
 
     onVideoSelect = async () =>{
         const {video, resultDetail, searchKey, engine} = this.props;
         const videoClicked = await indVidAPISearch(video, engine);
-        const updatedHitSelect = [...resultDetail[engine][searchKey].hits, ...videoClicked];
+        const normVideoClicked = videoDetailArr(videoClicked[0], engine);
+        const updatedHitSelect = [...resultDetail[engine][searchKey].hits, ...normVideoClicked];
         this.props.startSelectVideo({
             searchKey,
             updatedHitSelect,
-            video:videoClicked,
+            video: normVideoClicked,
             viewedAt: moment().utc().toISOString(),
             engine
         });
     }
 
     render(){
-        const video = videoListObj(this.props.video, this.props.engine);
+        const {video} = this.props;
         
         return(
             <li class="VLI-1 collection-item avatar">

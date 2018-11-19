@@ -24,7 +24,7 @@ const paginationReducerDefaultState= {
         D: 1,
         V: 1
     },
-    resultsPerPage: 10,
+    resultsPerPage: 10
 };
 
 export default (state = paginationReducerDefaultState, action) =>{
@@ -61,6 +61,15 @@ export default (state = paginationReducerDefaultState, action) =>{
             return{
                 ...state,
                 resultsPerPage: action.num
+            };
+        case 'CLEAR_ALL_PAGE_TOKENS':
+            return{
+                ...state,
+                nextPageToken:{
+                    YT: '',
+                    D: 1,
+                    V: 1
+                } 
             };
         default:
             return state;

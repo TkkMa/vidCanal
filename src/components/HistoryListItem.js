@@ -4,7 +4,6 @@ import moment from "moment";
 import {startSelectVideo, startSaveVideo} from "../actions/videos";
 import {addFavCount, removeFavCount} from '../actions/filters';
 import {history} from '../routers/AppRouter';
-import {videoDetailObj} from '../fixtures/vidFieldNorm';
 import {playerLabelsObj} from '../fixtures/playerLabels';
 
 export class HistoryListItem extends Component{
@@ -69,7 +68,7 @@ export class HistoryListItem extends Component{
     }
 
     render(){
-        const video = videoDetailObj(this.props.video);
+        const {video} = this.props
         
         return(
             (!video.title)? (
@@ -102,7 +101,7 @@ export class HistoryListItem extends Component{
                             <p>{moment(video.publishedAt).format('DD MMM YYYY')} - {video.viewCount} views<br />
                                 Uploaded by:<a href={video.channelUrl}> {video.channelTitle}</a>
                             </p>
-                            <p>{video.description.substring(0,200)}...</p>                    
+                            <p>{(video.description)? video.description.substring(0,200): ''}...</p>                    
                         </div>
                         <div className="col s2 m2 l1 xl1 div-record-4">
                             <img className="responsive-img" src={playerLabelsObj[video.engine].img} /> 

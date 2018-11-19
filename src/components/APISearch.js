@@ -52,7 +52,7 @@ const vidAPISearch = (options={}, engine='YT')=>{
         if(options.sortTimeVal){params.publishedAfter=options.sortTimeVal;}
 
         return axios.get(ROOT_URL[engine], { params: params })
-        .then(response=>{
+        .then(response=>{           
             return {
                 pageInfo: response.data.pageInfo, 
                 items: response.data.items, 
@@ -61,6 +61,7 @@ const vidAPISearch = (options={}, engine='YT')=>{
         })
         .catch(function(error) {
             console.error(error);
+            return null;
         });
     } else if(engine==='D'){
         params = {
@@ -79,7 +80,6 @@ const vidAPISearch = (options={}, engine='YT')=>{
 
         return axios.get(ROOT_URL[engine], {params: params})
         .then(response=>{
-
             const arrayOfObj = response.data.list.map(({
                 ['owner.screenname']: ownerScreenname,
                 ['owner.url']: ownerUrl,
@@ -100,6 +100,7 @@ const vidAPISearch = (options={}, engine='YT')=>{
         })
         .catch(function(error) {
             console.error(error);
+            return null;
         });
     } else if(engine==='V'){
         params = {
@@ -129,6 +130,7 @@ const vidAPISearch = (options={}, engine='YT')=>{
         })
         .catch(function(error) {
             console.error(error);
+            return null;
         });
     }  
 }
@@ -139,7 +141,7 @@ const indVidAPISearch = (options, engine='YT') =>{
     let params;
     if(engine==='YT'){
         params={
-            id: options.id.videoId,
+            id: options.id,
             key: API_KEY.YT,
             part: 'snippet, statistics'
         }

@@ -1,24 +1,29 @@
 import React, {Component} from 'react';
 import ReactDOM from 'react-dom';
 import {connect} from 'react-redux';
-import {setSortBy, setUploadDate, setPlayer, setResPerPage} from '../actions/filters';
+import {setSortBy, setUploadDate, setPlayer} from '../actions/filters';
+import {setResPerPage} from '../actions/pagination';
 import { playerLabelsObj } from '../fixtures/playerLabels';
 
 export class VideoListFilters extends Component {
 
+    componentDidUpdate(prevProps){
+        if(this.props.tabStatus !== prevProps.tabStatus){
+            $("select").formSelect();
+            if (_.findKey(this.props.tabStatus) === 'V'){
+                $('#upload-date').prop({disabled: true});
+                $("option[value='title']").prop({disabled: false});
+            } else if(_.findKey(this.props.tabStatus)==='D'){
+                $('#upload-date').prop({disabled: false});
+                $("option[value='title']").prop({disabled: true});
+            } else{
+                $('#upload-date').prop({disabled: false});
+                $("option[value='title']").prop({disabled: false});
+            };
+        }        
+    }
     componentDidMount(){
         $("select").formSelect();
-        const {tabStatus} = this.props;
-        if (_.findKey(tabStatus) === 'V'){
-            $('#upload-date').attr('disabled', 'disabled')
-        } else{
-            $('#upload-date').removeAttr('disabled');
-        };
-        // if ($("input[name='D']").attr('checked')===true){
-        //     $("option[value='title']").attr('disabled', 'disabled');
-        // } else{
-        //     $("option[value='title']").removeAttr('disabled');
-        // }
     }
 
     onSortChange = (e) =>{
@@ -87,7 +92,6 @@ export class VideoListFilters extends Component {
                                         className="filled-in"
                                         onChange={this.props.onPlayerCheck}
                                         checked={this.props.valueCheck[key]}
-                                        // disabled={(index===1)? 'disabled':''}
                                     />
                                     <span></span>
                                 </label>
