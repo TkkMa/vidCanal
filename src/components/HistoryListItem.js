@@ -94,7 +94,7 @@ export class HistoryListItem extends Component{
                             </div>
                         </div>
                         <div className="col s12 m3 l3 xl3 div-record-2">
-                            <img src={video.imageUrl} className="responsive-img"/>
+                            <img src={video.imageUrl_medium} className="responsive-img"/>
                         </div>
                         <div className="col s10 m7 l5 xl6 div-record-3">
                             <span className="title">{video.title}</span>

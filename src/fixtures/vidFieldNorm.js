@@ -19,7 +19,7 @@ export const videoListObj = (videos, engine) => {
                 items: videos.items.map(video=>({
                     id: video.id,
                     imageUrl: video.thumbnail_120_url,
-                    imageURL_medium: video.thumbnail_180_url,
+                    imageUrl_medium: video.thumbnail_180_url,
                     title: video.title,
                     publishedAt: video.created_time*1000,
                     channelUrl: video.ownerUrl,
@@ -55,8 +55,13 @@ export const videoDetailArr = (video, engine) => {
     switch (engine){
         case 'YT':
             return [{
-                ...video,
+                id: video.id,
+                imageUrl: video.snippet.thumbnails.default.url,
                 imageUrl_medium: video.snippet.thumbnails.medium.url,
+                title: video.snippet.title,
+                publishedAt: video.snippet.publishedAt,
+                channelUrl: `http://www.youtube.com/channel/${video.snippet.channelId}`,
+                channelTitle: video.snippet.channelTitle,
                 viewCount: video.statistics.viewCount,
                 description: video.snippet.description,
                 embedURL: `http://www.youtube.com/embed/${video.id}`

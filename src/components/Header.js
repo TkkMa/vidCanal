@@ -28,6 +28,7 @@ export class Header extends Component {
             didMount: true
         });
         this.setState({term:''});
+
         //-- In the case when the search is conducted outside of path '/'.  ComponentWillReceiveProps will not
         //-- be initialised in that component with route '/'        
         if(this.props.history.location.pathname !== '/'){
@@ -72,11 +73,11 @@ export class Header extends Component {
                                         }
                                     </NavLink>
                                 </li>
-                                <li className="col s2 tabCustom">
+                                {/* <li className="col s2 tabCustom">
                                     <NavLink to="/blog" activeClass="active" >
                                         <i className="material-icons">note_add</i><span>Blog</span>
                                     </NavLink>
-                                </li>
+                                </li> */}
                             </ul>
                         </div>
                     </div>

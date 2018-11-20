@@ -64,12 +64,8 @@ export default (state = paginationReducerDefaultState, action) =>{
             };
         case 'CLEAR_ALL_PAGE_TOKENS':
             return{
-                ...state,
-                nextPageToken:{
-                    YT: '',
-                    D: 1,
-                    V: 1
-                } 
+                ...paginationReducerDefaultState,
+                resultsPerPage: action.num
             };
         default:
             return state;

@@ -52,17 +52,17 @@ const vidAPISearch = (options={}, engine='YT')=>{
         if(options.sortTimeVal){params.publishedAfter=options.sortTimeVal;}
 
         return axios.get(ROOT_URL[engine], { params: params })
-        .then(response=>{           
-            return {
-                pageInfo: response.data.pageInfo, 
-                items: response.data.items, 
-                nextPageToken: response.data.nextPageToken || ''
-            };
-        })
-        .catch(function(error) {
-            console.error(error);
-            return null;
-        });
+            .then(response=>{           
+                return {
+                    pageInfo: response.data.pageInfo, 
+                    items: response.data.items, 
+                    nextPageToken: response.data.nextPageToken || ''
+                };
+            })
+            .catch(function(error) {
+                console.error(error);
+                return null;
+            });
     } else if(engine==='D'){
         params = {
             limit: options.num,
@@ -79,29 +79,29 @@ const vidAPISearch = (options={}, engine='YT')=>{
         if(options.sortTimeVal){params.created_after=moment(options.sortTimeVal).unix();}
 
         return axios.get(ROOT_URL[engine], {params: params})
-        .then(response=>{
-            const arrayOfObj = response.data.list.map(({
-                ['owner.screenname']: ownerScreenname,
-                ['owner.url']: ownerUrl,
-                ...rest
-            })=>({
-                ownerScreenname,
-                ownerUrl,
-                ...rest
-            }))
-            return {
-                pageInfo: {
-                    total: response.data.total,
-                    has_more: response.data.has_more
-                }, 
-                items: arrayOfObj, 
-                nextPageToken: options.pageToken[engine]+1
-            };            
-        })
-        .catch(function(error) {
-            console.error(error);
-            return null;
-        });
+            .then(response=>{
+                const arrayOfObj = response.data.list.map(({
+                    ['owner.screenname']: ownerScreenname,
+                    ['owner.url']: ownerUrl,
+                    ...rest
+                })=>({
+                    ownerScreenname,
+                    ownerUrl,
+                    ...rest
+                }))
+                return {
+                    pageInfo: {
+                        total: response.data.total,
+                        has_more: response.data.has_more
+                    }, 
+                    items: arrayOfObj, 
+                    nextPageToken: options.pageToken[engine]+1
+                };            
+            })
+            .catch(function(error) {
+                console.error(error);
+                return null;
+            });
     } else if(engine==='V'){
         params = {
             access_token: API_KEY.V,
@@ -118,24 +118,24 @@ const vidAPISearch = (options={}, engine='YT')=>{
         })
         // if(options.sortTimeVal){params.filter=moment(options.sortTimeVal).unix();}
         return axios.get(ROOT_URL[engine], { params: params })
-        .then(response=>{
-            return {
-                pageInfo: {
-                    paging: response.data.paging,
-                    total: response.data.total
-                }, 
-                items: response.data.data, 
-                nextPageToken: options.pageToken[engine]+1
-            };
-        })
-        .catch(function(error) {
-            console.error(error);
-            return null;
-        });
+            .then(response=>{
+                return {
+                    pageInfo: {
+                        paging: response.data.paging,
+                        total: response.data.total
+                    }, 
+                    items: response.data.data, 
+                    nextPageToken: options.pageToken[engine]+1
+                };
+            })
+            .catch(function(error) {
+                console.error(error);
+                return null;
+            });
     }  
 }
 
-//-- Daily motion only requires one API Call in the previous search request to get all fields
+//-- Daily motion and Vimeo only requires one API Call in the previous search request to get all fields
 //-- Youtube requires two API calls
 const indVidAPISearch = (options, engine='YT') =>{
     let params;

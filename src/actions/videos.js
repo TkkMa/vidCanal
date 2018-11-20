@@ -1,5 +1,5 @@
 import database from '../firebase/firebase';
-import {history} from '../routers/AppRouter';
+const DEFAULT_QUERY = 'redux';
 
 export const setSearchKey = ({
     text='',
@@ -22,27 +22,6 @@ export const setVideos = (videos) => ({
     videos
 });
 
-// const insertRefId = (videos, engine)=>{
-//     return videos.map(hit => {
-//         let hitNew;
-//         switch (engine){
-//             case 'YT-list':
-//                 hitNew = {...hit, refId: hit.id.videoId}
-//                 break;
-//             case 'D-list':
-//             case 'D-detail':
-//             case 'YT-detail':
-//                 hitNew = {...hit, refId: hit.id}
-//                 break;
-//             case 'V-list':
-//             case 'V-detail':
-//                 hitNew = {...hit, refId: hit.uri.slice(8)};
-//                 break;
-//         };
-//         return hitNew;
-//     });
-// }
-
 export const startSetVideos = (videoData={})=>{
     return(dispatch) =>{
         const {
@@ -51,12 +30,10 @@ export const startSetVideos = (videoData={})=>{
             engine='YT'
         } = videoData;
 
-        // const updatedHitsWRefId = insertRefId(updatedHits, `${engine}-list`);
         const videoObj = {searchKey, updatedHits, engine};
         dispatch(setVideos(videoObj));
     }
 }
-
 
 export const loadViewedVideos =()=>{
     return(dispatch, getState)=>{
@@ -81,7 +58,8 @@ export const loadViewedVideos =()=>{
                             engine: videos[videos.length-1].engine,
                         }));
                     } else{
-                        dispatch(setSearchKey({text: ''}));
+                        //-- Set default query if no entry in database found
+                        dispatch(setSearchKey({text: DEFAULT_QUERY}));
                     }
                 })
     }
@@ -108,11 +86,11 @@ export const startSelectVideo = (videoData={})=>{
             didMount= true,
             engine='YT'
         } = videoData;
-        // const updatedHitSelectWRefId = insertRefId(updatedHitSelect, `${engine}-detail`);
+
         const videoObj = {searchKey, updatedHitSelect, procVideos, viewedAt, reRender, didMount, engine};
         
         if(!!uid){
-            // if (engine==='V' && video[0].stats.plays===null){video[0].stats.plays = 0;}; //-- Firebase doesn't store null values
+            //-- Note: Firebase doesn't store null values
             return database.ref(`users/${uid}/history`).push({...video[0], viewedAt, searchKey, isSaved, engine}).then((ref)=>{
                 videoObj.procVideos=[{...video[0], DB_id:ref.key, viewedAt, searchKey, isSaved, engine}];
                 return dispatch(selectVideo(videoObj));

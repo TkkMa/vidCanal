@@ -2,7 +2,6 @@ import React, {Component} from 'react';
 import VideoListEngine from './VideoListEngine';
 import {playerLabelsObj} from '../fixtures/playerLabels';
 import LoadingPage from './LoadingPage';
-// import './../../public/vendor/attrchange.js'
 
 export class VideoList extends Component{
     
@@ -62,27 +61,27 @@ export class VideoList extends Component{
                                 <div className="col s12">{error}</div>
                             ) : (
                                 <div>
-                                <div id="YT" className="col s12">
-                                    <VideoListEngine 
-                                        error={this.props.error}
-                                        onChangePage={this.onChangePage} 
-                                        engine='YT'
-                                    />
-                                </div>
-                                <div id="V" className="col s12">
-                                    <VideoListEngine 
-                                        error={this.props.error}
-                                        onChangePage={this.onChangePage}  
-                                        engine='V'
-                                    />                        
-                                </div>
-                                <div id="D" className="col s12">
-                                    <VideoListEngine 
-                                        error={this.props.error}
-                                        onChangePage={this.onChangePage}  
-                                        engine='D'
-                                    />                           
-                                </div>
+                                    <div id="YT" className="col s12">
+                                        <VideoListEngine 
+                                            error={this.props.error}
+                                            onChangePage={this.onChangePage} 
+                                            engine='YT'
+                                        />
+                                    </div>
+                                    <div id="V" className="col s12">
+                                        <VideoListEngine 
+                                            error={this.props.error}
+                                            onChangePage={this.onChangePage}  
+                                            engine='V'
+                                        />                        
+                                    </div>
+                                    <div id="D" className="col s12">
+                                        <VideoListEngine 
+                                            error={this.props.error}
+                                            onChangePage={this.onChangePage}  
+                                            engine='D'
+                                        />                           
+                                    </div>
                                 </div>
                             )
                         }

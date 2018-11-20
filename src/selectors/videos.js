@@ -15,8 +15,7 @@ export const videoHistory = (videoArray, {startDate, endDate, text, isSaved}) =>
         });
 }
 
-export const vidSearchInputs =(pageToggle, uploadDate, stateValues) => new Promise((resolve)=>{
-    let {pageActive, maxViewedPage} = stateValues;
+export const vidSearchInputs =(pageToggle, uploadDate, pageActive, maxViewedPage) => new Promise((resolve)=>{
     switch (pageToggle){
         case 'first_page':
             pageActive = 1;

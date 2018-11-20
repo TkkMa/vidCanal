@@ -22,6 +22,7 @@ export const setPageToken = ({
     token : {engine, nextPageToken}
 })
 
-export const clearAllPageToken = ()=>({
-    type: 'CLEAR_ALL_PAGE_TOKENS'
+export const clearAllPageToken = (num)=>({
+    type: 'CLEAR_ALL_PAGE_TOKENS',
+    num
 })
