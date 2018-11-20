@@ -97,7 +97,9 @@ export const startSelectVideo = (videoData={})=>{
             })
         } else{
             videoObj.procVideos=[{...video[0], engine}];
-            dispatch(selectVideo(videoObj));
+            return Promise.resolve().then(()=>{
+                return dispatch(selectVideo(videoObj));
+            })
         }
     };
 };
