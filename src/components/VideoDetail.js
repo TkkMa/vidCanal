@@ -33,7 +33,7 @@ class VideoDetail extends Component {
 
     componentDidUpdate(prevProps){
         if(!this.props.error && !prevProps.error){
-            if(this.props.video.id !== prevProps.video.id){
+            if(this.props.video.id !== ((prevProps.video && prevProps.video.id) || '123456')){
                 //-- Find isSaved state of the most recent re-visited video
                 const prevVid = this.props.visitedVideos
                                     .slice(0,this.props.visitedVideos.length-1)

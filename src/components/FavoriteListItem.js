@@ -39,7 +39,7 @@ export class FavoriteListItem extends Component{
     };
 
     render(){
-        const {video} = this.props.video;
+        const {video} = this.props;
 
         return(
             <li className="collection-item avatar FLI-1" onClick={this.handleOpenModal}>

@@ -105,7 +105,6 @@ class VideoApp extends Component{
                 engine
             });
         } else {
-            console.log ('page props time 2:', this.props.page)
             // Call youtubeAPI and fetch new videos
             // -- Three situations: 
             //    1. Zero videos retrieved 
@@ -123,7 +122,6 @@ class VideoApp extends Component{
                 
                 const isLastPage = isLastPageFunc(normVideos, this.props.page, engine);
 
-                console.log(`isLastPage for ${engine} `, isLastPage)
                 if(isLastPage){
                     this.props.setPageConfig({
                         engine,
@@ -136,7 +134,6 @@ class VideoApp extends Component{
                 
                 //-- Populate results object in Redux store used in video list
                 const updatedHits = [...oldHits, ...normVideos.items];
-                console.log(`updatedHits for ${engine}: `, updatedHits);
                 this.props.startSetVideos({
                     searchKey:term,
                     updatedHits,    
@@ -148,7 +145,6 @@ class VideoApp extends Component{
                 //-- Condition for clicking history item -- do not update VideoDetail component
                 //-- 'video' is an ARRAY with ONE element
                 if(this.props.reRender){
-                    console.log(`Begin individual API Search ${engine}`);
                     const video = await indVidAPISearch(normVideos.items[0], engine); // Array with one element returned
                     const normVideo = videoDetailArr(video[0], engine); // Normalise to have same fields in element
 

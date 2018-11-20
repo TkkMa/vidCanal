@@ -4,8 +4,7 @@ import moment from 'moment';
 import {videoDetailObj} from '../fixtures/vidFieldNorm';
 
 const FavoriteModal = (props) => {
-  const {handleCloseModal, showModal} = props;
-  const video = videoDetailObj(props.video);
+  const {handleCloseModal, showModal, video} = props;
 
   return(
     (!video) ? 
