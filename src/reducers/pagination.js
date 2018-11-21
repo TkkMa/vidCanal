@@ -23,8 +23,7 @@ const paginationReducerDefaultState= {
         YT: '',
         D: 1,
         V: 1
-    },
-    resultsPerPage: 10
+    }
 };
 
 export default (state = paginationReducerDefaultState, action) =>{
@@ -57,15 +56,9 @@ export default (state = paginationReducerDefaultState, action) =>{
                     [action.pagination.engine]:action.pagination.lastPageFound
                 }                
             };
-        case 'SET_RESULTS_PER_PAGE':
-            return{
-                ...state,
-                resultsPerPage: action.num
-            };
         case 'CLEAR_ALL_PAGE_TOKENS':
             return{
-                ...paginationReducerDefaultState,
-                resultsPerPage: action.num
+                ...paginationReducerDefaultState
             };
         default:
             return state;

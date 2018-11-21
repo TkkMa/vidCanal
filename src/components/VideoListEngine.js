@@ -14,8 +14,8 @@ class VideoListEngine extends Component {
     }
 
     render(){
-        const {pageActive, lastPageReached, lastPageFound, nextPageToken, resultsPerPage} = this.props.page;
-        const {error, engine, results, searchKey} = this.props;
+        const {pageActive, lastPageReached, lastPageFound, nextPageToken} = this.props.page;
+        const {error, engine, results, searchKey, resultsPerPage} = this.props;
 
         if(error){
             return <p>{error}</p>

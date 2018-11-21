@@ -15,7 +15,27 @@ export const videoHistory = (videoArray, {startDate, endDate, text, isSaved}) =>
         });
 }
 
-export const vidSearchInputs =(pageToggle, uploadDate, pageActive, maxViewedPage) => new Promise((resolve)=>{
+// Mapping sort values where object keys belong to YT's
+const sortValueMap = {
+    relevance: {
+        D: 'relevance',
+        V: 'relevant'
+    },
+    viewCount: {
+        D: 'visited',
+        V: 'plays'
+    },
+    date: {
+        D: 'recent',
+        V: 'date'
+    },
+    title:{
+        D: '',
+        V: 'alphabetical'
+    }
+}
+
+export const vidSearchInputs =(pageToggle, uploadDate, sortBy, engine, pageActive, maxViewedPage) => new Promise((resolve)=>{
     switch (pageToggle){
         case 'first_page':
             pageActive = 1;
@@ -57,7 +77,19 @@ export const vidSearchInputs =(pageToggle, uploadDate, pageActive, maxViewedPage
         default:
             sortTimeVal = '';
     };
-    resolve({pageActive, maxViewedPage, sortTimeVal});
+    
+    let sortByVal;
+    if(engine === 'V' || engine === 'D'){
+        Object.keys(sortValueMap).map(key=>{
+            if(key === sortBy){
+                sortByVal = sortValueMap[key][engine]
+            }
+        });
+    } else{
+        sortByVal = sortBy;
+    }
+
+    resolve({pageActive, maxViewedPage, sortTimeVal, sortByVal});
 })
 
 export const isLastPageFunc = ({items, pageInfo}, {resultsPerPage}, engine)=>{

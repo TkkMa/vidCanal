@@ -21,25 +21,19 @@ const filtersReducerDefaultState = {
 
 export default (state=filtersReducerDefaultState, action) =>{
     switch(action.type){
-        case 'SET_SORT_BY':
+        case 'SET_VIDEO_FILTERS':{
             return{
                 ...state,
-                sortBy: action.text
-            };
-        case 'SET_UPLOAD_DATE':
-            return{
-                ...state,
-                uploadDate: action.text
-            };
-        case 'SET_PLAYER':
-            return{
-                ...state,
+                sortBy: action.vidFilters.sortBy,
+                uploadDate: action.vidFilters.uploadDate,
                 playerChecked: {
-                    YT: action.choice.YT,
-                    V: action.choice.V,
-                    D: action.choice.D
-                }
+                    YT: action.vidFilters.choice.YT,
+                    V: action.vidFilters.choice.V,
+                    D: action.vidFilters.choice.D
+                },
+                resultsPerPage: action.vidFilters.resultsPerPage                
             };
+        }
         case 'SET_FAV_COUNT':
             return{
                 ...state,

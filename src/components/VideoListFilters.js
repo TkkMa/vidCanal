@@ -1,7 +1,4 @@
 import React, {Component} from 'react';
-import {connect} from 'react-redux';
-import {setSortBy, setUploadDate, setPlayer} from '../actions/filters';
-import {setResPerPage} from '../actions/pagination';
 import { playerLabelsObj } from '../fixtures/playerLabels';
 
 export class VideoListFilters extends Component {
@@ -27,30 +24,26 @@ export class VideoListFilters extends Component {
 
     onSortChange = (e) =>{
         const sortVal = e.target.value;
-        this.props.setSortBy(sortVal);
-        this.props.onSortByTimeChange()
+        this.props.onSortByChange(sortVal)
     };
 
     onDateChange = (e) =>{
         const dateVal = e.target.value;
-        this.props.setUploadDate(dateVal);
-        this.props.onSortByTimeChange();
+        this.props.onUploadDateChange(dateVal);
     };
 
     onNumResultsChange = (e) =>{
-        this.props.setResPerPage(e.target.value);
-        this.props.onNumChange();
+        this.props.onNumChange(e.target.value);
     };
 
     render() {
-        const {sortBy, uploadDate} = this.props.filters;
-        const {resultsPerPage} = this.props.page;
+        const {sortField, resultsPerPage, valueCheck} = this.props;
 
         return(
             <nav>
                 <div className="VLF-1 nav-wrapper row">
                     <div className="input-field col s4 m4 l2 xl2">
-                        <select value={sortBy} onChange = {this.onSortChange}>
+                        <select value={sortField.sortBy} onChange = {this.onSortChange}>
                             <option value="relevance">Relevance</option>
                             <option value="viewCount">Popularity</option>
                             <option value="date">Most Recent</option>
@@ -59,7 +52,7 @@ export class VideoListFilters extends Component {
                         <label>Sort by</label>
                     </div>
                     <div className="input-field col s3 m4 l2 xl2">
-                        <select id="upload-date" value={uploadDate} onChange={this.onDateChange}>
+                        <select id="upload-date" value={sortField.uploadDate} onChange={this.onDateChange}>
                             <option value="today">Today</option>
                             <option value="week">This week</option>
                             <option value="month">This month</option>
@@ -82,7 +75,7 @@ export class VideoListFilters extends Component {
                         <label>Hits Per Page ({resultsPerPage}/50)</label>
                     </div>
                     {
-                        Object.keys(this.props.valueCheck).map((key, index)=>(
+                        Object.keys(valueCheck).map((key, index)=>(
                             <div key={key} 
                                 className={`input-field col s3 m2 l1 ${(index===0) ? 'offset-l1 xl1 offset-xl2':'xl1'}`}>
                                 <label className="chk-label">
@@ -90,7 +83,7 @@ export class VideoListFilters extends Component {
                                         name={key} 
                                         className="filled-in"
                                         onChange={this.props.onPlayerCheck}
-                                        checked={this.props.valueCheck[key]}
+                                        checked={valueCheck[key]}
                                     />
                                     <span></span>
                                 </label>
@@ -104,16 +97,4 @@ export class VideoListFilters extends Component {
     }
 }
 
-const mapStateToProps = (state) =>({
-    filters: state.filters,
-    page: state.page
-});
-
-const mapDispatchToProps = (dispatch)=>({
-    setSortBy: (text)=> dispatch(setSortBy(text)),
-    setUploadDate: (text)=> dispatch(setUploadDate(text)),
-    setResPerPage: (num)=> dispatch(setResPerPage(num)),
-    setPlayer: (choice)=> dispatch(setPlayer(choice))
-});
-
-export default connect(mapStateToProps, mapDispatchToProps)(VideoListFilters);
+export default VideoListFilters;

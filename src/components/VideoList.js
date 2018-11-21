@@ -15,7 +15,8 @@ export class VideoList extends Component{
         //-- Invoke tab change when tab is clicked by user
         const {onTabChange} = this.props;
         $(".player-tab").each(function(index,element){
-            $(this).on('click', function(){
+            $(this).on('click', function(event){
+                event.preventDefault();
                 if(!$(this).hasClass('disabled')){
                     let engine = $(element).attr('href').slice(1);
                     onTabChange(engine);
@@ -47,8 +48,14 @@ export class VideoList extends Component{
 
     render(){
 
-        const {playerChecked, video, error} = this.props;
-        if(!video && !error){
+        const {playerChecked, video, error, resultsPerPage} = this.props;
+
+        if(error){
+            return(
+                <div className="VL-1 col s12 m12 l5 xl4">{error}</div>
+            )
+        }
+        else if(!video){
             return (
                 <div className="VL-1 col s12 m12 l5 xl4"><LoadingPage /></div>
             )
@@ -80,6 +87,7 @@ export class VideoList extends Component{
                                             error={this.props.error}
                                             onChangePage={this.onChangePage} 
                                             engine='YT'
+                                            resultsPerPage={resultsPerPage}
                                         />
                                     </div>
                                     <div id="V" className="col s12">
@@ -87,6 +95,7 @@ export class VideoList extends Component{
                                             error={this.props.error}
                                             onChangePage={this.onChangePage}  
                                             engine='V'
+                                            resultsPerPage={resultsPerPage}
                                         />                        
                                     </div>
                                     <div id="D" className="col s12">
@@ -94,6 +103,7 @@ export class VideoList extends Component{
                                             error={this.props.error}
                                             onChangePage={this.onChangePage}  
                                             engine='D'
+                                            resultsPerPage={resultsPerPage}
                                         />                           
                                     </div>
                                 </div>

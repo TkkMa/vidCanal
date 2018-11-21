@@ -9,11 +9,6 @@ export const setPageConfig = ({
     pagination: {engine, lastPageReached, lastPageFound, maxViewedPage, pageActive}
 });
 
-export const setResPerPage = (num)=>({
-    type: 'SET_RESULTS_PER_PAGE',
-    num
-});
-
 export const setPageToken = ({
     engine = 'YT',
     nextPageToken = ''
@@ -22,7 +17,6 @@ export const setPageToken = ({
     token : {engine, nextPageToken}
 })
 
-export const clearAllPageToken = (num)=>({
-    type: 'CLEAR_ALL_PAGE_TOKENS',
-    num
+export const clearAllPageToken = ()=>({
+    type: 'CLEAR_ALL_PAGE_TOKENS'
 })

@@ -1,21 +1,9 @@
 import database from '../firebase/firebase';
 
-//-- Set Sort By in videolist filter
-export const setSortBy = (text='') => ({
-    type: 'SET_SORT_BY',
-    text
-});
-
-//-- Set Upload Date in videolist filter
-export const setUploadDate = (text='') => ({
-    type: 'SET_UPLOAD_DATE',
-    text
-});
-
-//-- Set Player
-export const setPlayer = (choice)=>({
-    type: 'SET_PLAYER',
-    choice
+//-- Set SortBy, uploadDate and player in videolist filter
+export const setVideoFilters = (vidFilters)=>({
+    type: 'SET_VIDEO_FILTERS',
+    vidFilters
 })
 
 export const setFavCount = (favCount)=>({

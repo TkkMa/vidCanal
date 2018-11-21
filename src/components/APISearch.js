@@ -16,27 +16,6 @@ const API_KEY= {
     V: 'f0ca0fbcd4918f82208f732dfded4341'
 }
 
-// Mapping sort values where object keys belong to YT's
-const sortValueMap = {
-    relevance: {
-        D: 'relevance',
-        V: 'relevant'
-    },
-    viewCount: {
-        D: 'visited',
-        V: 'plays'
-    },
-    date: {
-        D: 'recent',
-        V: 'date'
-    },
-    title:{
-        D: '',
-        V: 'alphabetical'
-    }
-}
-
-
 const vidAPISearch = (options={}, engine='YT')=>{
     let params;
     if (engine === 'YT'){
@@ -46,11 +25,10 @@ const vidAPISearch = (options={}, engine='YT')=>{
             key: API_KEY.YT,
             q: options.term,
             type: 'video',
-            order: options.sortBy,
+            order: options.sortByVal,
             pageToken: options.pageToken[engine]
         };
         if(options.sortTimeVal){params.publishedAfter=options.sortTimeVal;}
-
         return axios.get(ROOT_URL[engine], { params: params })
             .then(response=>{           
                 return {
@@ -67,17 +45,13 @@ const vidAPISearch = (options={}, engine='YT')=>{
         params = {
             limit: options.num,
             search: options.term,
-            sort: options.sortBy,
+            sort: options.sortByVal,
             page: options.pageToken[engine],
             fields: 'id,title,owner.screenname,owner.url,views_total,embed_url,created_time,description,thumbnail_60_url,thumbnail_120_url,thumbnail_180_url'
           };
-        Object.keys(sortValueMap).map(key=>{
-            if(key === params.sort){
-                params.sort = sortValueMap[key][engine]
-            }
-        })
-        if(options.sortTimeVal){params.created_after=moment(options.sortTimeVal).unix();}
 
+        if(options.sortTimeVal){params.created_after=moment(options.sortTimeVal).unix();}
+        if(!params.sort){console.error('No alphabetical sorting exists for Dailymotion'); return null}
         return axios.get(ROOT_URL[engine], {params: params})
             .then(response=>{
                 const arrayOfObj = response.data.list.map(({
@@ -108,14 +82,10 @@ const vidAPISearch = (options={}, engine='YT')=>{
             per_page: options.num,
             query: options.term,
             page: options.pageToken[engine],
-            sort: options.sortBy,
+            sort: options.sortByVal,
             fields:'total,page,per_page,paging,data,uri,pictures,name,release_time,user,stats,description,embed'
         }
-        Object.keys(sortValueMap).map(key=>{
-            if(key === params.sort){
-                params.sort = sortValueMap[key][engine];
-            }
-        })
+
         // if(options.sortTimeVal){params.filter=moment(options.sortTimeVal).unix();}
         return axios.get(ROOT_URL[engine], { params: params })
             .then(response=>{
