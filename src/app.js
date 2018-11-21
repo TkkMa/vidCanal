@@ -7,6 +7,7 @@ import { loadViewedVideos, clearVideoHistory } from './actions/videos';
 import {resetFilters, loadFavCount} from './actions/filters';
 import { login, logout } from './actions/auth';
 import 'materialize-css';
+import 'materialize-css/dist/js/materialize.js'
 import 'normalize.css/normalize.css';
 import './styles/styles.scss';
 import 'react-dates/lib/css/_datepicker.css';

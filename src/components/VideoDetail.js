@@ -28,7 +28,12 @@ class VideoDetail extends Component {
     }
 
     componentDidMount(){
-        $('.collapsible').collapsible();
+        const checkExists = setInterval(()=>{
+            if ($('.collapsible').length){
+                $('.collapsible').collapsible();
+                clearInterval(checkExists); // clears 100ms monitoring loop
+            }
+        },100);
     }
 
     componentDidUpdate(prevProps){
