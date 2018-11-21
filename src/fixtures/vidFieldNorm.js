@@ -9,7 +9,7 @@ export const videoListObj = (videos, engine) => {
                     imageUrl: video.snippet.thumbnails.default.url,
                     title: video.snippet.title,
                     publishedAt: video.snippet.publishedAt,
-                    channelUrl: `http://www.youtube.com/channel/${video.snippet.channelId}`,
+                    channelUrl: `https://www.youtube.com/channel/${video.snippet.channelId}`,
                     channelTitle: video.snippet.channelTitle
                 }))
             }
@@ -26,7 +26,7 @@ export const videoListObj = (videos, engine) => {
                     channelTitle: video.ownerScreenname,
                     viewCount: video.views_total,
                     description: video.description,
-                    embedURL: video.embed_url
+                    embedURL: `https://www.dailymotion.com/embed/video/${video.id}`
                 }))
             }
         case 'V':
@@ -60,11 +60,11 @@ export const videoDetailArr = (video, engine) => {
                 imageUrl_medium: video.snippet.thumbnails.medium.url,
                 title: video.snippet.title,
                 publishedAt: video.snippet.publishedAt,
-                channelUrl: `http://www.youtube.com/channel/${video.snippet.channelId}`,
+                channelUrl: `https://www.youtube.com/channel/${video.snippet.channelId}`,
                 channelTitle: video.snippet.channelTitle,
                 viewCount: video.statistics.viewCount,
                 description: video.snippet.description,
-                embedURL: `http://www.youtube.com/embed/${video.id}`
+                embedURL: `https://www.youtube.com/embed/${video.id}`
             }];
         case 'D':
             return [video];

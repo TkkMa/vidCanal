@@ -70,6 +70,7 @@ class VideoApp extends Component{
         this.props.setPlayer(this.state.chkBox);
     }
 
+    
     videoSearch = async (term=this.props.searchKey, engine=defaultSearchEngine, pageToggle='') => {
         // Clear page settings 
         const {results, resultDetail, sortBy, uploadDate} = this.props;

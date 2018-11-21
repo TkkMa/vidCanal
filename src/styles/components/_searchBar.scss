@@ -7,5 +7,9 @@
 }
 
 .SB-1 form div:last-child{
-    padding-right: 0
+    padding-right: 0;
+    
+    button.waves-effect {
+        z-index: unset;
+    }
 }

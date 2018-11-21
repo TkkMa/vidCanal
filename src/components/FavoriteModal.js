@@ -1,7 +1,6 @@
 import React from 'react';
 import Modal from 'react-modal';
 import moment from 'moment';
-import {videoDetailObj} from '../fixtures/vidFieldNorm';
 
 const FavoriteModal = (props) => {
   const {handleCloseModal, showModal, video} = props;

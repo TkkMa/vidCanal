@@ -84,7 +84,7 @@ class VideoDetail extends Component {
                 <div className="col s12 m12 l7 xl8">{error}</div>
             )
         }
-        if(!video){
+        else if(!video){
             return (
                 <div className="col s12 m12 l7 xl8"><LoadingPage /></div>
             )

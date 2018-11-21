@@ -50,7 +50,7 @@ export class FavoriteListItem extends Component{
                             <span> {video.searchKey}</span>
                         </div>
                         <div>
-                            <span className="span-search-text">Last Visited Time:</span>
+                            <span className="span-search-text">Last Visited: </span>
                             <span> {moment(video.viewedAt).local().format('ddd, MMM D YYYY')}</span>
                             <span> {moment(video.viewedAt).local().format('h:mm:ss a')}</span>    
                         </div>

@@ -7,15 +7,12 @@ export class VideoList extends Component{
     
     componentDidUpdate(prevProps){
         if(this.props.activeTab !== prevProps.activeTab){
-            const el = document.querySelector('.tabs');
-            const instance = M.Tabs.getInstance(el);
-            instance.select(this.props.activeTab);
+            $('.tabs').tabs('select', this.props.activeTab);
         }
     }
 
     componentDidMount(){
-        $('.tabs').tabs();
-        // Apply vendor jQuery plugin to detect active class
+        //-- Invoke tab change when tab is clicked by user
         const {onTabChange} = this.props;
         $(".player-tab").each(function(index,element){
             $(this).on('click', function(){
@@ -24,9 +21,26 @@ export class VideoList extends Component{
                     onTabChange(engine);
                 }
             })
-        })
+        });
+
+        //-- Check that ul tabs exists in DOM then execute select method
+        this.checkTabExists(this.props.activeTab).then(function(activeTab){
+            $('ul.tabs').tabs('select', activeTab);  
+        });
     }
     
+    checkTabExists = (activeTab)=> {
+        return new Promise((resolve)=>{
+            var checkExists = setInterval(activeTab=>{
+                if ($('ul.tabs').length){
+                    $('ul.tabs').tabs();
+                    clearInterval(checkExists); // clears 100ms monitoring loop
+                    resolve(activeTab);
+                }
+            },100);
+        });
+    };
+
     onChangePage=(selectedEngine, clickedIcon)=>{
         this.props.onPageChange(undefined, selectedEngine, clickedIcon);
     }

@@ -3,7 +3,6 @@ import {connect} from 'react-redux';
 import VideoListItem from './VideoListItem';
 import LoadingPage from './LoadingPage';
 import { setReRender } from '../actions/videos';
-import { database } from 'firebase';
 
 class VideoListEngine extends Component {
 

@@ -1,5 +1,4 @@
 import React, {Component} from 'react';
-import ReactDOM from 'react-dom';
 import {connect} from 'react-redux';
 import {setSortBy, setUploadDate, setPlayer} from '../actions/filters';
 import {setResPerPage} from '../actions/pagination';
