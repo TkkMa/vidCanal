@@ -50,8 +50,13 @@ nav.FLF-1 .nav-wrapper div:nth-of-type(3){
     }
 }
 
-nav.FLF-1 .nav-wrapper i{
-    margin-right: 0.5rem;
+nav.FLF-1 .nav-wrapper {
+    i{
+        margin-right: 0.5rem;
+    }
+    button{
+        z-index: unset;
+    }
 }
 
 .dropdown-content li > a > i {

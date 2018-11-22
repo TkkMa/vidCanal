@@ -7,7 +7,7 @@ export const videoHistory = (videoArray, {startDate, endDate, text, isSaved}) =>
             const startDateMatch = startDate ? startDate.isSameOrBefore(viewedAtMoment, 'day') : true;
             const endDateMatch = endDate ? endDate.isSameOrAfter(viewedAtMoment,'day') : true;
             const textMatch = video.searchKey.toLowerCase().includes(text.toLowerCase()) || 
-                                video.snippet.title.toLowerCase().includes(text.toLowerCase());
+                                video.title.toLowerCase().includes(text.toLowerCase());
             const savedMatch = (isSaved) ? video.isSaved : true;
             return startDateMatch && endDateMatch && textMatch && savedMatch;
         }).sort((a, b) => {

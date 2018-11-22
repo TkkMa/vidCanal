@@ -63,6 +63,10 @@ export class HistoryListFilters extends Component{
 
     render(){
         const onTextChange = _.debounce((text)=>{this.onTextChange(text)}, 300);
+        const smallDevice = window.matchMedia('(max-width: 630px)').matches;
+        const orientation = smallDevice ? 'vertical': 'horizontal';
+        const numberOfMonths = smallDevice ? 1 : 2;
+
         return(
             <div>
                 <nav className='HLF-1'>
@@ -80,6 +84,8 @@ export class HistoryListFilters extends Component{
                                 isOutsideRange={day=> moment(day).startOf('day').isAfter()}
                                 withPortal={true}
                                 displayFormat={()=> "DD/MM/YYYY"}
+                                orientation={orientation}
+                                numberOfMonths={numberOfMonths}
                             />
                         </div>
                         <div className="col s4 m4 l2 xl2">

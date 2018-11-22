@@ -97,7 +97,9 @@ export class FavoriteList extends Component {
                     />
                     {
                         (filteredVids.length === 0) ? (
-                            <p>No videos in {(this.props.listType === 'favorites')? 'favorites': 'video history'} under selected filters</p>
+                            <div className="col s12">
+                                <p>No videos in {(this.props.listType === 'favorites')? 'favorites': 'video history'} under selected filters</p>
+                            </div>
                         ):( 
                             <div className="col s12">
                                 <ul className="collection">
